@@ -1,0 +1,13 @@
+{
+  "name": "shopkeeper",
+  "version": "1.0.0",
+  "description": "A CLI for managing Shopify stores",
+  "main": "index.js",
+  "repository": "https://github.com/TheBeyondGroup/shopkeeper",
+  "author": "Jeffrey Guenther <guenther.jeffrey@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.1.5"
+  }
+}

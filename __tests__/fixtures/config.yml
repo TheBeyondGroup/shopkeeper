@@ -1,0 +1,5 @@
+development:
+  password: 1234545
+  theme_id: 101010101
+  store: a-store.myshopify.com
+  directory: shopify

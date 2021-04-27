@@ -8,13 +8,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "yarn clean && ./node_modules/.bin/tsc && chmod +x dist/src/cli.js",
-    "clean": "rm -rf ./dist",
-    "shopkeeper": "ts-node --files ./src/cli.ts",
+    "build": "./build.sh",
+    "clean": "rm -r ./dist",
+    "shopkeeper": "./dist/src/cli/shopkeeper.js",
     "test": "jest"
   },
   "bin": {
-    "shopkeeper": "./dist/src/cli.js"
+    "shopkeeper": "./dist/src/cli/shopkeeper.js"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

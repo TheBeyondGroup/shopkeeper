@@ -1,4 +1,4 @@
-import ThemekitDelegator from "../src/themekitDelegator";
+import ThemekitDelegator from "../src/commands/themekitDelegator";
 import themeKit from '@shopify/themekit';
 jest.mock('@shopify/themekit')
 

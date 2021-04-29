@@ -61,6 +61,9 @@ describe('envivronments', () => {
       expect(config.environments().development.password).toBe(password)
     });
 
-    afterAll(() => envRestore());
+    afterAll(() => {
+      mock.restore();
+      envRestore()
+    });
   });
 });

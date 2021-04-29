@@ -5,8 +5,9 @@ import { Command } from 'commander';
 const program = new Command();
 
 program
-  .option('-e, --env <themeenvironment>', 'specify theme environment')
-  .option('-t, --themeid <theme id>', 'specify theme id')
+  .description('Download settings data')
+  // .option('-e, --env <environment>', 'specify theme environment')
+  // .option('-t, --themeid <themeid>', 'specify theme id')
 
 program.action(() => {
   console.log("download some settings")

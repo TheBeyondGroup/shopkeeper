@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@shopify/themekit": "^1.1.7",
+    "axios": "^0.21.1",
     "commander": "^7.1.0",
     "string-env-interpolation": "^1.0.1",
     "yaml": "^1.10.2"

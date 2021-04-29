@@ -33,4 +33,24 @@ export default class Shopkeeper {
     themeKit.command('download', flags);
   }
 
+  settingsUpload() {
+    const flags: {[k: string]: any} = {
+      files: ['config/settings_data.json']
+    };
+  
+    // TODO: Need to add credentials
+    if (this.options.themeid && this.options.storeUrl && this.options.password) {
+      flags.themeid = this.options.themeid;
+      flags.store = this.options.storeUrl;
+      flags.password = this.options.password;
+    } else if (this.options.env) {
+      flags.env = this.options.env;
+    } else {
+      // Invalid arguments
+      process.exit(1);
+    }
+
+    themeKit.command('deploy', flags);
+  }
+
 }

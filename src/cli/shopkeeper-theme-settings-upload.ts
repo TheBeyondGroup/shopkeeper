@@ -6,9 +6,9 @@ import Shopkeeper from '../shopkeeper';
 const program = new Command();
 
 program
-  .description('Download settings data')
-  // .option('-e, --env <environment>', 'specify theme environment')
-  // .option('-t, --themeid <themeid>', 'specify theme id')
+  .description('Upload settings data')
+  .option('-e, --env <environment>', 'specify theme environment')
+  .option('-t, --themeid <themeid>', 'specify theme id')
 
 program.action((options: any) => {
   if (process.env.PROD_STORE_URL && process.env.PROD_PASSWORD) {
@@ -16,7 +16,7 @@ program.action((options: any) => {
     options.password = process.env.PROD_PASSWORD;
   }
   const shopkeeper = new Shopkeeper(options);
-  shopkeeper.settingsDownload();
+  shopkeeper.settingsUpload();
 });
   
 program.parse();

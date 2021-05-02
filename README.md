@@ -25,7 +25,7 @@ Shopkeeper is a CLI for managing Shopify stores.
   *  -e --env environment to publish
   *  -t --theme-id theme_id to publish
 
-`shopkeeper theme delete
+`shopkeeper theme delete`
   * delete theme
   * -t --theme-id
   * -f --force
@@ -63,6 +63,7 @@ yarn link
 In location where you want to use Shopkeeper, for example, the theme you want to use for testing:
 ```
 yarn link shopkeeper
+yarn add --dev link:shopkeeper
 ```
 
 ### Using the version on GitHub

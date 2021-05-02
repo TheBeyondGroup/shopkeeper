@@ -1,0 +1,3 @@
+interface Strategy {
+  deploy(): void
+}

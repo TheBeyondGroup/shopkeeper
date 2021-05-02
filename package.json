@@ -1,10 +1,10 @@
 {
-  "name": "shopkeeper",
-  "version": "0.0.1",
+  "name": "@thebeyondgroup/shopkeeper",
+  "version": "0.0.3",
   "description": "A CLI for managing Shopify stores",
   "main": "dist/src/shopkeeper.js",
   "types": "dist/src/shopkeeper.d.ts",
-  "repository": "https://github.com/TheBeyondGroup/shopkeeper.git",
+  "repository": "git://github.com/TheBeyondGroup/shopkeeper.git",
   "author": "Jeffrey Guenther <guenther.jeffrey@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@shopify/themekit": "^1.1.7",
+    "@types/inquirer": "^7.3.1",
     "axios": "^0.21.1",
     "commander": "^7.1.0",
+    "inquirer": "^8.0.0",
     "string-env-interpolation": "^1.0.1",
-    "yaml": "^1.10.2",
-    "@types/inquirer": "^7.3.1",
-    "inquirer": "^8.0.0"
+    "yaml": "^1.10.2"
   }
 }

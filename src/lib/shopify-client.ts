@@ -22,9 +22,13 @@ export default class ShopifyClient {
     return response.data.themes
   }
 
-  async getPublishedThemeId(): Promise<string> {
+  async getPublishedTheme(): Promise<any> {
     const themes = await this.getThemes()
-    const publishedTheme = themes.find((theme: { role: string; }) => theme.role === 'main')
+    return themes.find((theme: { role: string; }) => theme.role === 'main')
+  }
+
+  async getPublishedThemeId(): Promise<string> {
+    const publishedTheme = await this.getPublishedTheme();
     return publishedTheme.id.toString();
   }
 

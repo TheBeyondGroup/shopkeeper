@@ -1,5 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 
+interface CreateThemePayload {
+  theme: {
+    name: string,
+    src?: string,
+    role?: string
+  }
+}
+
 export default class ShopifyClient {
   API_VERSION: string = '2021-04';
   PUBLISHED: string = 'main';
@@ -33,12 +41,29 @@ export default class ShopifyClient {
     return response.data;
   }
 
+  async createTheme(name: string): Promise<any> {
+    try {
+      const { data } = await this.create(this.themesPath(), {
+        theme: { name }
+      })
+
+      return data
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   private themesPath(): string {
     return `/admin/api/${this.API_VERSION}/themes.json`
   }
 
   private themePath(id: string): string {
     return `/admin/api/${this.API_VERSION}/themes/${id}.json`
+  }
+
+
+  private async create(path: string, payload: CreateThemePayload) {
+    return await this.axiosClient().post(path, payload);
   }
 
   private async get(path: string) {

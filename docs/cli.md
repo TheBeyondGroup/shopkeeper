@@ -72,7 +72,7 @@ Called without flags, this command uploads the settings from the theme in the cu
 ```
 shopkeeper theme publish
 ```
-Called without flags, this command publishes the ondeck theme. If the blue theme is published, this command will publish the green theme. The opposite is true.
+Called without flags, this command publishes the on deck theme. If the blue theme is published, this command will publish the green theme. The opposite is true.
 
 ```
 shopkeeper theme publish --theme-id 123123

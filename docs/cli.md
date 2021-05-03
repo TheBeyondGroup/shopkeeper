@@ -60,7 +60,9 @@ shopkeeper settings download
 Called without flags, this command downloads the settings from the store's published
 theme to the theme in the current working directory.
 
-**`shopkeeper settings upload` (FUTURE)**
+**`shopkeeper settings upload`**
+
+Called without flags, this command uploads the settings from the theme in the current working directory.
 
 **`shopkeeper settings sync` (FUTURE)**
 

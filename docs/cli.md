@@ -60,7 +60,9 @@ shopkeeper settings download
 Called without flags, this command downloads the settings from the store's published
 theme to the theme in the current working directory.
 
-**`shopkeeper settings upload` (FUTURE)**
+**`shopkeeper settings upload`**
+
+Called without flags, this command uploads the settings from the theme in the current working directory.
 
 **`shopkeeper settings sync` (FUTURE)**
 
@@ -70,7 +72,7 @@ theme to the theme in the current working directory.
 ```
 shopkeeper theme publish
 ```
-Called without flags, this command publishes the ondeck theme. If the blue theme is published, this command will publish the green theme. The opposite is true.
+Called without flags, this command publishes the on deck theme. If the blue theme is published, this command will publish the green theme. The opposite is true.
 
 ```
 shopkeeper theme publish --theme-id 123123

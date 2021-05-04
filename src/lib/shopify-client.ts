@@ -79,10 +79,7 @@ export default class ShopifyClient {
   }
 
   private async put(path: string, payload: any){
-    return await this.axiosClient().put(
-      path,
-      payload
-    )
+    return await this.axiosClient().put(path, payload)
   }
 
   private headers(): object {

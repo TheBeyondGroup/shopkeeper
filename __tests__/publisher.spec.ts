@@ -16,15 +16,6 @@ describe('run', () => {
     consoleSpy = jest.spyOn(console, 'log');
   });
 
-  describe('when --env option is not passed', () => {
-    test('it does not call the themekit command', async () => {
-      let publisher = new Publisher({})
-      await publisher.run()
-      expect(themeKit.command).toHaveBeenCalledTimes(0)
-      expect(consoleSpy).toHaveBeenCalledWith('--env option is mandatory');
-    });
-  });
-
   describe('when --env option is passed but environmentt is not specified', () => {
     test('it does not call the themekit command', async () => {
       let publisher = new Publisher({env: ''})

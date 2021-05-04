@@ -46,10 +46,10 @@ describe('envivronments', () => {
   describe("with interpolation", () => {
     let envRestore: any;
     let password = 'password';
-    
+
     beforeAll(() => {
       envRestore = mockedEnv({
-        PASSWORD: password
+        DEV_PASSWORD: password
       });
       mock({
         'config.yml': mock.load(path.resolve(__dirname, `../fixtures/config-with-env.yml`))

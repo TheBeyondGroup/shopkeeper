@@ -67,7 +67,8 @@ export default class ShopifyClient {
 
 
   private async create(path: string, payload: CreateThemePayload) {
-    return await this.axiosClient().post(path, payload);
+    return await this.post(path, payload);
+  }
   }
 
   private async get(path: string) {

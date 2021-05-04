@@ -16,19 +16,24 @@ program.action(async (options) => {
 
   const themes = await client.getThemes()
   const duplicateThemes = themes.filter(({ name }: { name: string }) => name === options.name)
-  if (duplicateThemes.length > 0) {
-    throw new Error(`The theme ${options.name} already exists in this store.`)
-  }
+  let themeId: string
 
-  const { theme } = await client.createTheme(options.name)
+  if (duplicateThemes.length == 0) {
+    const { theme } = await client.createTheme(options.name)
+    themeId = theme.id
+  }else{
+    console.log(`The theme ${options.name} already exists in this store.`)
+    themeId = duplicateThemes[0].id
+  }
+  
   await themekit.command('deploy', {
     store: storeUrl,
     password: storePassword,
-    themeid: theme.id,
+    themeid: themeId,
     dir: 'shopify'
   })
-
-  console.log(`Preview ready at ${storeUrl}?preview_theme_id=${theme.id}`)
+  
+  console.log(`Preview ready at ${storeUrl}?preview_theme_id=${themeId}`)
 });
 
 program.parse();

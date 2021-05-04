@@ -1,10 +1,16 @@
 import axios, { AxiosInstance } from 'axios';
 
-interface CreateThemePayload {
+type CreateThemePayload = {
   theme: {
     name: string,
     src?: string,
     role?: string
+  }
+}
+
+type UpdateThemeNamePayload = {
+  theme: {
+    name: string
   }
 }
 
@@ -18,41 +24,77 @@ export default class ShopifyClient {
   ){}
 
   async getThemes(): Promise<any> {
-    const response = await this.get(this.themesPath());
-    return response.data.themes
+    try{
+      const { data: { themes }} = await this.get(this.themesPath())
+      return themes;
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async getPublishedTheme(): Promise<any> {
-    const themes = await this.getThemes()
-    return themes.find((theme: { role: string; }) => theme.role === 'main')
+    try{
+      const themes = await this.getThemes();
+      return themes.find((theme: { role: string; }) => theme.role === 'main')
+    }catch(error){
+      console.log(error)
+    }
   }
 
-  async getPublishedThemeId(): Promise<string> {
-    const publishedTheme = await this.getPublishedTheme();
-    return publishedTheme.id.toString();
+  async getPublishedThemeId(): Promise<any> {
+    try{
+      const publishedTheme = await this.getPublishedTheme()
+      return publishedTheme.id.toString()
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async deleteTheme(id: string): Promise<any>{
-    const response = await this.delete(this.themePath(id))
-    return response.data;
+    try{
+      const { data } = await this.delete(this.themePath(id));
+      return data;
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async publishTheme(id: string): Promise<any> {
-    const response = await this.put(
-      this.themePath(id),
-      { theme: { id: id, role: this.PUBLISHED }}
-    )
-    return response.data;
+    try{
+      const { data } = await this.put(
+        this.themePath(id),
+        { theme: { id: id, role: this.PUBLISHED }}
+      )
+
+      return data;
+    }catch(error){
+      console.log(error)
+    }
+    
   }
 
   async createTheme(name: string): Promise<any> {
     try {
-      const { data } = await this.create(this.themesPath(), {
-        theme: { name }
-      })
+      const { data } = await this.create(this.themesPath(),
+        {
+          theme: { name }
+        }
+      )
 
-      return data
+      return data;
     } catch(error) {
+      console.log(error)
+    }
+  }
+
+  async updateTheme(themeId: string, name: string): Promise<any>{
+    try{
+      const { data }  = await this.update(this.themePath(themeId), { 
+        theme: { name: name }
+      });
+
+      return data;
+    }catch(error){
       console.log(error)
     }
   }
@@ -65,9 +107,12 @@ export default class ShopifyClient {
     return `/admin/api/${this.API_VERSION}/themes/${id}.json`
   }
 
-
   private async create(path: string, payload: CreateThemePayload) {
-    return await this.axiosClient().post(path, payload);
+    return await this.post(path, payload);
+  }
+
+  private async update(path: string, payload: UpdateThemeNamePayload) {
+    return await this.put(path, payload);
   }
 
   private async get(path: string) {
@@ -79,10 +124,11 @@ export default class ShopifyClient {
   }
 
   private async put(path: string, payload: any){
-    return await this.axiosClient().put(
-      path,
-      payload
-    )
+    return await this.axiosClient().put(path, payload)
+  }
+
+  private async post(path: string, payload: any){
+    return await this.axiosClient().post(path, payload)
   }
 
   private headers(): object {

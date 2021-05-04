@@ -5,7 +5,7 @@ This is a description of the commands provided by `shopkeeper `.
 ## Philosophy
 
 Shopkeeper is inspired by [`hub`](https://github.com/github/hub), which augments
-git with GitHub specific functionality.
+`git` with GitHub specific functionality.
 
 We are working towards a CLI that will allow you to use Shopkeeper as your 
 primary tool for interacting with Shopify themes.

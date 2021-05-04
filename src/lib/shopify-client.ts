@@ -24,40 +24,64 @@ export default class ShopifyClient {
   ){}
 
   async getThemes(): Promise<any> {
-    const response = await this.get(this.themesPath());
-    return response.data.themes
+    try{
+      const { data: { themes }} = await this.get(this.themesPath())
+      return themes;
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async getPublishedTheme(): Promise<any> {
-    const themes = await this.getThemes()
-    return themes.find((theme: { role: string; }) => theme.role === 'main')
+    try{
+      const themes = await this.getThemes();
+      return themes.find((theme: { role: string; }) => theme.role === 'main')
+    }catch(error){
+      console.log(error)
+    }
   }
 
-  async getPublishedThemeId(): Promise<string> {
-    const publishedTheme = await this.getPublishedTheme();
-    return publishedTheme.id.toString();
+  async getPublishedThemeId(): Promise<any> {
+    try{
+      const publishedTheme = await this.getPublishedTheme()
+      return publishedTheme.id.toString()
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async deleteTheme(id: string): Promise<any>{
-    const response = await this.delete(this.themePath(id))
-    return response.data;
+    try{
+      const { data } = await this.delete(this.themePath(id));
+      return data;
+    }catch(error){
+      console.log(error)
+    }
   }
 
   async publishTheme(id: string): Promise<any> {
-    const response = await this.put(
-      this.themePath(id),
-      { theme: { id: id, role: this.PUBLISHED }}
-    )
-    return response.data;
+    try{
+      const { data } = await this.put(
+        this.themePath(id),
+        { theme: { id: id, role: this.PUBLISHED }}
+      )
+
+      return data;
+    }catch(error){
+      console.log(error)
+    }
+    
   }
 
   async createTheme(name: string): Promise<any> {
     try {
-      const { data } = await this.create(this.themesPath(), {
-        theme: { name }
-      })
+      const { data } = await this.create(this.themesPath(),
+        {
+          theme: { name }
+        }
+      )
 
-      return data
+      return data;
     } catch(error) {
       console.log(error)
     }
@@ -82,7 +106,6 @@ export default class ShopifyClient {
   private themePath(id: string): string {
     return `/admin/api/${this.API_VERSION}/themes/${id}.json`
   }
-
 
   private async create(path: string, payload: CreateThemePayload) {
     return await this.post(path, payload);

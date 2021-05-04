@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-interface CreateThemePayload {
+type CreateThemePayload = {
   theme: {
     name: string,
     src?: string,

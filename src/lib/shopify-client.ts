@@ -82,6 +82,10 @@ export default class ShopifyClient {
     return await this.axiosClient().put(path, payload)
   }
 
+  private async post(path: string, payload: any){
+    return await this.axiosClient().post(path, payload)
+  }
+
   private headers(): object {
     return { headers: { 'X-Shopify-Access-Token': this.apiPassword }}
   }

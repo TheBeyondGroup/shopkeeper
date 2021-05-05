@@ -32,6 +32,15 @@ export default class ShopifyClient {
     }
   }
 
+  async getThemeByName(name: string): Promise<any> {
+    try{
+      const themes = await this.getThemes()
+      return themes.find((theme: { name: string; }) => theme.name === name)
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   async getPublishedTheme(): Promise<any> {
     try{
       const themes = await this.getThemes();

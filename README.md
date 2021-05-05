@@ -2,37 +2,7 @@
 
 Shopkeeper is a CLI for managing Shopify stores.
 
-## Usage
-`shopkeeper themekit`
-  * delegates command to Shopify's themekit
-
-`shopkeeper theme settings download`
-  * downloads settings from published theme
-  * -e --env override by config.yml environment
-  * -t --theme-id override by theme id number
-
-`shopkeeper theme settings sync`
-  * syncs the settings between two environment
-  * -s --source-env -d --destination-env
-
-`shopkeeper theme deploy`
-  * deploys theme based on strategy
-  * --strategy defaults to bg (blue/green)
-  * -e --env environment to deploy
-
-`shopkeeper theme publish`
-  * publishes theme
-  *  -e --env environment to publish
-  *  -t --theme-id theme_id to publish
-
-`shopkeeper theme delete`
-  * delete theme
-  * -t --theme-id
-  * -f --force
-
-`shopkeeper theme create`
-  * Creates a new theme with a name and uploads the current working directory
-  * -n --name name of the new theme
+For usage instructions, see the [command specification](docs/cli.md).
 
 ## Development
 

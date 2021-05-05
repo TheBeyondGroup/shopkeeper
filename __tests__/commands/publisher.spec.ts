@@ -96,7 +96,7 @@ describe('run', () => {
     });
   });
 
-  describe('when --env option is passed but environmentt is not specified', () => {
+  describe('when --env option is passed but environment is not specified', () => {
     test('it does not call the themekit command', async () => {
       let publisher = new Publisher({env: ''})
       await publisher.run()

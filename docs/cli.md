@@ -48,9 +48,22 @@ The command requires the `config.yml` to have the environments `production-blue`
 shopkeeper theme deploy --staging
 ```
 Called with the flag `--staging`, this command completes a blue/green deploy of 
-the current working directory and also deploys to the theme named `staging` in the
-theme's `config.yml`.
+**`shopkeeper theme rollback` (FUTURE)**
 
+```
+shopkeeper theme rollback
+```
+Called without flags, this command rolls back to the previously published theme.
+If blue is published, it publishes green. If green is published, it publishes
+blue. The settings of theme rolled back to are not modified.
+
+```
+shopkeeper theme rollback --with-settings
+```
+Called without flags, this command rolls back to the previously published theme.
+If blue is published, it publishes green. If green is published, it publishes
+blue. Before publishing, the theme settings from the published theme are copied
+to the rollback theme.
 
 **`shopkeeper settings download`**
 

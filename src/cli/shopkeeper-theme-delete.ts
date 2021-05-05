@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Command, enablePositionalOptions } from 'commander';
+import { Command } from 'commander';
 import ShopifyClient from '../lib/shopify-client';
 
 const program = new Command();

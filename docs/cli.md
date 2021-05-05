@@ -21,11 +21,13 @@ and shell output. The foundation has been laid. Let's build!
 ## Comands
 
 The following is a description of the commands available in `shopkeeper`.
-Commands are organized into namespaces (ex. `theme` or `settings`) and each scenario the command supports is enumerated below.
+Commands are organized into namespaces (ex. `theme` or `settings`) and each
+scenario the command supports is enumerated below.
 
-We ultimately want to support the same configuration precendence as `themekit`. For now, however, there will be gaps as we implement only enough of the commands to 
-meet the needs of our GitHub Actions. For now, the commands will depend on the 
-environment variables `PROD_STORE_URL` and `PROD_PASSWORD`.
+We ultimately want to support the same configuration precendence as `themekit`.
+For now, however, there will be gaps as we implement only enough of the commands
+to meet the needs of our GitHub Actions. For now, the commands will depend on
+the environment variables `PROD_STORE_URL` and `PROD_PASSWORD`.
 
 
 ### Settings
@@ -41,16 +43,32 @@ working directory. A blue/green deploy consists of:
 2. Determines the ondeck theme
 3. Uploads the current working directory to the on deck theme
 
-The command requires the `config.yml` to have the environments `production-blue` and
-`production-green` defined.
+The command requires the `config.yml` to have the environments `production-blue`
+and `production-green` defined.
 
 ```
 shopkeeper theme deploy --staging
 ```
-Called with the flag `--staging`, this command completes a blue/green deploy of 
-the current working directory and also deploys to the theme named `staging` in the
-theme's `config.yml`.
+Called with the flag `--staging`, this command completes a blue/green deploy of
+the current working directory and also deploys to the theme named `staging` in
+the theme's `config.yml`.
 
+**`shopkeeper theme rollback` (FUTURE)**
+
+```
+shopkeeper theme rollback
+```
+Called without flags, this command rolls back to the previously published theme.
+If blue is published, it publishes green. If green is published, it publishes
+blue. The settings of theme rolled back to are not modified.
+
+```
+shopkeeper theme rollback --with-settings
+```
+Called without flags, this command rolls back to the previously published theme.
+If blue is published, it publishes green. If green is published, it publishes
+blue. Before publishing, the theme settings from the published theme are copied
+to the rollback theme.
 
 **`shopkeeper settings download`**
 

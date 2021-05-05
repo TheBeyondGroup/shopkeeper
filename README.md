@@ -2,45 +2,18 @@
 
 Shopkeeper is a CLI for managing Shopify stores.
 
-## Usage
-`shopkeeper themekit`
-  * delegates command to Shopify's themekit
-
-`shopkeeper theme settings download`
-  * downloads settings from published theme
-  * -e --env override by config.yml environment
-  * -t --theme-id override by theme id number
-
-`shopkeeper theme settings sync`
-  * syncs the settings between two environment
-  * -s --source-env -d --destination-env
-
-`shopkeeper theme deploy`
-  * deploys theme based on strategy
-  * --strategy defaults to bg (blue/green)
-  * -e --env environment to deploy
-
-`shopkeeper theme publish`
-  * publishes theme
-  *  -e --env environment to publish
-  *  -t --theme-id theme_id to publish
-
-`shopkeeper theme delete`
-  * delete theme
-  * -t --theme-id
-  * -f --force
-
-`shopkeeper theme create`
-  * Creates a new theme with a name and uploads the current working directory
-  * -n --name name of the new theme
+For usage instructions, see the [command specification](docs/cli.md).
 
 ## Development
 
 To install this package globally while you're working on it:
 
 ```
-yarn global add file:$PWD --prefix /usr/local
+npm link
 ```
+If you're using `asdf` you may need to run `asdf reshim` to pick up the changes.
+Also, make sure you're using the same node version in your shopkeepe directory
+as you are using elsewhere. `asdf` scopes global packages by version.
 
 Then you'll be able to run:
 
@@ -57,8 +30,9 @@ in the scripts.
 
 In shopkeeper root:
 ```
-yarn link
+npm link
 ```
+Note: We use `npm` here because `shopkeeper` is managed with NPM.
 
 In location where you want to use Shopkeeper, for example, the theme you want to use for testing:
 ```
@@ -67,4 +41,14 @@ yarn add --dev link:shopkeeper
 ```
 
 ### Using the version on GitHub
-You can use a personal access token. This is what we'll do with our deploys for the being.
+To use the latest version from the private package repository, create a`.npmrc`
+with the following contents:
+
+```
+@thebeyondgroup:registry=https://npm.pkg.github.com
+
+//npm.pkg.github.com/:_authToken=${AUTH_TOKEN}
+```
+
+The theme is managed by The Beyond Group, it's likely this file already exists and you need only to
+add your personal access token to your local `.env` or shell settings (`.zshrc` or `.bashrc`).

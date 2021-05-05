@@ -9,8 +9,11 @@ For usage instructions, see the [command specification](docs/cli.md).
 To install this package globally while you're working on it:
 
 ```
-yarn global add file:$PWD --prefix /usr/local
+npm link
 ```
+If you're using `asdf` you may need to run `asdf reshim` to pick up the changes.
+Also, make sure you're using the same node version in your shopkeepe directory
+as you are using elsewhere. `asdf` scopes global packages by version.
 
 Then you'll be able to run:
 
@@ -27,8 +30,9 @@ in the scripts.
 
 In shopkeeper root:
 ```
-yarn link
+npm link
 ```
+Note: We use `npm` here because `shopkeeper` is managed with NPM.
 
 In location where you want to use Shopkeeper, for example, the theme you want to use for testing:
 ```
@@ -37,4 +41,14 @@ yarn add --dev link:shopkeeper
 ```
 
 ### Using the version on GitHub
-You can use a personal access token. This is what we'll do with our deploys for the being.
+To use the latest version from the private package repository, create a`.npmrc`
+with the following contents:
+
+```
+@thebeyondgroup:registry=https://npm.pkg.github.com
+
+//npm.pkg.github.com/:_authToken=${AUTH_TOKEN}
+```
+
+The theme is managed by The Beyond Group, it's likely this file already exists and you need only to
+add your personal access token to your local `.env` or shell settings (`.zshrc` or `.bashrc`).

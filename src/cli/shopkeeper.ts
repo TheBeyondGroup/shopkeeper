@@ -4,7 +4,7 @@ import { Command } from 'commander'
 import ThemekitDelegator from '../commands/themekitDelegator'
 
 const program = new Command()
-  .version('0.0.4', '-v, --version', 'output the current version')
+  .version('0.0.5', '-v, --version', 'output the current version')
   .name('shopkeeper')
   .description('Command-line interface for managing Shopify stores')
   .configureHelp({

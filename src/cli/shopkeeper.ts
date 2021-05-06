@@ -2,9 +2,10 @@
 
 import { Command } from 'commander'
 import ThemekitDelegator from '../commands/themekitDelegator'
+import { version } from '../../package.json';
 
 const program = new Command()
-  .version('0.0.6', '-v, --version', 'output the current version')
+  .version(version, '-v, --version', 'output the current version')
   .name('shopkeeper')
   .description('Command-line interface for managing Shopify stores')
   .configureHelp({

@@ -14,7 +14,7 @@ program
 const options = program.opts()
 
 program.action(async () => {
-  const name = options.name()
+  const name = options.name
   const storeUrl = `https://${process.env.PROD_STORE_URL}` || "";
   const storePassword = process.env.PROD_PASSWORD || "";
 

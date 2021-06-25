@@ -10,6 +10,7 @@ program
   .command("publish", 'publishes a theme')
   .command("delete", 'deletes a theme')
   .command("create", 'creates a theme')
+  .command("get-id", "gets theme id")
 
 program.action(() => {
   program.help();

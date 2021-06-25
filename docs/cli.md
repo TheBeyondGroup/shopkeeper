@@ -130,6 +130,17 @@ shopkeeper theme create --name "author/feature-branch-name"
 Called with the flag `--name`, this command downloads the theme settings from the
 live theme, creates a new theme on shopify with the passed in name, and uploads the current working directory.
 
+### Create
+**`shopkeeper theme get-id`**
+
+Called without flags, this commands fails with status code 1.
+
+```
+shopkeeper theme get-id --name "author/feature-branch-name"
+```
+Called with the flag `--name`, this command returns the id of the theme. If a theme
+with the passed name cannot be found, this command fails with status code 1.
+
 ### `themekit`
 
 `themekit` delegates all commands and options to themekit

@@ -9,18 +9,28 @@ export default class BlueGreenStrategy implements Strategy {
   async deploy(staging: boolean = false){
     const theme = await this.publishedTheme();
     const themeId = theme.id.toString();
-    
+
     await this.downloadPublishedThemeSettings();
-    
+
     // determine destination blue or green
     const onDeckTheme = this.ondeckTheme(themeId);
-    
+
     // deploy to destination
     console.log(`Deploying to ${onDeckTheme}`)
     await this.deployEnvironment(onDeckTheme);
 
     if(staging){
       await this.deployEnvironment(this.STAGING);
+    }
+  }
+
+  async ondeckThemeId() {
+    const theme = await this.publishedTheme();
+    const publishedThemeId = theme.id.toString();
+    if(this.isBlueTheme(publishedThemeId)){
+      return process.env.PROD_GREEN_THEME_ID;
+    }else{
+      return process.env.PROD_BLUE_THEME_ID;
     }
   }
 

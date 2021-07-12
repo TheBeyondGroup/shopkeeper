@@ -1,13 +1,13 @@
 # Shopkeeper CLI
 
-This is a description of the commands provided by `shopkeeper `. 
+This is a description of the commands provided by `shopkeeper `.
 
 ## Philosophy
 
 Shopkeeper is inspired by [`hub`](https://github.com/github/hub), which augments
 `git` with GitHub specific functionality.
 
-We are working towards a CLI that will allow you to use Shopkeeper as your 
+We are working towards a CLI that will allow you to use Shopkeeper as your
 primary tool for interacting with Shopify themes.
 
 Shopkeeper's approach and commands embody the approach we at The Beyond Group
@@ -140,6 +140,10 @@ shopkeeper theme get-id --name "author/feature-branch-name"
 ```
 Called with the flag `--name`, this command returns the id of the theme. If a theme
 with the passed name cannot be found, this command fails with status code 1.
+
+Called with the flag `--published`, this command returns the id of the published theme.
+
+Called with the flag `--on-deck`, this command returns the id of the ondeck theme.
 
 ### `themekit`
 

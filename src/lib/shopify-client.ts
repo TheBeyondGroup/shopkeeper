@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import BlueGreenStrategy from './strategy/blue-green-strategy';
 
 type CreateThemePayload = {
   theme: {
@@ -47,12 +48,14 @@ export default class ShopifyClient {
   }
 
   async getPublishedThemeId(): Promise<any> {
-    try{
-      const publishedTheme = await this.getPublishedTheme()
-      return publishedTheme.id.toString()
-    }catch(error){
-      console.log(error)
-    }
+    const publishedTheme = await this.getPublishedTheme()
+    return publishedTheme.id.toString()
+  }
+
+  async getOndeckThemeId(): Promise<any> {
+    const blueGreenStrategy = new BlueGreenStrategy();
+    const onDeckThemeId = await blueGreenStrategy.ondeckThemeId();
+    return onDeckThemeId;
   }
 
   async deleteTheme(id: string): Promise<any>{
@@ -75,7 +78,7 @@ export default class ShopifyClient {
     }catch(error){
       console.log(error)
     }
-    
+
   }
 
   async createTheme(name: string): Promise<any> {
@@ -94,7 +97,7 @@ export default class ShopifyClient {
 
   async updateTheme(themeId: string, name: string): Promise<any>{
     try{
-      const { data }  = await this.update(this.themePath(themeId), { 
+      const { data }  = await this.update(this.themePath(themeId), {
         theme: { name: name }
       });
 

@@ -4,10 +4,10 @@ import ShopifyClient from '../lib/shopify-client';
 const program = new Command();
 
 program
-  .description('gets any theme id, based on options')
+  .description('get a theme id')
   .option('-n, --name <theme-name>', 'gets the theme id for the passsed name')
   .option('-p, --published', 'gets the published theme id')
-  .option('-o, --on-deck', 'gets the ondeck theme id')
+  .option('-o, --on-deck', 'gets the on deck theme id')
 
 program.action(async (options) => {
   const storeUrl = `https://${process.env.PROD_STORE_URL}` || "";

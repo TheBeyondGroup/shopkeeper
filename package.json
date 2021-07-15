@@ -32,9 +32,11 @@
   },
   "dependencies": {
     "@shopify/themekit": "^1.1.9",
+    "@types/fs-extra": "^9.0.12",
     "@types/inquirer": "^7.3.1",
     "axios": "^0.21.1",
-    "commander": "^7.1.0",
+    "commander": "^8.0.0",
+    "fs-extra": "^10.0.0",
     "inquirer": "^8.0.0",
     "string-env-interpolation": "^1.0.1",
     "yaml": "^1.10.2"

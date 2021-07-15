@@ -1,5 +1,5 @@
 import { env } from 'string-env-interpolation';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs-extra';
 import YAML from 'yaml';
 export default class Config {
   environments(): any {

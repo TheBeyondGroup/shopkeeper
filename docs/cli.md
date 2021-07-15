@@ -130,7 +130,7 @@ shopkeeper theme create --name "author/feature-branch-name"
 Called with the flag `--name`, this command downloads the theme settings from the
 live theme, creates a new theme on shopify with the passed in name, and uploads the current working directory.
 
-### Create
+### Get Id
 **`shopkeeper theme get-id`**
 
 Called without flags, this commands fails with status code 1.
@@ -141,9 +141,32 @@ shopkeeper theme get-id --name "author/feature-branch-name"
 Called with the flag `--name`, this command returns the id of the theme. If a theme
 with the passed name cannot be found, this command fails with status code 1.
 
+```
+shopkeeper theme get-id --published
+```
 Called with the flag `--published`, this command returns the id of the published theme.
 
+```
+shopkeeper theme get-id --on-deck
+```
 Called with the flag `--on-deck`, this command returns the id of the ondeck theme.
+
+### Store Switch
+**`shopkeeper store switch`**
+
+Called without flags and args, this command fails with status code 1.
+
+```
+shopkeeper store switch us
+```
+
+Called with the argument `<store-name>`, this command switches the .env file to
+the values provided in the corresponding `config/stores/<store-name>.env`.
+
+### Store Current
+**`shopkeeper store current`**
+
+Called without flags and args, this command prints the current store environment
 
 ### `themekit`
 

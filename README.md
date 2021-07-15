@@ -30,9 +30,11 @@ in the scripts.
 
 In shopkeeper root:
 ```
+npm run build
 npm link
 ```
 Note: We use `npm` here because `shopkeeper` is managed with NPM.
+If you're using ASDF to manage your node versions, you may need to run `asdf reshim`.
 
 In location where you want to use Shopkeeper, for example, the theme you want to use for testing:
 ```

@@ -6,7 +6,7 @@ import ShopifyClient from '../lib/shopify-client';
 const program = new Command();
 
 program
-  .description('creates a new theme from the current working directory')
+  .description('delete a theme')
   .option('-n, --name <name>', 'name of theme to delete')
   .option('-t, --themeid <theme id>', 'theme id to delete')
   .option('-f, --force', 'force the delete')

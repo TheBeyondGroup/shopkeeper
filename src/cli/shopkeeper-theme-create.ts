@@ -5,8 +5,8 @@ import ShopifyClient from '../lib/shopify-client';
 const program = new Command();
 
 program
-  .description('creates a new theme from the current working directory')
-  .option('-n, --name <theme-name>', 'name of the theme you want created')
+  .description('create a new theme from the current working directory')
+  .option('-n, --name <theme-name>', 'name of the theme to be created')
 
 program.action(async (options) => {
   const storeUrl = `https://${process.env.PROD_STORE_URL}` || "";

@@ -5,7 +5,8 @@ import { Command } from 'commander';
 const program = new Command();
 
 program
-  .command('download', 'download')
+  .command('download', 'download theme settings')
+  // .command('upload', 'upload theme settings')
 
 program.action(() => {
   program.help();

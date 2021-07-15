@@ -7,10 +7,10 @@ const program = new Command();
 program
   .command("settings", "manage a theme's settings")
   .command("deploy", 'deploy changes to a store')
-  .command("publish", 'publishes a theme')
-  .command("delete", 'deletes a theme')
-  .command("create", 'creates a theme')
-  .command("get-id", "gets theme id")
+  .command("publish", 'publish a theme')
+  .command("delete", 'delete a theme')
+  .command("create", 'create a theme')
+  .command("get-id", "get a theme id")
 
 program.action(() => {
   program.help();

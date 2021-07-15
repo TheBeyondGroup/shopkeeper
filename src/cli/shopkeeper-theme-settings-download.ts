@@ -6,7 +6,7 @@ import Shopkeeper from '../shopkeeper';
 const program = new Command();
 
 program
-  .description('Download settings data')
+  .description('download theme settings')
   // .option('-e, --env <environment>', 'specify theme environment')
   // .option('-t, --themeid <themeid>', 'specify theme id')
 

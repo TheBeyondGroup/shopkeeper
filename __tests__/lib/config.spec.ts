@@ -1,7 +1,7 @@
 import mock from 'mock-fs';
 import mockedEnv from 'mocked-env';
 import path from 'path';
-import Config from '../../src/lib/config';
+import ThemekitConfig from '../../src/lib/themekit-config';
 
 describe('filePresent()', () => {
   describe('when config.yml present returns true', () => {
@@ -12,7 +12,7 @@ describe('filePresent()', () => {
     });
 
     test('it returns true', () => {
-      const config = new Config();
+      const config = new ThemekitConfig();
       expect(config.filePresent()).toBe(true);
     });
 
@@ -21,7 +21,7 @@ describe('filePresent()', () => {
 
   describe('when config.yml is absent', () => {
     test('it returns false', () => {
-      const config = new Config();
+      const config = new ThemekitConfig();
       expect(config.filePresent()).toBe(false);
     });
   });
@@ -36,7 +36,7 @@ describe('envivronments', () => {
     });
 
     test('it has environment information', () => {
-      const config = new Config();
+      const config = new ThemekitConfig();
       expect(config.environments().development).not.toBeNull()
     });
 
@@ -57,7 +57,7 @@ describe('envivronments', () => {
     });
 
     test('it has environment information', () => {
-      const config = new Config();
+      const config = new ThemekitConfig();
       expect(config.environments().development.password).toBe(password)
     });
 

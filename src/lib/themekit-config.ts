@@ -1,7 +1,8 @@
 import { env } from 'string-env-interpolation';
 import { existsSync, readFileSync } from 'fs-extra';
 import YAML from 'yaml';
-export default class Config {
+
+export default class ThemekitConfig {
   environments(): any {
     return this.parseConfigFile();
   }

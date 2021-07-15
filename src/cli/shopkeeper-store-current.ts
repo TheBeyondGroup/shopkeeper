@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import fs  from 'fs-extra';
+import ShopkeeperConfig from '../lib/shopkeeper-config';
 
 const program = new Command();
 
@@ -7,11 +7,11 @@ program
   .description("print the current environment")
 
 program.action(async () => {
-  const currentStorePath = process.cwd() + `/config/stores/.current-store`;
+  const config = new ShopkeeperConfig();
   
   try{
-    const data = await fs.readFile(currentStorePath, 'utf8')
-    console.log(data)
+    const currentStore = await config.getCurrentStore()
+    console.log(currentStore)
   }catch(err) {
     console.log(err)
   }

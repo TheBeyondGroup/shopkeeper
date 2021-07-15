@@ -28,4 +28,7 @@ program
 program
   .command('theme', 'manage a Shopify theme')
 
+program
+  .command('store', 'manages store environment')
+
 program.parse()

@@ -151,6 +151,23 @@ shopkeeper theme get-id --on-deck
 ```
 Called with the flag `--on-deck`, this command returns the id of the ondeck theme.
 
+### Store Switch
+**`shopkeeper store switch`**
+
+Called without flags and args, this command fails with status code 1.
+
+```
+shopkeeper store switch us
+```
+
+Called with the argument `<store-name>`, this command switches the .env file to
+the values provided in the corresponding `config/stores/<store-name>.env`.
+
+### Store Current
+**`shopkeeper store current`**
+
+Called without flags and args, this command prints the current store environment
+
 ### `themekit`
 
 `themekit` delegates all commands and options to themekit

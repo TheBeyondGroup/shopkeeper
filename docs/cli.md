@@ -65,7 +65,7 @@ blue. The settings of theme rolled back to are not modified.
 ```
 shopkeeper theme rollback --with-settings
 ```
-Called without flags, this command rolls back to the previously published theme.
+Called with the flag `--with-settings` flags, this command rolls back to the previously published theme.
 If blue is published, it publishes green. If green is published, it publishes
 blue. Before publishing, the theme settings from the published theme are copied
 to the rollback theme.
@@ -81,6 +81,24 @@ theme to the theme in the current working directory.
 **`shopkeeper settings upload`**
 
 Called without flags, this command uploads the settings from the theme in the current working directory.
+
+**`shopkeeper settings save`**
+
+```
+shopkeeper settings save us
+```
+Called without flags and with the argument `<store-name>`, this command copies
+the theme settings in `shopify/config` to
+`.shopkeeper/<store-name>/settings_data.json`.
+
+**`shopkeeper settings restore`**
+
+```
+shopkeeper settings restore us
+```
+Called without flags and with the argument `<store-name>`, this command copies the file from `.shopkeeper/<store-name>/settings_data.json`
+to `shopify/config/settings_data.json`.
+
 
 **`shopkeeper settings sync` (FUTURE)**
 
@@ -161,7 +179,9 @@ shopkeeper store switch us
 ```
 
 Called with the argument `<store-name>`, this command switches the .env file to
-the values provided in the corresponding `config/stores/<store-name>.env`.
+the values provided in the corresponding `.shopkeeper/<store-name>/env`. It also 
+copies the settings file in `.shopkeeper/<store-name>/settings_data.json` to 
+`shopify/config/settings_data.json`.
 
 ### Store Current
 **`shopkeeper store current`**

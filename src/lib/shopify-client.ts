@@ -25,12 +25,8 @@ export default class ShopifyClient {
   ){}
 
   async getThemes(): Promise<any> {
-    try{
-      const { data: { themes }} = await this.get(this.themesPath())
-      return themes;
-    }catch(error){
-      console.log(error)
-    }
+    const { data: { themes }} = await this.get(this.themesPath())
+    return themes;
   }
 
   async getThemeByName(name: string): Promise<any> {
@@ -39,12 +35,8 @@ export default class ShopifyClient {
   }
 
   async getPublishedTheme(): Promise<any> {
-    try{
       const themes = await this.getThemes();
-      return themes.find((theme: { role: string; }) => theme.role === 'main')
-    }catch(error){
-      console.log(error)
-    }
+      return themes.find((theme: { role: string; }) => theme.role === this.PUBLISHED)
   }
 
   async getPublishedThemeId(): Promise<any> {
@@ -59,52 +51,35 @@ export default class ShopifyClient {
   }
 
   async deleteTheme(id: string): Promise<any>{
-    try{
-      const { data } = await this.delete(this.themePath(id));
-      return data;
-    }catch(error){
-      console.log(error)
-    }
+    const { data } = await this.delete(this.themePath(id));
+    return data;
   }
 
   async publishTheme(id: string): Promise<any> {
-    try{
-      const { data } = await this.put(
-        this.themePath(id),
-        { theme: { id: id, role: this.PUBLISHED }}
-      )
+    const { data } = await this.put(
+      this.themePath(id),
+      { theme: { id: id, role: this.PUBLISHED }}
+    )
 
-      return data;
-    }catch(error){
-      console.log(error)
-    }
-
+    return data;
   }
 
   async createTheme(name: string): Promise<any> {
-    try {
-      const { data } = await this.create(this.themesPath(),
-        {
-          theme: { name }
-        }
-      )
+    const { data } = await this.create(this.themesPath(),
+      {
+        theme: { name }
+      }
+    )
 
-      return data;
-    } catch(error) {
-      console.log(error)
-    }
+    return data;
   }
 
   async updateTheme(themeId: string, name: string): Promise<any>{
-    try{
-      const { data }  = await this.update(this.themePath(themeId), {
-        theme: { name: name }
-      });
+    const { data }  = await this.update(this.themePath(themeId), {
+      theme: { name: name }
+    });
 
-      return data;
-    }catch(error){
-      console.log(error)
-    }
+    return data;
   }
 
   private themesPath(): string {

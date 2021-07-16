@@ -1,15 +1,15 @@
 import inquirer, { Answers } from 'inquirer'
-import Config from '../lib/config'
+import ThemekitConfig from '../lib/themekit-config'
 import ShopifyClient from '../../src/lib/shopify-client'
 import ThemekitDelegator from './themekitDelegator'
 
 export default class Publisher {
   options: any
-  config: Config
+  config: ThemekitConfig
 
   constructor(options: object) {
     this.options = options
-    this.config = new Config()
+    this.config = new ThemekitConfig()
   }
 
   async run() {

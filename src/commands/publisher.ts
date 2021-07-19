@@ -52,8 +52,7 @@ export default class Publisher {
 
     if (!this.options.env && !this.options.themeid && storeUrl && storePassword) {
       const client = new ShopifyClient(storeUrl, storePassword)
-      const themes = await client.getThemes()
-      const publishedTheme = themes.find(({ role }: { role: string }) => role === 'main')
+      const publishedTheme = await client.getPublishedTheme()
       this.options.env = this.selectBlueGreenEnvironment(publishedTheme)
     }
 

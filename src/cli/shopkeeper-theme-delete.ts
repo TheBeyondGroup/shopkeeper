@@ -19,13 +19,19 @@ program.action(async () => {
   const storePassword = process.env.PROD_PASSWORD || "";
 
   const client = new ShopifyClient(storeUrl, storePassword)
-  const theme = await client.getThemeByName(name)
-  
-  if(theme){
-    client.deleteTheme(theme.id)
-    console.log(`Deleting theme: ${name}`)
-  }else{
-    console.log(`Theme named: ${name} cannot be found`)
+
+  try{
+    const theme = await client.getThemeByName(name)
+    
+    if(theme){
+      client.deleteTheme(theme.id)
+      console.log(`Deleting theme: ${name}`)
+    }else{
+      console.log(`Theme named: ${name} cannot be found`)
+    }
+  }catch(error){
+    console.log(error)
+    process.exit(1)
   }
 });
 

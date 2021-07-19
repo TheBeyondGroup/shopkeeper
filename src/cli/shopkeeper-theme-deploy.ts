@@ -13,7 +13,13 @@ const options = program.opts();
 
 program.action(() => {
   const blueGreenStrategy = new BlueGreenStrategy();
-  blueGreenStrategy.deploy(options.staging);
+  
+  try {
+    blueGreenStrategy.deploy(options.staging);
+  }catch(error){
+    console.log(error)
+    process.exit(1)
+  }
 });
 
 program.parse();

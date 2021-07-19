@@ -26,14 +26,18 @@ program.action(async (options) => {
     themeId = duplicateThemes[0].id
   }
   
-  await themekit.command('deploy', {
-    store: storeUrl,
-    password: storePassword,
-    themeid: themeId,
-    dir: 'shopify'
-  })
-  
-  console.log(`Preview ready at ${storeUrl}?preview_theme_id=${themeId}`)
+  try{
+    await themekit.command('deploy', {
+      store: storeUrl,
+      password: storePassword,
+      themeid: themeId,
+      dir: 'shopify'
+    })
+    console.log(`Preview ready at ${storeUrl}?preview_theme_id=${themeId}`)
+  } catch(error) {
+    console.log(error)
+    process.exit(1)
+  }  
 });
 
 program.parse();

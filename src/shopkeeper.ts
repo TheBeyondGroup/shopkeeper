@@ -9,7 +9,7 @@ export default class Shopkeeper {
     this.options = options;
   }
 
-  settingsDownload() {
+  async settingsDownload() {
     const flags: {[k: string]: any} = {
       files: ['config/settings_data.json']
     };
@@ -30,10 +30,10 @@ export default class Shopkeeper {
       }
     }
   
-    themeKit.command('download', flags);
+    await themeKit.command('download', flags);
   }
 
-  settingsUpload() {
+  async settingsUpload() {
     const flags: {[k: string]: any} = {
       files: ['config/settings_data.json']
     };
@@ -50,7 +50,7 @@ export default class Shopkeeper {
       process.exit(1);
     }
 
-    themeKit.command('deploy', flags);
+    await themeKit.command('deploy', flags);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Command } from 'commander';
+import BlueGreenStrategy from '../lib/deploy-strategy/blue-green-strategy';
 import ShopifyClient from '../lib/shopify-client';
+import ShopkeeperConfig from '../lib/shopkeeper-config';
 
 const program = new Command();
 
@@ -10,16 +12,19 @@ program
   .option('-o, --on-deck', 'gets the on deck theme id')
 
 program.action(async (options) => {
-  const storeUrl = `https://${process.env.PROD_STORE_URL}` || "";
-  const storePassword = process.env.PROD_PASSWORD || "";
+  const config = new ShopkeeperConfig()
+  const storeUrl = config.storeUrl
+  const storePassword = config.storePassword
 
   const client = new ShopifyClient(storeUrl, storePassword);
   const firstOption = Object.keys(program.opts())[0];
 
+  const strategy = new BlueGreenStrategy()
+
   switch (firstOption) {
     case 'onDeck':
       try{
-        const ondeckId = await client.getOndeckThemeId();
+        const ondeckId = await strategy.ondeckThemeId()
         console.log(ondeckId);
       }catch(error){
         console.log(error);

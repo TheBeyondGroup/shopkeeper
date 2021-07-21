@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import BlueGreenStrategy from '../lib/strategy/blue-green-strategy';
+import BlueGreenStrategy from '../lib/deploy-strategy/blue-green-strategy';
 
 const program = new Command();
 

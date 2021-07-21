@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from 'axios';
-import BlueGreenStrategy from './strategy/blue-green-strategy';
 
 type CreateThemePayload = {
   theme: {
@@ -25,7 +24,7 @@ export default class ShopifyClient {
   ){}
 
   async getThemes(): Promise<any> {
-    const { data: { themes }} = await this.get(this.themesPath())
+    const { data: { themes } } = await this.get(this.themesPath())
     return themes;
   }
 
@@ -44,10 +43,22 @@ export default class ShopifyClient {
     return publishedTheme.id.toString()
   }
 
-  async getOndeckThemeId(): Promise<any> {
-    const blueGreenStrategy = new BlueGreenStrategy();
-    const onDeckThemeId = await blueGreenStrategy.ondeckThemeId();
-    return onDeckThemeId;
+  async createTheme(name: string): Promise<any> {
+    const { data } = await this.create(
+      this.themesPath(),
+      { theme: { name: name } }
+    )
+
+    return data;
+  }
+
+  async updateTheme(themeId: string, name: string): Promise<any>{
+    const { data }  = await this.update(
+      this.themePath(themeId),
+      { theme: { name: name } }
+    )
+
+    return data;
   }
 
   async deleteTheme(id: string): Promise<any>{
@@ -58,26 +69,8 @@ export default class ShopifyClient {
   async publishTheme(id: string): Promise<any> {
     const { data } = await this.put(
       this.themePath(id),
-      { theme: { id: id, role: this.PUBLISHED }}
+      { theme: { id: id, role: this.PUBLISHED } }
     )
-
-    return data;
-  }
-
-  async createTheme(name: string): Promise<any> {
-    const { data } = await this.create(this.themesPath(),
-      {
-        theme: { name }
-      }
-    )
-
-    return data;
-  }
-
-  async updateTheme(themeId: string, name: string): Promise<any>{
-    const { data }  = await this.update(this.themePath(themeId), {
-      theme: { name: name }
-    });
 
     return data;
   }

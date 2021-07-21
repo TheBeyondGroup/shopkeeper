@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import ShopifyClient from '../lib/shopify-client';
+import ShopkeeperConfig from '../lib/shopkeeper-config';
 
 const program = new Command();
 
@@ -15,8 +16,10 @@ const options = program.opts()
 
 program.action(async () => {
   const name = options.name
-  const storeUrl = `https://${process.env.PROD_STORE_URL}` || "";
-  const storePassword = process.env.PROD_PASSWORD || "";
+  
+  const config = new ShopkeeperConfig()
+  const storeUrl = config.storeUrl
+  const storePassword = config.storePassword
 
   const client = new ShopifyClient(storeUrl, storePassword)
 

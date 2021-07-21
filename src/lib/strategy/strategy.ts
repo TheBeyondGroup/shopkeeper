@@ -1,3 +1,0 @@
-interface Strategy {
-  deploy(): void
-}

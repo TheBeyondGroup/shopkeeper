@@ -22,6 +22,7 @@ program.action(async(store) => {
     console.log(`Switched to ${store} environment`)
   } catch (err) {
     console.log(err)
+    process.exit(1)
   }
 })
 

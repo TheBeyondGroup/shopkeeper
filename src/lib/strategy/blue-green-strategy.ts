@@ -9,7 +9,8 @@ export default class BlueGreenStrategy implements Strategy {
   async deploy(staging: boolean = false){
     const theme = await this.publishedTheme();
     const themeId = theme.id.toString();
-
+    console.log(`Published theme id is: ${themeId}`)
+    
     await this.downloadPublishedThemeSettings();
 
     // determine destination blue or green
@@ -53,6 +54,7 @@ export default class BlueGreenStrategy implements Strategy {
   }
 
   private async publishedTheme(): Promise<any> {
+    console.log("Get published theme")
     return await this.shopifyClient().getPublishedTheme();
   }
 

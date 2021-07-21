@@ -14,6 +14,7 @@ program.action(async () => {
     console.log(currentStore)
   }catch(err) {
     console.log(err)
+    process.exit(1)
   }
 })
 

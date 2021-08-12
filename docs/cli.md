@@ -10,9 +10,10 @@ Shopkeeper is inspired by [`hub`](https://github.com/github/hub), which augments
 We are working towards a CLI that will allow you to use Shopkeeper as your
 primary tool for interacting with Shopify themes.
 
-Shopkeeper's approach and commands embody the approach we at The Beyond Group
-use to build and deploy themes. You might want to do something in a different way
-than us and we're open to extensions that extend and enhance our defaults.
+Shopkeeper's approach and commands embody the approach we at [The Beyond
+Group](https://thebeyondgroup.la) use to build and deploy themes. You might want
+to do something in a different way than us and we're open to extensions that
+extend and enhance our defaults. Open a PR!
 
 Also, like all software, there are refinements that can be done to this CLI.
 We're open to quality of life improvements like error handling, documentation,
@@ -29,7 +30,6 @@ For now, however, there will be gaps as we implement only enough of the commands
 to meet the needs of our GitHub Actions. For now, the commands will depend on
 the environment variables `PROD_STORE_URL` and `PROD_PASSWORD`.
 
-
 ### Settings
 **`shopkeeper theme deploy`**
 
@@ -40,7 +40,7 @@ Called without flags, this command completes a blue/green deploy of the current
 working directory. A blue/green deploy consists of:
 
 1. Downloads the published theme's settings
-2. Determines the ondeck theme
+2. Determines the on deck theme
 3. Uploads the current working directory to the on deck theme
 
 The command requires the `config.yml` to have the environments `production-blue`
@@ -167,7 +167,7 @@ Called with the flag `--published`, this command returns the id of the published
 ```
 shopkeeper theme get-id --on-deck
 ```
-Called with the flag `--on-deck`, this command returns the id of the ondeck theme.
+Called with the flag `--on-deck`, this command returns the id of the on deck theme.
 
 ### Store Switch
 **`shopkeeper store switch`**

@@ -11,9 +11,10 @@ To install this package globally while you're working on it:
 ```
 npm link
 ```
-If you're using `asdf` you may need to run `asdf reshim` to pick up the changes.
-Also, make sure you're using the same node version in your shopkeepe directory
-as you are using elsewhere. `asdf` scopes global packages by version.
+If you're using `asdf` to manage your node version, you may need to run `asdf
+reshim` to pick up the changes. Also, make sure you're using the same node
+version in your shopkeeper directory as you are using elsewhere. `asdf` scopes
+global packages by version.
 
 Then you'll be able to run:
 
@@ -33,24 +34,11 @@ In shopkeeper root:
 npm run build
 npm link
 ```
-Note: We use `npm` here because `shopkeeper` is managed with NPM.
-If you're using ASDF to manage your node versions, you may need to run `asdf reshim`.
+Note: We use `npm` here because `shopkeeper` is managed with `npm`.
+If you're using `asdf` to manage your node versions, you may need to run `asdf reshim`.
 
-In location where you want to use Shopkeeper, for example, the theme you want to use for testing:
+In the location where you want to use Shopkeeper, for example, the theme you want to use for testing:
 ```
 yarn link shopkeeper
 yarn add --dev link:shopkeeper
 ```
-
-### Using the version on GitHub
-To use the latest version from the private package repository, create a`.npmrc`
-with the following contents:
-
-```
-@thebeyondgroup:registry=https://npm.pkg.github.com
-
-//npm.pkg.github.com/:_authToken=${AUTH_TOKEN}
-```
-
-The theme is managed by The Beyond Group, it's likely this file already exists and you need only to
-add your personal access token to your local `.env` or shell settings (`.zshrc` or `.bashrc`).

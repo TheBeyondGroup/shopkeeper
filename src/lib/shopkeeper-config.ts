@@ -55,8 +55,9 @@ export default class ShopkeeperConfig {
     return `${this.rootPath}/settings.yml`
   }
 
-  get themeSettingsPath(): string{
-    return process.cwd() + `/${this.themeDirectory()}/config/settings_data.json`
+  async themeSettingsPath(): Promise<string>{
+    const themeDir = await this.themeDirectory()
+    return process.cwd() + `/${themeDir}/config/settings_data.json`
   }
 
   storeThemeSettingsPath(store: string): string {

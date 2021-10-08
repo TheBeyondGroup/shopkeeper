@@ -4,7 +4,8 @@ import headHash from 'head-hash';
 
 type Settings = {
   productionThemeName: string,
-  stagingThemeName: string
+  stagingThemeName: string,
+  themeDirectory: string
 }
 export default class ShopkeeperConfig {
   DEFAULT_CURRENT_STORE_FILE_NAME = '.current-store'
@@ -12,6 +13,7 @@ export default class ShopkeeperConfig {
   DEFAULT_PRODUCTION_THEME_NAME = 'Production'
   DEFAULT_GREEN_THEME_NAME = 'Green'
   DEFAULT_BLUE_THEME_NAME = 'Blue'
+  DEFAULT_THEME_DIRECTORY = 'shopify'
 
   PRODUCTION_GREEN_ENV = 'production-green';
   PRODUCTION_BLUE_ENV = 'production-blue';
@@ -54,7 +56,7 @@ export default class ShopkeeperConfig {
   }
 
   get themeSettingsPath(): string{
-    return process.cwd() + '/shopify/config/settings_data.json'
+    return process.cwd() + `/${this.themeDirectory()}/config/settings_data.json`
   }
 
   storeThemeSettingsPath(store: string): string {
@@ -91,12 +93,18 @@ export default class ShopkeeperConfig {
     return `[${hash}] ${settings.productionThemeName}`
   }
 
+  async themeDirectory(): Promise<string> {
+    const settings = await this.getSettings()
+    return settings.themeDirectory
+  }
+
   async getSettings(): Promise<Settings>{
     const settings = await this.parseSettingsFile()
 
     return {
       stagingThemeName: settings.stagingThemeName || this.DEFAULT_STAGING_THEME_NAME,
-      productionThemeName: settings.productionThemeName || this.DEFAULT_PRODUCTION_THEME_NAME
+      productionThemeName: settings.productionThemeName || this.DEFAULT_PRODUCTION_THEME_NAME,
+      themeDirectory: settings.themeDirectory || this.DEFAULT_THEME_DIRECTORY
     } 
   }
 

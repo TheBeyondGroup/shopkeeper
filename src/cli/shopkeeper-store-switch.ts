@@ -13,9 +13,9 @@ program.action(async(store) => {
   const envSourcePath = config.storeEnvPath(store)
   const envDestinationPath = config.themeEnvPath
   const settingsSourcePath = config.storeThemeSettingsPath(store)
-  const settingsDestinationPath = config.themeSettingsPath
 
   try {
+    const settingsDestinationPath = await config.themeSettingsPath()
     await fs.copy(envSourcePath, envDestinationPath)
     await fs.copy(settingsSourcePath, settingsDestinationPath)
     await config.setCurrentStore(store)

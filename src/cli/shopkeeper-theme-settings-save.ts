@@ -17,9 +17,9 @@ program.action(async(store) => {
   }
 
   const settingsDestinationPath = config.storeThemeSettingsPath(storeToRestore)
-  const settingsSourcePath = config.themeSettingsPath
 
   try {
+    const settingsSourcePath = await config.themeSettingsPath()
     await fs.copy(settingsSourcePath, settingsDestinationPath)
     console.log(`Saved settings for ${storeToRestore}.`)
   } catch (err) {

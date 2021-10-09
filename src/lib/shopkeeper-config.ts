@@ -96,7 +96,7 @@ export default class ShopkeeperConfig {
 
   async themeDirectory(): Promise<string> {
     const settings = await this.getSettings()
-    return settings.themeDirectory
+    return `${settings.themeDirectory}`
   }
 
   async getSettings(): Promise<Settings>{

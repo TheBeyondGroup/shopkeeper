@@ -28,11 +28,12 @@ program.action(async (options) => {
       themeId = duplicateTheme.id
     }
   
+    const themeDirectory = await config.themeDirectory()
     await themekit.command('deploy', {
       store: storeUrl,
       password: storePassword,
       themeid: themeId,
-      dir: 'shopify'
+      dir: themeDirectory
     })
 
     console.log(`Preview ready at ${storeUrl}?preview_theme_id=${themeId}`)

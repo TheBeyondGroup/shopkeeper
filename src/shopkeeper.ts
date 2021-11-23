@@ -1,12 +1,18 @@
 // This is the main entry point to all the shopkeeper functionality
 // This is also the class to import when using shopkeeper elsewhere.
 import themeKit from '@shopify/themekit';
+import glob from 'glob';
 
 export default class Shopkeeper {
   options: any;
   
   constructor(options: any) {
     this.options = options;
+  }
+
+  themeJSONTemplateFiles(){
+    return glob.sync("shopify/templates/**/*.json")
+      .map(fileName => fileName.replace("shopify/", ""))
   }
 
   async settingsDownload() {

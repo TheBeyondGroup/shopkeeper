@@ -12,13 +12,17 @@ program.action(async(store) => {
   const config = new ShopkeeperConfig()
   const envSourcePath = config.storeEnvPath(store)
   const envDestinationPath = config.themeEnvPath
-  const settingsSourcePath = config.storeThemeSettingsPath(store)
 
   try {
-    const settingsDestinationPath = await config.themeSettingsPath()
-    await fs.copy(envSourcePath, envDestinationPath)
-    await fs.copy(settingsSourcePath, settingsDestinationPath)
+    const filesMoves = await config.storeThemeSettingsRestoreMoves(store)
+    filesMoves.push({ source: envSourcePath, destination: envDestinationPath })
+    filesMoves.forEach(async ({source, destination}) => {
+      await fs.copy(source, destination)
+      console.log(`Copied ${source} to ${destination}`)
+    })
+    
     await config.setCurrentStore(store)
+
     console.log(`Switched to ${store} environment`)
   } catch (err) {
     console.log(err)

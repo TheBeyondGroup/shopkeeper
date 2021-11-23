@@ -16,11 +16,12 @@ program.action(async(store) => {
     storeToRestore = await config.getCurrentStore()
   }
 
-  const settingsDestinationPath = config.storeThemeSettingsPath(storeToRestore)
-
   try {
-    const settingsSourcePath = await config.themeSettingsPath()
-    await fs.copy(settingsSourcePath, settingsDestinationPath)
+    const fileMoves = await config.storeThemeSettingsSaveMoves(storeToRestore)
+    fileMoves.forEach(async ({source, destination}) => {
+      await fs.copy(source, destination)
+      console.log(`Copied ${source} to ${destination}`)
+    })
     console.log(`Saved settings for ${storeToRestore}.`)
   } catch (err) {
     console.log(err)

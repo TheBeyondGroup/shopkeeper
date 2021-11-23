@@ -60,8 +60,14 @@ export default class ShopkeeperConfig {
     return process.cwd() + `/${themeDir}/config/settings_data.json`
   }
 
-  storeThemeSettingsPath(store: string): string {
-    return process.cwd() + `/${this.rootPath}/${store}/settings_data.json`
+  backupThemeSettingsDataPath(store: string): string {
+    return process.cwd() + `/${this.rootPath}/${store}/config/settings_data.json`
+  }
+
+  backupThemeSettingsTemplatesPath(store: string, fileName: string): string {
+    return process.cwd() + `/${this.rootPath}/${store}/templates/${fileName}`
+  }
+
   }
 
   get themeEnvPath(): string {

@@ -1,12 +1,19 @@
 import fs from 'fs-extra';
 import YAML from 'yaml';
 import headHash from 'head-hash';
+import glob from 'glob';
 
 type Settings = {
   productionThemeName: string,
   stagingThemeName: string,
   themeDirectory: string
 }
+
+type FileMove = {
+  source: string,
+  destination: string
+}
+
 export default class ShopkeeperConfig {
   DEFAULT_CURRENT_STORE_FILE_NAME = '.current-store'
   DEFAULT_STAGING_THEME_NAME = 'Staging'
@@ -68,6 +75,49 @@ export default class ShopkeeperConfig {
     return process.cwd() + `/${this.rootPath}/${store}/templates/${fileName}`
   }
 
+  async storeThemeSettingsSaveMoves(storeToRestore: string): Promise<Array<FileMove>>{
+    const settingsSourcePath = await this.themeSettingsPath()
+    const settingsDestinationPath = this.backupThemeSettingsDataPath(storeToRestore)
+    const fileMoves = [ 
+      { source: settingsSourcePath, 
+        destination: settingsDestinationPath
+      }
+    ]
+
+    const themeDir = await this.themeDirectory()
+    const jsonTemplateFiles = glob.sync(`${themeDir}/templates/**/*.json`)
+    const templateMoves = jsonTemplateFiles.map(fileName => {
+      const baseName = fileName.split("/").pop() || ""
+      return {
+        source: process.cwd() + `/${fileName}`,
+        destination: this.backupThemeSettingsTemplatesPath(storeToRestore, baseName)
+      }
+    })
+
+    return fileMoves.concat(templateMoves)
+  }
+
+  async storeThemeSettingsRestoreMoves(storeToRestore: string): Promise<Array<FileMove>>{
+    const settingsSourcePath = this.backupThemeSettingsDataPath(storeToRestore)
+    const settingsDestinationPath = await this.themeSettingsPath()
+    const fileMoves = [
+      {
+        source: settingsSourcePath, 
+        destination: settingsDestinationPath 
+      }
+    ]
+
+    const themeDir = await this.themeDirectory()
+    const jsonTemplateFiles = glob.sync(`${this.rootPath}/${storeToRestore}/templates/**/*.json`)
+    const templateMoves = jsonTemplateFiles.map(fileName => {
+      const baseName = fileName.split("/").pop() || ""
+      return {
+        source: process.cwd() + `/${fileName}`,
+        destination: process.cwd() + `/${themeDir}/templates/${baseName}`
+      }
+    })
+
+    return fileMoves.concat(templateMoves)
   }
 
   get themeEnvPath(): string {

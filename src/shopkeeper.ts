@@ -17,7 +17,10 @@ export default class Shopkeeper {
 
   async settingsDownload() {
     const flags: {[k: string]: any} = {
-      files: ['config/settings_data.json']
+      files: [
+        'config/settings_data.json',
+        ...this.themeJSONTemplateFiles()
+      ]
     };
   
     if (this.options.env) {
@@ -41,7 +44,10 @@ export default class Shopkeeper {
 
   async settingsUpload() {
     const flags: {[k: string]: any} = {
-      files: ['config/settings_data.json']
+      files: [
+        'config/settings_data.json',
+        ...this.themeJSONTemplateFiles()
+      ]
     };
   
     // TODO: Need to add credentials
@@ -58,5 +64,4 @@ export default class Shopkeeper {
 
     await themeKit.command('deploy', flags);
   }
-
 }

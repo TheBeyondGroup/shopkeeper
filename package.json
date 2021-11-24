@@ -20,6 +20,7 @@
     "shopkeeper": "./dist/src/cli/shopkeeper.js"
   },
   "devDependencies": {
+    "@types/glob": "^7.2.0",
     "@types/jest": "^26.0.20",
     "@types/mock-fs": "^4.13.0",
     "@types/prettier": "^2.2.1",
@@ -38,6 +39,7 @@
     "axios": "^0.21.1",
     "commander": "^8.0.0",
     "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
     "head-hash": "^0.3.0",
     "inquirer": "^8.0.0",
     "string-env-interpolation": "^1.0.1",

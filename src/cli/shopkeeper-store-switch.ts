@@ -14,7 +14,7 @@ program.action(async(store) => {
   const envDestinationPath = config.themeEnvPath
 
   try {
-    const filesMoves = await config.storeThemeSettingsRestoreMoves(store)
+    const filesMoves = await config.backupThemeSettingsRestoreFileMoves(store)
     filesMoves.push({ source: envSourcePath, destination: envDestinationPath })
     filesMoves.forEach(async ({source, destination}) => {
       await fs.copy(source, destination)

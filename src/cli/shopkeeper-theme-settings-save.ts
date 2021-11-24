@@ -17,7 +17,7 @@ program.action(async(store) => {
   }
 
   try {
-    const fileMoves = await config.storeThemeSettingsSaveMoves(storeToRestore)
+    const fileMoves = await config.backupThemeSettingsSaveFileMoves(storeToRestore)
     fileMoves.forEach(async ({source, destination}) => {
       await fs.copy(source, destination)
       console.log(`Copied ${source} to ${destination}`)

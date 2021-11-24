@@ -75,7 +75,7 @@ export default class ShopkeeperConfig {
     return process.cwd() + `/${this.backupRootPath}/${store}/templates/${fileName}`
   }
 
-  async storeThemeSettingsSaveMoves(storeToRestore: string): Promise<Array<FileMove>>{
+  async backupThemeSettingsSaveFileMoves(storeToRestore: string): Promise<Array<FileMove>>{
     const settingsSourcePath = await this.themeSettingsPath()
     const settingsDestinationPath = this.backupThemeSettingsDataPath(storeToRestore)
     const fileMoves = [ 
@@ -97,7 +97,7 @@ export default class ShopkeeperConfig {
     return fileMoves.concat(templateMoves)
   }
 
-  async storeThemeSettingsRestoreMoves(storeToRestore: string): Promise<Array<FileMove>>{
+  async backupThemeSettingsRestoreFileMoves(storeToRestore: string): Promise<Array<FileMove>>{
     const settingsSourcePath = this.backupThemeSettingsDataPath(storeToRestore)
     const settingsDestinationPath = await this.themeSettingsPath()
     const fileMoves = [

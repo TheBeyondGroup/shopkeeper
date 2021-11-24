@@ -25,6 +25,7 @@ program.action(async(store) => {
     console.log(`Restored settings for ${storeToRestore}.`)
   } catch (err) {
     console.log(err)
+    process.exit(1)
   }
 })
 

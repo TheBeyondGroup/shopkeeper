@@ -37,6 +37,7 @@ export default class BlueGreenStrategy implements DeployStrategy {
   private async updateThemeNameWithCommitHash(themeId: string, newName: string): Promise<any>{
     console.log(`Renaming theme to ${newName}`)
     await this.shopifyClient().updateTheme(themeId, newName)
+    console.log(`Finished renaming theme to ${newName}`)
   }
 
   private async deployEnvironment(environment: string){

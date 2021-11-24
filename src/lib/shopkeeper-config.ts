@@ -46,12 +46,12 @@ export default class ShopkeeperConfig {
     return process.env.PROD_GREEN_THEME_ID || ''
   }
 
-  get rootPath(): string {
+  get backupRootPath(): string {
     return '.shopkeeper'
   }
 
   get currentStorePath(): string {
-    return process.cwd() + `/${this.rootPath}/${this.currentStoreFileName}`
+    return process.cwd() + `/${this.backupRootPath}/${this.currentStoreFileName}`
   }
 
   get currentStoreFileName(): string {
@@ -59,7 +59,7 @@ export default class ShopkeeperConfig {
   }
 
   get settingsPath(): string {
-    return `${this.rootPath}/settings.yml`
+    return `${this.backupRootPath}/settings.yml`
   }
 
   async themeSettingsPath(): Promise<string>{
@@ -68,11 +68,11 @@ export default class ShopkeeperConfig {
   }
 
   backupThemeSettingsDataPath(store: string): string {
-    return process.cwd() + `/${this.rootPath}/${store}/config/settings_data.json`
+    return process.cwd() + `/${this.backupRootPath}/${store}/config/settings_data.json`
   }
 
   backupThemeSettingsTemplatesPath(store: string, fileName: string): string {
-    return process.cwd() + `/${this.rootPath}/${store}/templates/${fileName}`
+    return process.cwd() + `/${this.backupRootPath}/${store}/templates/${fileName}`
   }
 
   async storeThemeSettingsSaveMoves(storeToRestore: string): Promise<Array<FileMove>>{
@@ -108,7 +108,7 @@ export default class ShopkeeperConfig {
     ]
 
     const themeDir = await this.themeDirectory()
-    const jsonTemplateFiles = glob.sync(`${this.rootPath}/${storeToRestore}/templates/**/*.json`)
+    const jsonTemplateFiles = glob.sync(`${this.backupRootPath}/${storeToRestore}/templates/**/*.json`)
     const templateMoves = jsonTemplateFiles.map(fileName => {
       const baseName = fileName.split("/").pop() || ""
       return {
@@ -124,8 +124,7 @@ export default class ShopkeeperConfig {
     return process.cwd() + "/.env"
   }
 
-  storeEnvPath(store: string): string {
-    return process.cwd() + `/${this.rootPath}/${store}/env`;
+    return process.cwd() + `/${this.backupRootPath}/${store}/env`;
   }
 
   async getCurrentStore(): Promise<any>{

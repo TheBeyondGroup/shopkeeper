@@ -88,16 +88,16 @@ Called without flags, this command uploads the settings from the theme in the cu
 shopkeeper settings save us
 ```
 Called without flags and with the argument `<store-name>`, this command copies
-the theme settings in `shopify/config` to
-`.shopkeeper/<store-name>/settings_data.json`.
+the theme settings in `shopify/config` to `.shopkeeper/<store-name>/config/settings_data.json` and
+`shopify/templates/*.json` to `.shopkeeper/<store-name>/templates/*.json`.
 
 **`shopkeeper settings restore`**
 
 ```
 shopkeeper settings restore us
 ```
-Called without flags and with the argument `<store-name>`, this command copies the file from `.shopkeeper/<store-name>/settings_data.json`
-to `shopify/config/settings_data.json`.
+Called without flags and with the argument `<store-name>`, this command copies the file from `.shopkeeper/<store-name>/config/settings_data.json`
+to `shopify/config/settings_data.json` and `.shopkeeper/<store-name>/templates/*.json` to `shopify/templates/*.json`.
 
 
 **`shopkeeper settings sync` (FUTURE)**
@@ -179,9 +179,10 @@ shopkeeper store switch us
 ```
 
 Called with the argument `<store-name>`, this command switches the .env file to
-the values provided in the corresponding `.shopkeeper/<store-name>/env`. It also 
-copies the settings file in `.shopkeeper/<store-name>/settings_data.json` to 
-`shopify/config/settings_data.json`.
+the values provided in the corresponding `.shopkeeper/<store-name>/env`. It 
+copies the settings file in `.shopkeeper/<store-name>/config/settings_data.json` to 
+`shopify/config/settings_data.json` and `.shopkeeper/<store-name>/templates/*.json` to
+`shopify/templates/*.json`.
 
 ### Store Current
 **`shopkeeper store current`**

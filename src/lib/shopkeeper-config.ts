@@ -124,6 +124,7 @@ export default class ShopkeeperConfig {
     return process.cwd() + "/.env"
   }
 
+  backupEnvPath(store: string): string {
     return process.cwd() + `/${this.backupRootPath}/${store}/env`;
   }
 
@@ -142,6 +143,7 @@ export default class ShopkeeperConfig {
 
     return `[${hash}] ${settings.stagingThemeName}`
   }
+
   async productionThemeName(): Promise<string> {
     const settings = await this.getSettings()
     const hash = await this.gitHeadHash()

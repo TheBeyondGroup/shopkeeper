@@ -10,7 +10,7 @@ program
 
 program.action(async(store) => {
   const config = new ShopkeeperConfig()
-  const envSourcePath = config.storeEnvPath(store)
+  const envSourcePath = config.backupEnvPath(store)
   const envDestinationPath = config.themeEnvPath
 
   try {

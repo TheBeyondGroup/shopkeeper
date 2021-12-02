@@ -1,4 +1,5 @@
 import themekit from '@shopify/themekit';
+import glob from 'glob';
 import ShopifyClient from "../shopify-client";
 import ShopkeeperConfig from "../shopkeeper-config";
 
@@ -51,8 +52,12 @@ export default class BlueGreenStrategy implements DeployStrategy {
 
   private async downloadPublishedThemeSettings(){
     console.log(`Downloading settings from published theme`)
+    const jsonTemplateFiles = glob.sync("shopify/templates/**/*.json")
+        .map(fileName => fileName.replace("shopify/", ""))
     const flags = {
-      files: ['config/settings_data.json'],
+      files: ['config/settings_data.json',
+        ...jsonTemplateFiles
+      ],
       live: true,
       store: this.storeUrl,
       password: this.storePassword

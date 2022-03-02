@@ -5,10 +5,11 @@ import ShopkeeperConfig from "../shopkeeper-config";
 
 export default class BlueGreenStrategy implements DeployStrategy {
   async deploy(staging: boolean = false){
-    await this.downloadPublishedThemeSettings();
-    
     const themeId = await this.publishedThemeId()
     const onDeckThemeEnv = this.ondeckThemeEnv(themeId);
+    const liveThemeEnv = this.liveThemeEnv(themeId);
+
+    await this.downloadPublishedThemeSettings(liveThemeEnv);
 
     // deploy to destination
     await this.deployEnvironment(onDeckThemeEnv);
@@ -50,7 +51,7 @@ export default class BlueGreenStrategy implements DeployStrategy {
     console.log(`Finished deploying to environment: ${environment}`)
   }
 
-  private async downloadPublishedThemeSettings(){
+  private async downloadPublishedThemeSettings(environment: string){
     console.log(`Downloading settings from published theme`)
     const jsonTemplateFiles = glob.sync("shopify/templates/**/*.json")
         .map(fileName => fileName.replace("shopify/", ""))
@@ -58,7 +59,7 @@ export default class BlueGreenStrategy implements DeployStrategy {
       files: ['config/settings_data.json',
         ...jsonTemplateFiles
       ],
-      live: true,
+      env: environment,
       store: this.storeUrl,
       password: this.storePassword
     };
@@ -76,6 +77,14 @@ export default class BlueGreenStrategy implements DeployStrategy {
       return this.getConfig().PRODUCTION_GREEN_ENV;
     }else{
       return this.getConfig().PRODUCTION_BLUE_ENV;
+    }
+  }
+
+  private liveThemeEnv(publishedThemeId: string): string {
+    if(this.isBlueTheme(publishedThemeId)){
+      return this.getConfig().PRODUCTION_BLUE_ENV;
+    }else{
+      return this.getConfig().PRODUCTION_GREEN_ENV;
     }
   }
 

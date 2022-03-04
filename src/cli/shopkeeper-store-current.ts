@@ -10,7 +10,7 @@ program.action(async () => {
   const config = new ShopkeeperConfig();
   
   try{
-    const currentStore = await config.getCurrentStore()
+    const currentStore = await config.getCurrentEnvironment()
     console.log(currentStore)
   }catch(err) {
     console.log(err)

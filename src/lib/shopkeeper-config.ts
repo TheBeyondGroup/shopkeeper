@@ -15,11 +15,13 @@ type FileMove = {
 }
 
 export default class ShopkeeperConfig {
-  DEFAULT_CURRENT_STORE_FILE_NAME = '.current-store'
+  DEFAULT_CURRENT_ENVIRONMENT_FILE_NAME = '.current-store'
+  
   DEFAULT_STAGING_THEME_NAME = 'Staging'
   DEFAULT_PRODUCTION_THEME_NAME = 'Production'
   DEFAULT_GREEN_THEME_NAME = 'Green'
   DEFAULT_BLUE_THEME_NAME = 'Blue'
+  
   DEFAULT_THEME_DIRECTORY = 'shopify'
 
   PRODUCTION_GREEN_ENV = 'production-green';
@@ -50,12 +52,8 @@ export default class ShopkeeperConfig {
     return '.shopkeeper'
   }
 
-  get currentStorePath(): string {
-    return process.cwd() + `/${this.backupRootPath}/${this.currentStoreFileName}`
-  }
-
-  get currentStoreFileName(): string {
-    return this.DEFAULT_CURRENT_STORE_FILE_NAME
+  get currentEnvironmentPath(): string {
+    return process.cwd() + `/${this.backupRootPath}/${this.DEFAULT_CURRENT_ENVIRONMENT_FILE_NAME}`
   }
 
   get settingsPath(): string {
@@ -67,17 +65,25 @@ export default class ShopkeeperConfig {
     return process.cwd() + `/${themeDir}/config/settings_data.json`
   }
 
+  backupEnvironmentRootPath(store: string): string {
+    return process.cwd() + `/${this.backupRootPath}/${store}` 
+  }
+
+  backupThemeTemplatePath(store: string): string {
+    return `${this.backupEnvironmentRootPath(store)}/templates` 
+  }
+
   backupThemeSettingsDataPath(store: string): string {
-    return process.cwd() + `/${this.backupRootPath}/${store}/config/settings_data.json`
+    return `${this.backupEnvironmentRootPath(store)}/config/settings_data.json`
   }
 
   backupThemeSettingsTemplatesPath(store: string, fileName: string): string {
-    return process.cwd() + `/${this.backupRootPath}/${store}/templates/${fileName}`
+    return `${this.backupEnvironmentRootPath(store)}/templates/${fileName}`
   }
 
-  async backupThemeSettingsSaveFileMoves(storeToRestore: string): Promise<Array<FileMove>>{
+  async backupThemeSettingsSaveFileMoves(environment: string): Promise<Array<FileMove>>{
     const settingsSourcePath = await this.themeSettingsPath()
-    const settingsDestinationPath = this.backupThemeSettingsDataPath(storeToRestore)
+    const settingsDestinationPath = this.backupThemeSettingsDataPath(environment)
     const fileMoves = [ 
       { source: settingsSourcePath, 
         destination: settingsDestinationPath
@@ -90,15 +96,15 @@ export default class ShopkeeperConfig {
       const baseName = fileName.split("/").pop() || ""
       return {
         source: process.cwd() + `/${fileName}`,
-        destination: this.backupThemeSettingsTemplatesPath(storeToRestore, baseName)
+        destination: this.backupThemeSettingsTemplatesPath(environment, baseName)
       }
     })
 
     return fileMoves.concat(templateMoves)
   }
 
-  async backupThemeSettingsRestoreFileMoves(storeToRestore: string): Promise<Array<FileMove>>{
-    const settingsSourcePath = this.backupThemeSettingsDataPath(storeToRestore)
+  async backupThemeSettingsRestoreFileMoves(environment: string): Promise<Array<FileMove>>{
+    const settingsSourcePath = this.backupThemeSettingsDataPath(environment)
     const settingsDestinationPath = await this.themeSettingsPath()
     const fileMoves = [
       {
@@ -108,16 +114,22 @@ export default class ShopkeeperConfig {
     ]
 
     const themeDir = await this.themeDirectory()
-    const jsonTemplateFiles = glob.sync(`${this.backupRootPath}/${storeToRestore}/templates/**/*.json`)
+    const jsonTemplateFiles = glob.sync(`${this.backupThemeTemplatePath(environment)}/**/*.json`)
     const templateMoves = jsonTemplateFiles.map(fileName => {
       const baseName = fileName.split("/").pop() || ""
       return {
-        source: process.cwd() + `/${fileName}`,
+        source: fileName,
         destination: process.cwd() + `/${themeDir}/templates/${baseName}`
       }
     })
 
     return fileMoves.concat(templateMoves)
+  }
+
+  async themeJSONTemplates(){
+    const themeDir = await this.themeDirectory()
+    const jsonTemplateFiles = glob.sync(`${themeDir}/templates/**/*.json`)
+    return jsonTemplateFiles
   }
 
   get themeEnvPath(): string {
@@ -128,13 +140,13 @@ export default class ShopkeeperConfig {
     return process.cwd() + `/${this.backupRootPath}/${store}/env`;
   }
 
-  async getCurrentStore(): Promise<any>{
-    const store = await fs.readFile(this.currentStorePath, 'utf8')
+  async getCurrentEnvironment(): Promise<any>{
+    const store = await fs.readFile(this.currentEnvironmentPath, 'utf8')
     return store;
   }
 
-  async setCurrentStore(store: string){
-    await fs.outputFile(this.currentStorePath, store)
+  async setCurrentEnvironment(store: string){
+    await fs.outputFile(this.currentEnvironmentPath, store)
   }
 
   async stagingThemeName(): Promise<string> {

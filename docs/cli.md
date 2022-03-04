@@ -12,7 +12,7 @@ primary tool for interacting with Shopify themes.
 
 Shopkeeper's approach and commands embody the approach we at [The Beyond
 Group](https://thebeyondgroup.la) use to build and deploy themes. You might want
-to do something in a different way than us and we're open to extensions that
+to do something in a different way than united-states and we're open to extensions that
 extend and enhance our defaults. Open a PR!
 
 Also, like all software, there are refinements that can be done to this CLI.
@@ -70,37 +70,60 @@ If blue is published, it publishes green. If green is published, it publishes
 blue. Before publishing, the theme settings from the published theme are copied
 to the rollback theme.
 
-**`shopkeeper settings download`**
+**`shopkeeper theme settings download`**
 
 ```
-shopkeeper settings download
+shopkeeper theme settings download
 ```
 Called without flags, this command downloads the settings from the store's published
 theme to the theme in the current working directory.
 
-**`shopkeeper settings upload`**
+**`shopkeeper theme settings upload`**
 
-Called without flags, this command uploads the settings from the theme in the current working directory.
+Called without flags, this command uploads the settings from the theme in the
+current working directory.
 
-**`shopkeeper settings save`**
-
-```
-shopkeeper settings save us
-```
-Called without flags and with the argument `<store-name>`, this command copies
-the theme settings in `shopify/config` to `.shopkeeper/<store-name>/config/settings_data.json` and
-`shopify/templates/*.json` to `.shopkeeper/<store-name>/templates/*.json`.
-
-**`shopkeeper settings restore`**
+**`shopkeeper theme settings save`**
 
 ```
-shopkeeper settings restore us
+shopkeeper theme settings save united-states
 ```
-Called without flags and with the argument `<store-name>`, this command copies the file from `.shopkeeper/<store-name>/config/settings_data.json`
-to `shopify/config/settings_data.json` and `.shopkeeper/<store-name>/templates/*.json` to `shopify/templates/*.json`.
+Called without flags and with the argument `<environment>`, this command copies
+the theme settings in `shopify/config` to
+`.shopkeeper/<environment>/config/settings_data.json` and
+`shopify/templates/*.json` to `.shopkeeper/<environment>/templates/*.json`. All
+`.shopkeeper/<environment>/templates/*.json` are replaced.
+
+```
+shopkeeper theme settings save united-states --copy
+```
+Called with the flag `-c` or `--copy` and with the argument `<environment>`,
+this command copies the theme settings in `shopify/config` to
+`.shopkeeper/<environment>/config/settings_data.json` and
+`shopify/templates/*.json` to `.shopkeeper/<environment>/templates/*.json`.
+
+**`shopkeeper theme settings restore`**
+
+```
+shopkeeper theme settings restore united-states
+```
+Called without flags and with the argument `<environment>`, this command copies
+the file from `.shopkeeper/<environment>/config/settings_data.json` to
+`shopify/config/settings_data.json` and
+`.shopkeeper/<environment>/templates/*.json` to `shopify/templates/*.json`. All
+`shopify/templates/*.json` are replaced.
+
+```
+shopkeeper theme settings restore united-states --copy
+```
+Called with the flag `-c` or `--copy` and with the argument `<environment>`,
+this command copies the file from
+`.shopkeeper/<environment>/config/settings_data.json` to
+`shopify/config/settings_data.json` and
+`.shopkeeper/<environment>/templates/*.json` to `shopify/templates/*.json`
 
 
-**`shopkeeper settings sync` (FUTURE)**
+**`shopkeeper theme settings sync` (FUTURE)**
 
 ### Publish
 **`shopkeeper theme publish`**
@@ -175,13 +198,13 @@ Called with the flag `--on-deck`, this command returns the id of the on deck the
 Called without flags and args, this command fails with status code 1.
 
 ```
-shopkeeper store switch us
+shopkeeper store switch united-states
 ```
 
-Called with the argument `<store-name>`, this command switches the .env file to
-the values provided in the corresponding `.shopkeeper/<store-name>/env`. It 
-copies the settings file in `.shopkeeper/<store-name>/config/settings_data.json` to 
-`shopify/config/settings_data.json` and `.shopkeeper/<store-name>/templates/*.json` to
+Called with the argument `<environment>`, this command switches the .env file to
+the values provided in the corresponding `.shopkeeper/<environment>/env`. It 
+copies the settings file in `.shopkeeper/<environment>/config/settings_data.json` to 
+`shopify/config/settings_data.json` and `.shopkeeper/<environment>/templates/*.json` to
 `shopify/templates/*.json`.
 
 ### Store Current

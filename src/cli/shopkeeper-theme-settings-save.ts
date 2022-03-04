@@ -5,24 +5,38 @@ import fs  from 'fs-extra';
 import ShopkeeperConfig from '../lib/shopkeeper-config';
 
 program
-  .description("save the store theme settings")
-  .argument("[store]", "the name of the store environment")
+  .description("save the store theme settings to environment")
+  .argument("[environment]", "the environment")
+  .option(
+    '-c --copy', 
+    'preserve contents of environment when saving settings. By default, settings are replaced.',
+    false
+  )
 
-program.action(async(store) => {
+const options = program.opts();
+
+program.action(async(environment) => {
   const config = new ShopkeeperConfig();
-  let storeToRestore = store
+  let backupEnv = environment
 
-  if(!storeToRestore){
-    storeToRestore = await config.getCurrentStore()
+  if(!backupEnv){
+    backupEnv = await config.getCurrentEnvironment()
   }
 
   try {
-    const fileMoves = await config.backupThemeSettingsSaveFileMoves(storeToRestore)
+    console.log(`Saving settings for ${backupEnv}.`)
+    // Remove all JSON files from .shopkeeper/<env>/templates
+    if(!options.copy) {
+      const templatePath = config.backupThemeTemplatePath(backupEnv)
+      await fs.emptyDir(templatePath)
+      console.log(`Emptied ${backupEnv}/templates`)
+    }
+
+    const fileMoves = await config.backupThemeSettingsSaveFileMoves(backupEnv)
     fileMoves.forEach(async ({source, destination}) => {
       await fs.copy(source, destination)
       console.log(`Copied ${source} to ${destination}`)
     })
-    console.log(`Saved settings for ${storeToRestore}.`)
   } catch (err) {
     console.log(err)
     process.exit(1)

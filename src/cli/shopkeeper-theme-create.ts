@@ -1,5 +1,6 @@
 import themekit from '@shopify/themekit';
 import { Command } from 'commander';
+import glob from 'glob';
 import ShopifyClient from '../lib/shopify-client';
 import ShopkeeperConfig from '../lib/shopkeeper-config';
 
@@ -29,6 +30,19 @@ program.action(async (options) => {
     }
   
     const themeDirectory = await config.themeDirectory()
+    const sectionFiles = glob.sync(`${themeDirectory}/sections/*.liquid`)
+      .map(fileName => fileName.replace(`${themeDirectory}/`, ""))
+    
+    console.log("Uploading sections")
+    await themekit.command('deploy', {
+      files: sectionFiles,
+      store: storeUrl,
+      password: storePassword,
+      themeid: themeId,
+      dir: themeDirectory
+    })
+
+    console.log("Upload complete theme")
     await themekit.command('deploy', {
       store: storeUrl,
       password: storePassword,

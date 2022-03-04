@@ -44,6 +44,17 @@ export default class BlueGreenStrategy implements DeployStrategy {
 
   private async deployEnvironment(environment: string){
     console.log(`Deploying to environment: ${environment}`)
+    const themeDirectory = await this.themeDirectory()
+    const sectionFiles = glob.sync(`${themeDirectory}/sections/*.liquid`)
+      .map(fileName => fileName.replace(`${themeDirectory}/`, ""))
+    
+    const firstPassFlags = {
+      files: sectionFiles,
+      env: environment,
+    };
+    console.log("Uploading sections")
+    await themekit.command('deploy', firstPassFlags);
+
     const flags = {
       env: environment,
     };
@@ -53,8 +64,10 @@ export default class BlueGreenStrategy implements DeployStrategy {
 
   private async downloadPublishedThemeSettings(environment: string){
     console.log(`Downloading settings from published theme`)
-    const jsonTemplateFiles = glob.sync("shopify/templates/**/*.json")
-        .map(fileName => fileName.replace("shopify/", ""))
+    const themeDirectory = await this.themeDirectory()
+    const jsonTemplateFiles = glob.sync(`${themeDirectory}/templates/**/*.json`)
+      .map(fileName => fileName.replace(`${themeDirectory}/`, ""))
+    
     const flags = {
       files: ['config/settings_data.json',
         ...jsonTemplateFiles
@@ -110,6 +123,10 @@ export default class BlueGreenStrategy implements DeployStrategy {
     const envThemeName = this.ondeckThemeName(publishedThemeId)
 
     return `${name} ${envThemeName}`
+  }
+
+  private async themeDirectory(): Promise<string> {
+    return this.getConfig().themeDirectory()    
   }
 
   private get stagingThemeId(): string {

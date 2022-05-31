@@ -7,8 +7,7 @@ const program = new Command();
 
 program
   .description('download theme settings')
-  // .option('-e, --env <environment>', 'specify theme environment')
-  // .option('-t, --themeid <themeid>', 'specify theme id')
+  .option('-t, --theme <NAME_OR_ID>', 'The name or ID of the theme that you want to pull')
 
 program.action(async (options) => {
   if (process.env.PROD_STORE_URL && process.env.PROD_PASSWORD) {

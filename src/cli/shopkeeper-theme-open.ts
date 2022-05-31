@@ -4,8 +4,9 @@ import { Command } from 'commander';
 
 const program = new Command();
 
-program.action(() => {
-  console.log("store")
-});
+program
+  .description("returns links that let you preview the specified theme.")
+  .action(() => {
+  })
 
 program.parse();

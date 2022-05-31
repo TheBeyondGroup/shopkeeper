@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import ThemekitDelegator from '../commands/themekitDelegator'
 import { version } from '../../package.json';
 
 const program = new Command()
@@ -13,22 +12,11 @@ const program = new Command()
   });
 
 program
-  .command('themekit <subCommand> [files...]')
-  .description("call themekit")
-  .option('-e, --env <theme-environment>', 'specify theme environment, defaults to "development"', 'development')
-  .option('-l, --list', 'lists all theme ids')
-  .option('-p, --password <private-app-api-password>', 'specify shopify private app api password, e.g. shppa_...')
-  .option('-s, --store <theme-store-url>', 'specify the store url')
-  .option('-t, --themeid <theme-id>', 'specify the themeid')
-  .action((subCommand, files, options, command) => {
-    console.log('Delegating ' + command.name() + ' ' + subCommand + '\n');
-    new ThemekitDelegator(subCommand, files, options).run();
-  });
-
-program
-  .command('theme', 'manage a Shopify theme')
-
-program
+  .command("login", "authenticates and logs you into the specified store")
+  .command("logout", "logs you out of the Shopify account or Partner account and store.")
   .command('store', 'manages store environment')
+  .command('switch', 'switches between stores without logging out and logging in again')
+  .command('theme', 'manages a Shopify theme')
+  .command('whoami', "determines which Partner organization you're logged in to, or which store you're logged in to as a staff member")
 
 program.parse()

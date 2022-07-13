@@ -64,13 +64,11 @@ export default class BlueGreenStrategy implements DeployStrategy {
 
   private async downloadPublishedThemeSettings(environment: string){
     console.log(`Downloading settings from published theme`)
-    const themeDirectory = await this.themeDirectory()
-    const jsonTemplateFiles = glob.sync(`${themeDirectory}/templates/**/*.json`)
-      .map(fileName => fileName.replace(`${themeDirectory}/`, ""))
     
     const flags = {
-      files: ['config/settings_data.json',
-        ...jsonTemplateFiles
+      files: [
+        'config/settings_data.json',
+        'templates/*.json'
       ],
       env: environment,
       store: this.storeUrl,

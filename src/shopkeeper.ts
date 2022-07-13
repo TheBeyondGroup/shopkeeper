@@ -1,7 +1,6 @@
 // This is the main entry point to all the shopkeeper functionality
 // This is also the class to import when using shopkeeper elsewhere.
 import themeKit from '@shopify/themekit';
-import glob from 'glob';
 
 export default class Shopkeeper {
   options: any;
@@ -10,16 +9,11 @@ export default class Shopkeeper {
     this.options = options;
   }
 
-  themeJSONTemplateFiles(){
-    return glob.sync("shopify/templates/**/*.json")
-      .map(fileName => fileName.replace("shopify/", ""))
-  }
-
   async settingsDownload() {
     const flags: {[k: string]: any} = {
       files: [
         'config/settings_data.json',
-        ...this.themeJSONTemplateFiles()
+        "templates/*.json"
       ]
     };
   
@@ -46,7 +40,7 @@ export default class Shopkeeper {
     const flags: {[k: string]: any} = {
       files: [
         'config/settings_data.json',
-        ...this.themeJSONTemplateFiles()
+        "templates/*.json"
       ]
     };
   

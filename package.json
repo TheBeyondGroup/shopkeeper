@@ -1,6 +1,6 @@
 {
   "name": "@thebeyondgroup/shopkeeper",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A CLI for managing Shopify stores",
   "main": "dist/src/shopkeeper.js",
   "types": "dist/src/shopkeeper.d.ts",

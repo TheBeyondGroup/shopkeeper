@@ -141,5 +141,7 @@ In the location where you want to use Shopkeeper, for example, the theme you wan
 
 ```
 yarn link shopkeeper
+# If distributed package is installed
+yarn remove @thebeyondgroup/shopkeeper 
 yarn add --dev link:shopkeeper
 ```

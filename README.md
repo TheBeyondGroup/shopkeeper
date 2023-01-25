@@ -1,147 +1,334 @@
-# Shopkeeper
+oclif-hello-world
+=================
 
-Shopkeeper is a CLI for managing Shopify stores.
+oclif example Hello World CLI
 
-For usage instructions, see the [command specification](docs/cli.md).
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
+[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
+[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
+[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
-## Workflow
+<!-- toc -->
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+# Usage
+<!-- usage -->
+```sh-session
+$ npm install -g shopkeeper
+$ shopkeeper COMMAND
+running command...
+$ shopkeeper (--version)
+shopkeeper/1.0.0 darwin-x64 node-v16.13.2
+$ shopkeeper --help [COMMAND]
+USAGE
+  $ shopkeeper COMMAND
+...
+```
+<!-- usagestop -->
+# Commands
+<!-- commands -->
+* [`shopkeeper hello PERSON`](#shopkeeper-hello-person)
+* [`shopkeeper hello world`](#shopkeeper-hello-world)
+* [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
+* [`shopkeeper plugins`](#shopkeeper-plugins)
+* [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
+* [`shopkeeper plugins:inspect PLUGIN...`](#shopkeeper-pluginsinspect-plugin)
+* [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin-1)
+* [`shopkeeper plugins:link PLUGIN`](#shopkeeper-pluginslink-plugin)
+* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin)
+* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-1)
+* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-2)
+* [`shopkeeper plugins update`](#shopkeeper-plugins-update)
 
-**To download the published theme's settings**
+## `shopkeeper hello PERSON`
+
+Say hello
 
 ```
-$ npx shopkeeper theme settings restore <environment>
-$ npx shopkeeper theme settings download
+USAGE
+  $ shopkeeper hello [PERSON] -f <value>
+
+ARGUMENTS
+  PERSON  Person to say hello to
+
+FLAGS
+  -f, --from=<value>  (required) Who is saying hello
+
+DESCRIPTION
+  Say hello
+
+EXAMPLES
+  $ oex hello friend --from oclif
+  hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-**To backup the theme settings in your local theme directory**
+_See code: [dist/commands/hello/index.ts](https://github.com/TheBeyondGroup/shopkeeper/blob/v1.0.0/dist/commands/hello/index.ts)_
+
+## `shopkeeper hello world`
+
+Say hello world
 
 ```
-$ npx shopkeeper theme settings save <environment>
+USAGE
+  $ shopkeeper hello world
+
+DESCRIPTION
+  Say hello world
+
+EXAMPLES
+  $ shopkeeper hello world
+  hello world! (./src/commands/hello/world.ts)
 ```
 
-## How it Works
+## `shopkeeper help [COMMANDS]`
 
-Shopkeeper makes it easy to manage multiple Shopify stores from a single codebase.
-In particular, it makes it easy to change the environment and manage theme settings.
-
-Add a `.shopkeeper` folder to the root of your project to store your
-environments. For example, here we introduce a `production` environment that
-refers to a particular a production Shopify instance. In multi-store,
-multi-region setups, you might have a directory for each region. Say `canada`,
-`united-states`, or `united-kingdom`.
+Display help for shopkeeper.
 
 ```
-.shopkeeper
-├── production
-│   ├── config
-│   │   └── settings_data.json
-│   ├── env
-│   ├── env.sample
-│   └── templates
-│       ├── index.json
-│       └── page.about-us.json
-└── settings.yml
+USAGE
+  $ shopkeeper help [COMMANDS] [-n]
+
+ARGUMENTS
+  COMMANDS  Command to show help for.
+
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
+
+DESCRIPTION
+  Display help for shopkeeper.
 ```
 
-Each folder contains theme settings stored in their corresponding `config` and
-`templates` folders. It also contains a `env` file that's copied to the project
-root as `.env ` when the environment is switched.
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.0/src/commands/help.ts)_
 
-Shopkeeper depends on the following environment variables being set:
+## `shopkeeper plugins`
 
-| Name                  | Use                                   |
-| --------------------- | ------------------------------------- |
-| `PROD_STORE_URL`      | `<store-name>`.myshopify.com          |
-| `PROD_PASSWORD`       | Shopify private app password          |
-| `STAGING_THEME_ID`    | theme id to use for the staging theme |
-| `PROD_BLUE_THEME_ID`  | theme id to use for the blue theme    |
-| `PROD_GREEN_THEME_ID` | theme id to use for the green theme   |
-
-We recommend setting up your ThemeKit `config.yml` to use environment variables
-set in the `.env` and loaded into the shell context using something like
-[direnv](https://direnv.net/). The following `config.yml` shows how the file can
-be setup to support the blue/green deployment strategy Shopkeeper employs.
+List installed plugins.
 
 ```
-# config.yml
-development:
-  password: ${DEV_PASSWORD}
-  theme_id: ${DEV_THEME_ID}
-  store: ${PROD_STORE_URL}
-  directory: shopify
-staging:
-  password: ${PROD_PASSWORD}
-  theme_id: ${STAGING_THEME_ID}
-  store: ${PROD_STORE_URL}
-  directory: shopify
-production-blue:
-  password: ${PROD_PASSWORD}
-  theme_id: ${PROD_BLUE_THEME_ID}
-  store: ${PROD_STORE_URL}
-  directory: shopify
-production-green:
-  password: ${PROD_PASSWORD}
-  theme_id: ${PROD_GREEN_THEME_ID}
-  store: ${PROD_STORE_URL}
-  directory: shopify
+USAGE
+  $ shopkeeper plugins [--core]
+
+FLAGS
+  --core  Show core plugins.
+
+DESCRIPTION
+  List installed plugins.
+
+EXAMPLES
+  $ shopkeeper plugins
 ```
 
-## Configuration
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.2.2/src/commands/plugins/index.ts)_
 
-Use `settings.yml` to customize the name of your theme.
+## `shopkeeper plugins:install PLUGIN...`
 
-```
-productionThemeName: "Your Name Production - " "Defaults to Production"
-stagingThemeName: "Your Name Staging" # Defaults to "Staging"
-themeDirectory: "dist" # Defaults to "shopify"; relative to your project directory
-```
-
-The `productionThemeName` is used as a prefix for the blue and green themes. It will
-turn into `Your Name Production - Blue`. Also, on each deploy the current git SHA will
-be prepended `[abc1234]Your Name Production - Blue`
-
-## Development
-
-To install this package globally while you're working on it:
+Installs a plugin into the CLI.
 
 ```
-npm run build
-npm link
+USAGE
+  $ shopkeeper plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  Plugin to install.
+
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ shopkeeper plugins add
+
+EXAMPLES
+  $ shopkeeper plugins:install myplugin 
+
+  $ shopkeeper plugins:install https://github.com/someuser/someplugin
+
+  $ shopkeeper plugins:install someuser/someplugin
 ```
 
-If you're using `asdf` to manage your node version, you may need to run `asdf reshim` to pick up the changes. Also, make sure you're using the same node
-version in your shopkeeper directory as you are using elsewhere. `asdf` scopes
-global packages by version.
+## `shopkeeper plugins:inspect PLUGIN...`
 
-Then you'll be able to run:
+Displays installation properties of a plugin.
 
 ```
-$ shopkeeper
+USAGE
+  $ shopkeeper plugins:inspect PLUGIN...
+
+ARGUMENTS
+  PLUGIN  [default: .] Plugin to inspect.
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Displays installation properties of a plugin.
+
+EXAMPLES
+  $ shopkeeper plugins:inspect myplugin
 ```
 
-⚠️ This takes the current version of the code and installs it globally.
+## `shopkeeper plugins:install PLUGIN...`
 
-To run the CLI from the package while in development, use `yarn shopkeeper ` as is defined
-in the scripts.
-
-### Using Package Locally
-
-In shopkeeper root:
+Installs a plugin into the CLI.
 
 ```
-npm run build
-yarn link
+USAGE
+  $ shopkeeper plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  Plugin to install.
+
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ shopkeeper plugins add
+
+EXAMPLES
+  $ shopkeeper plugins:install myplugin 
+
+  $ shopkeeper plugins:install https://github.com/someuser/someplugin
+
+  $ shopkeeper plugins:install someuser/someplugin
 ```
 
-Note: We use `yarn` here because our projects are managed using yarn.
-If you're using `asdf` to manage your node versions, you may need to run `asdf reshim`.
-If you're using `npm`, use `npm link`.
+## `shopkeeper plugins:link PLUGIN`
 
-In the location where you want to use Shopkeeper, for example, the theme you want to use for testing:
+Links a plugin into the CLI for development.
 
 ```
-yarn link shopkeeper
-# If distributed package is installed
-yarn remove @thebeyondgroup/shopkeeper 
-yarn add --dev link:shopkeeper
+USAGE
+  $ shopkeeper plugins:link PLUGIN
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Links a plugin into the CLI for development.
+  Installation of a linked plugin will override a user-installed or core plugin.
+
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  command will override the user-installed or core plugin implementation. This is useful for development work.
+
+
+EXAMPLES
+  $ shopkeeper plugins:link myplugin
 ```
+
+## `shopkeeper plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ shopkeeper plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ shopkeeper plugins unlink
+  $ shopkeeper plugins remove
+```
+
+## `shopkeeper plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ shopkeeper plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ shopkeeper plugins unlink
+  $ shopkeeper plugins remove
+```
+
+## `shopkeeper plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ shopkeeper plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ shopkeeper plugins unlink
+  $ shopkeeper plugins remove
+```
+
+## `shopkeeper plugins update`
+
+Update installed plugins.
+
+```
+USAGE
+  $ shopkeeper plugins update [-h] [-v]
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Update installed plugins.
+```
+<!-- commandsstop -->

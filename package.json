@@ -1,48 +1,72 @@
 {
-  "name": "@thebeyondgroup/shopkeeper",
-  "version": "0.6.1",
+  "name": "shopkeeper",
+  "version": "1.0.0",
   "description": "A CLI for managing Shopify stores",
-  "main": "dist/src/shopkeeper.js",
-  "types": "dist/src/shopkeeper.d.ts",
-  "repository": "git://github.com/TheBeyondGroup/shopkeeper.git",
-  "author": "Jeffrey Guenther <guenther.jeffrey@gmail.com>",
-  "license": "MIT",
-  "private": false,
-  "scripts": {
-    "build": "./build.sh",
-    "clean": "rm -r ./dist",
-    "shopkeeper": "./dist/src/cli/shopkeeper.js",
-    "test": "jest",
-    "postpublish": "npm publish --ignore-scripts --@thebeyondgroup:registry='https://registry.npmjs.org'",
-    "prepublishOnly": "./build.sh"
-  },
+  "author": "Jeffrey Guenther @jeffreyguenther",
   "bin": {
-    "shopkeeper": "./dist/src/cli/shopkeeper.js"
+    "shopkeeper": "./bin/run"
+  },
+  "homepage": "https://github.com/TheBeyondGroup/shopkeeper",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "TheBeyondGroup/shopkeeper",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^2",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.2.2"
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/jest": "^26.0.20",
-    "@types/mock-fs": "^4.13.0",
-    "@types/prettier": "^2.2.1",
-    "jest": "^26.6.3",
-    "mock-fs": "^4.14.0",
-    "mocked-env": "^1.3.4",
-    "prettier": "2.2.1",
-    "ts-jest": "^26.5.1",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.5"
+    "@oclif/test": "^2.3.3",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.18.11",
+    "chai": "^4",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "mocha": "^9",
+    "oclif": "^3",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
   },
-  "dependencies": {
-    "@shopify/themekit": "^1.1.9",
-    "@types/fs-extra": "^9.0.12",
-    "@types/inquirer": "^7.3.1",
-    "axios": "^0.21.1",
-    "commander": "^8.0.0",
-    "fs-extra": "^10.0.0",
-    "glob": "^7.2.0",
-    "head-hash": "^0.3.0",
-    "inquirer": "^8.0.0",
-    "string-env-interpolation": "^1.0.1",
-    "yaml": "^1.10.2"
-  }
+  "oclif": {
+    "bin": "shopkeeper",
+    "dirname": "shopkeeper",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/TheBeyondGroup/shopkeeper/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
 }

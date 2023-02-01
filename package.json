@@ -19,7 +19,8 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^2.2.2"
+    "@oclif/plugin-plugins": "^2.2.2",
+    "@shopify/cli-kit": "^3.0.24"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.3",

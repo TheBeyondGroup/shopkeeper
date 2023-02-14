@@ -600,6 +600,40 @@
     "supports-color" "^8.1.1"
     "tslib" "^2"
 
+"@oclif/core@^1.21.0":
+  "integrity" "sha512-6jYuZgXvHfOIc9GIaS4T3CIKGTjPmfAxuMcbCbMRKJJl4aq/4xeRlEz0E8/hz8HxvxZBGvN2GwAUHlrGWQVrVw=="
+  "resolved" "https://registry.npmjs.org/@oclif/core/-/core-1.26.2.tgz"
+  "version" "1.26.2"
+  dependencies:
+    "@oclif/linewrap" "^1.0.0"
+    "@oclif/screen" "^3.0.4"
+    "ansi-escapes" "^4.3.2"
+    "ansi-styles" "^4.3.0"
+    "cardinal" "^2.1.1"
+    "chalk" "^4.1.2"
+    "clean-stack" "^3.0.1"
+    "cli-progress" "^3.10.0"
+    "debug" "^4.3.4"
+    "ejs" "^3.1.6"
+    "fs-extra" "^9.1.0"
+    "get-package-type" "^0.1.0"
+    "globby" "^11.1.0"
+    "hyperlinker" "^1.0.0"
+    "indent-string" "^4.0.0"
+    "is-wsl" "^2.2.0"
+    "js-yaml" "^3.14.1"
+    "natural-orderby" "^2.0.3"
+    "object-treeify" "^1.1.33"
+    "password-prompt" "^1.1.2"
+    "semver" "^7.3.7"
+    "string-width" "^4.2.3"
+    "strip-ansi" "^6.0.1"
+    "supports-color" "^8.1.1"
+    "supports-hyperlinks" "^2.2.0"
+    "tslib" "^2.4.1"
+    "widest-line" "^3.1.0"
+    "wrap-ansi" "^7.0.0"
+
 "@oclif/core@^2.0.3":
   "version" "2.1.4"
   dependencies:
@@ -627,6 +661,78 @@
     "strip-ansi" "^6.0.1"
     "supports-color" "^8.1.1"
     "supports-hyperlinks" "^2.2.0"
+    "tslib" "^2.5.0"
+    "widest-line" "^3.1.0"
+    "wordwrap" "^1.0.0"
+    "wrap-ansi" "^7.0.0"
+
+"@oclif/core@^2.8.10":
+  "integrity" "sha512-i5LXd+VCjoidlVWD1AF9ZWP7S3iP5WoeUNYXnJGoBeZcgqaAYVdONkBoIann0zFpdImuxNrkdHYnAhfLlPvdzQ=="
+  "resolved" "https://registry.npmjs.org/@oclif/core/-/core-2.11.6.tgz"
+  "version" "2.11.6"
+  dependencies:
+    "@types/cli-progress" "^3.11.0"
+    "ansi-escapes" "^4.3.2"
+    "ansi-styles" "^4.3.0"
+    "cardinal" "^2.1.1"
+    "chalk" "^4.1.2"
+    "clean-stack" "^3.0.1"
+    "cli-progress" "^3.12.0"
+    "debug" "^4.3.4"
+    "ejs" "^3.1.8"
+    "fs-extra" "^9.1.0"
+    "get-package-type" "^0.1.0"
+    "globby" "^11.1.0"
+    "hyperlinker" "^1.0.0"
+    "indent-string" "^4.0.0"
+    "is-wsl" "^2.2.0"
+    "js-yaml" "^3.14.1"
+    "natural-orderby" "^2.0.3"
+    "object-treeify" "^1.1.33"
+    "password-prompt" "^1.1.2"
+    "semver" "^7.5.3"
+    "slice-ansi" "^4.0.0"
+    "string-width" "^4.2.3"
+    "strip-ansi" "^6.0.1"
+    "supports-color" "^8.1.1"
+    "supports-hyperlinks" "^2.2.0"
+    "ts-node" "^10.9.1"
+    "tslib" "^2.5.0"
+    "widest-line" "^3.1.0"
+    "wordwrap" "^1.0.0"
+    "wrap-ansi" "^7.0.0"
+
+"@oclif/core@^2.8.11":
+  "integrity" "sha512-i5LXd+VCjoidlVWD1AF9ZWP7S3iP5WoeUNYXnJGoBeZcgqaAYVdONkBoIann0zFpdImuxNrkdHYnAhfLlPvdzQ=="
+  "resolved" "https://registry.npmjs.org/@oclif/core/-/core-2.11.6.tgz"
+  "version" "2.11.6"
+  dependencies:
+    "@types/cli-progress" "^3.11.0"
+    "ansi-escapes" "^4.3.2"
+    "ansi-styles" "^4.3.0"
+    "cardinal" "^2.1.1"
+    "chalk" "^4.1.2"
+    "clean-stack" "^3.0.1"
+    "cli-progress" "^3.12.0"
+    "debug" "^4.3.4"
+    "ejs" "^3.1.8"
+    "fs-extra" "^9.1.0"
+    "get-package-type" "^0.1.0"
+    "globby" "^11.1.0"
+    "hyperlinker" "^1.0.0"
+    "indent-string" "^4.0.0"
+    "is-wsl" "^2.2.0"
+    "js-yaml" "^3.14.1"
+    "natural-orderby" "^2.0.3"
+    "object-treeify" "^1.1.33"
+    "password-prompt" "^1.1.2"
+    "semver" "^7.5.3"
+    "slice-ansi" "^4.0.0"
+    "string-width" "^4.2.3"
+    "strip-ansi" "^6.0.1"
+    "supports-color" "^8.1.1"
+    "supports-hyperlinks" "^2.2.0"
+    "ts-node" "^10.9.1"
     "tslib" "^2.5.0"
     "widest-line" "^3.1.0"
     "wordwrap" "^1.0.0"
@@ -700,7 +806,9 @@
     "wordwrap" "^1.0.0"
     "wrap-ansi" "^7.0.0"
 
-"@oclif/core@^2", "@oclif/core@^2.8.10", "@oclif/core@^2.8.11", "@oclif/core@2.8.11":
+"@oclif/core@2.8.11":
+  "integrity" "sha512-9wYW6KRSWfB/D+tqeyl/jxmEz/xPXkFJGVWfKaptqHz6FPWNJREjAM945MuJL2Y8NRhMe+ScRlZ3WpdToX5aVQ=="
+  "resolved" "https://registry.npmjs.org/@oclif/core/-/core-2.8.11.tgz"
   "version" "2.8.11"
   dependencies:
     "@types/cli-progress" "^3.11.0"
@@ -732,6 +840,11 @@
     "widest-line" "^3.1.0"
     "wordwrap" "^1.0.0"
     "wrap-ansi" "^7.0.0"
+
+"@oclif/linewrap@^1.0.0":
+  "integrity" "sha512-Ups2dShK52xXa8w6iBWLgcjPJWjais6KPJQq3gQ/88AY6BXoTX+MIGFPrWQO1KLMiQfoTpcLnUwloN4brrVUHw=="
+  "resolved" "https://registry.npmjs.org/@oclif/linewrap/-/linewrap-1.0.0.tgz"
+  "version" "1.0.0"
 
 "@oclif/plugin-commands@2.2.17":
   "integrity" "sha512-shjVZCopCIbTN8I/i/DR7NwqFRMFau++n3+x2ON7JSNRo+zr/lXQUejxv50D64etQ4dP5wyIyvs+t9iN7j//gg=="
@@ -785,6 +898,11 @@
     "http-call" "^5.2.2"
     "lodash" "^4.17.21"
     "semver" "^7.5.4"
+
+"@oclif/screen@^3.0.4":
+  "integrity" "sha512-nEv7dFPxCrWrvK6dQ8zya0/Kb54EXVcwIKV9capjSa89ZDoOo+qH0YSo4/eQVECXgW3eUvgKLDIcIt62YBk0HA=="
+  "resolved" "https://registry.npmjs.org/@oclif/screen/-/screen-3.0.6.tgz"
+  "version" "3.0.6"
 
 "@oclif/test@^2.3.3":
   "integrity" "sha512-7cT12WxuNTcbON3dRxu3D8GNOqv/cCKkH3d39Dsa+QQFtFPzhQysaW27QdwivTRPSauD+3jQfmScb2qd1l6Dig=="
@@ -2070,7 +2188,7 @@
   dependencies:
     "restore-cursor" "^4.0.0"
 
-"cli-progress@^3.11.2", "cli-progress@^3.12.0":
+"cli-progress@^3.10.0", "cli-progress@^3.11.2", "cli-progress@^3.12.0":
   "version" "3.12.0"
   dependencies:
     "string-width" "^4.2.3"
@@ -6535,6 +6653,8 @@
     "has-flag" "^4.0.0"
 
 "supports-hyperlinks@^2.2.0":
+  "integrity" "sha512-RpsAZlpWcDwOPQA22aCH4J0t7L8JmAvsCxfOSEwm7cQs3LshN36QaTkwd70DnBOXDWGssw2eUoc8CaRWT0XunA=="
+  "resolved" "https://registry.npmjs.org/supports-hyperlinks/-/supports-hyperlinks-2.3.0.tgz"
   "version" "2.3.0"
   dependencies:
     "has-flag" "^4.0.0"
@@ -6708,13 +6828,13 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.3", "tslib@^2.4.1":
+"tslib@^2.0.3", "tslib@^2.4.1", "tslib@^2.5.0":
   "version" "2.5.0"
 
 "tslib@^2.1.0":
   "version" "2.6.0"
 
-"tslib@^2.3.1", "tslib@^2.5.0":
+"tslib@^2.3.1":
   "version" "2.6.0"
 
 "tslib@^2":

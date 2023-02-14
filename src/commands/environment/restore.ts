@@ -5,9 +5,5 @@ export default class Restore extends Command {
 
   static examples = [];
 
-  static flags = {};
-
-  static args = {};
-
   async run(): Promise<void> { }
 }

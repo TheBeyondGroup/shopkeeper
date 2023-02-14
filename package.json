@@ -23,6 +23,7 @@
     "@shopify/cli-kit": "^3.0.24"
   },
   "devDependencies": {
+    "@shopify/cli": "^3.0.24",
     "@oclif/test": "^2.3.3",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",

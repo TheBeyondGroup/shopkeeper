@@ -7,7 +7,5 @@ export default class Init extends Command {
 
   static flags = {};
 
-  static args = {};
-
   async run(): Promise<void> { }
 }

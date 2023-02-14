@@ -7,7 +7,5 @@ export default class Get extends Command {
 
   static flags = {};
 
-  static args = {};
-
   async run(): Promise<void> { }
 }

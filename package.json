@@ -43,6 +43,6 @@
     "head-hash": "^0.3.0",
     "inquirer": "^8.0.0",
     "string-env-interpolation": "^1.0.1",
-    "yaml": "^1.10.2"
+    "yaml": "^2.2.2"
   }
 }

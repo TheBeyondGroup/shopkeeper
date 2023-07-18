@@ -78,52 +78,87 @@ export default class ShopkeeperConfig {
   }
 
   backupThemeSettingsTemplatesPath(store: string, fileName: string): string {
-    return `${this.backupEnvironmentRootPath(store)}/templates/${fileName}`
+    return `${this.backupEnvironmentRootPath(store)}/templates/${fileName}`;
   }
 
-  async backupThemeSettingsSaveFileMoves(environment: string): Promise<Array<FileMove>>{
-    const settingsSourcePath = await this.themeSettingsPath()
-    const settingsDestinationPath = this.backupThemeSettingsDataPath(environment)
-    const fileMoves = [ 
-      { source: settingsSourcePath, 
-        destination: settingsDestinationPath
-      }
-    ]
+  backupCustomerTemplatePath(store: string, fileName: string): string {
+    return `${this.backupEnvironmentRootPath(
+      store
+    )}/templates/customers/${fileName}`;
+  }
 
-    const themeDir = await this.themeDirectory()
-    const jsonTemplateFiles = glob.sync(`${themeDir}/templates/**/*.json`)
-    const templateMoves = jsonTemplateFiles.map(fileName => {
-      const baseName = fileName.split("/").pop() || ""
+  async backupThemeSettingsSaveFileMoves(
+    environment: string
+  ): Promise<Array<FileMove>> {
+    const settingsSourcePath = await this.themeSettingsPath();
+    const settingsDestinationPath =
+      this.backupThemeSettingsDataPath(environment);
+    const fileMoves = [
+      { source: settingsSourcePath, destination: settingsDestinationPath },
+    ];
+
+    const themeDir = await this.themeDirectory();
+    let jsonTemplateFiles = glob.sync(`${themeDir}/templates/*.json`);
+    let templateMoves = jsonTemplateFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
       return {
         source: process.cwd() + `/${fileName}`,
-        destination: this.backupThemeSettingsTemplatesPath(environment, baseName)
-      }
-    })
+        destination: this.backupThemeSettingsTemplatesPath(
+          environment,
+          baseName
+        ),
+      };
+    });
 
-    return fileMoves.concat(templateMoves)
+    jsonTemplateFiles = glob.sync(`${themeDir}/templates/customers/*.json`);
+    const customerTemplateMoves = jsonTemplateFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
+      return {
+        source: process.cwd() + `/${fileName}`,
+        destination: this.backupCustomerTemplatePath(environment, baseName),
+      };
+    });
+
+    return fileMoves.concat(templateMoves).concat(customerTemplateMoves);
   }
 
-  async backupThemeSettingsRestoreFileMoves(environment: string): Promise<Array<FileMove>>{
-    const settingsSourcePath = this.backupThemeSettingsDataPath(environment)
-    const settingsDestinationPath = await this.themeSettingsPath()
+  async backupThemeSettingsRestoreFileMoves(
+    environment: string
+  ): Promise<Array<FileMove>> {
+    const settingsSourcePath = this.backupThemeSettingsDataPath(environment);
+    const settingsDestinationPath = await this.themeSettingsPath();
     const fileMoves = [
       {
-        source: settingsSourcePath, 
-        destination: settingsDestinationPath 
-      }
-    ]
+        source: settingsSourcePath,
+        destination: settingsDestinationPath,
+      },
+    ];
 
-    const themeDir = await this.themeDirectory()
-    const jsonTemplateFiles = glob.sync(`${this.backupThemeTemplatePath(environment)}/**/*.json`)
-    const templateMoves = jsonTemplateFiles.map(fileName => {
-      const baseName = fileName.split("/").pop() || ""
+    const themeDir = await this.themeDirectory();
+    let jsonTemplateFiles = glob.sync(
+      `${this.backupThemeTemplatePath(environment)}/*.json`
+    );
+    const templateMoves = jsonTemplateFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
       return {
         source: fileName,
-        destination: process.cwd() + `/${themeDir}/templates/${baseName}`
-      }
-    })
+        destination: process.cwd() + `/${themeDir}/templates/${baseName}`,
+      };
+    });
 
-    return fileMoves.concat(templateMoves)
+    jsonTemplateFiles = glob.sync(
+      `${this.backupThemeTemplatePath(environment)}/customers/*.json`
+    );
+    const customerTemplateMoves = jsonTemplateFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
+      return {
+        source: fileName,
+        destination:
+          process.cwd() + `/${themeDir}/templates/customers/${baseName}`,
+      };
+    });
+
+    return fileMoves.concat(templateMoves).concat(customerTemplateMoves);
   }
 
   async themeJSONTemplates(){

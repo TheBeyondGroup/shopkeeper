@@ -7,7 +7,5 @@ export default class Switch extends Command {
 
   static flags = {};
 
-  static args = {};
-
   async run(): Promise<void> { }
 }

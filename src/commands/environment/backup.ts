@@ -7,7 +7,5 @@ export default class Backup extends Command {
 
   static flags = {};
 
-  static args = {};
-
   async run(): Promise<void> { }
 }

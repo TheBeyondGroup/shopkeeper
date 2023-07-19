@@ -29,8 +29,12 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`shopkeeper hello PERSON`](#shopkeeper-hello-person)
-* [`shopkeeper hello world`](#shopkeeper-hello-world)
+* [`shopkeeper bucket create`](#shopkeeper-bucket-create)
+* [`shopkeeper bucket current`](#shopkeeper-bucket-current)
+* [`shopkeeper bucket init`](#shopkeeper-bucket-init)
+* [`shopkeeper bucket restore`](#shopkeeper-bucket-restore)
+* [`shopkeeper bucket save`](#shopkeeper-bucket-save)
+* [`shopkeeper bucket switch`](#shopkeeper-bucket-switch)
 * [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
 * [`shopkeeper plugins`](#shopkeeper-plugins)
 * [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
@@ -41,45 +45,51 @@ USAGE
 * [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-1)
 * [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-2)
 * [`shopkeeper plugins update`](#shopkeeper-plugins-update)
+* [`shopkeeper theme deploy`](#shopkeeper-theme-deploy)
+* [`shopkeeper theme get`](#shopkeeper-theme-get)
+* [`shopkeeper theme settings backup`](#shopkeeper-theme-settings-backup)
+* [`shopkeeper theme settings download`](#shopkeeper-theme-settings-download)
 
-## `shopkeeper hello PERSON`
-
-Say hello
-
-```
-USAGE
-  $ shopkeeper hello [PERSON] -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [dist/commands/hello/index.ts](https://github.com/TheBeyondGroup/shopkeeper/blob/v1.0.0/dist/commands/hello/index.ts)_
-
-## `shopkeeper hello world`
-
-Say hello world
+## `shopkeeper bucket create`
 
 ```
 USAGE
-  $ shopkeeper hello world
+  $ shopkeeper bucket create
+```
 
-DESCRIPTION
-  Say hello world
+## `shopkeeper bucket current`
 
-EXAMPLES
-  $ shopkeeper hello world
-  hello world! (./src/commands/hello/world.ts)
+```
+USAGE
+  $ shopkeeper bucket current
+```
+
+## `shopkeeper bucket init`
+
+```
+USAGE
+  $ shopkeeper bucket init
+```
+
+## `shopkeeper bucket restore`
+
+```
+USAGE
+  $ shopkeeper bucket restore
+```
+
+## `shopkeeper bucket save`
+
+```
+USAGE
+  $ shopkeeper bucket save
+```
+
+## `shopkeeper bucket switch`
+
+```
+USAGE
+  $ shopkeeper bucket switch
 ```
 
 ## `shopkeeper help [COMMANDS]`
@@ -330,5 +340,33 @@ FLAGS
 
 DESCRIPTION
   Update installed plugins.
+```
+
+## `shopkeeper theme deploy`
+
+```
+USAGE
+  $ shopkeeper theme deploy
+```
+
+## `shopkeeper theme get`
+
+```
+USAGE
+  $ shopkeeper theme get
+```
+
+## `shopkeeper theme settings backup`
+
+```
+USAGE
+  $ shopkeeper theme settings backup
+```
+
+## `shopkeeper theme settings download`
+
+```
+USAGE
+  $ shopkeeper theme settings download
 ```
 <!-- commandsstop -->

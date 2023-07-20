@@ -1,3 +1,5 @@
 node_modules
-*.log
+*.md
+bin
 dist
+*.d.ts

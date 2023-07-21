@@ -1,7 +1,7 @@
 {
   "name": "shopkeeper",
   "version": "1.0.0",
-  "description": "A CLI for managing Shopify stores",
+  "description": "A CLI to manage Shopify stores",
   "author": "Jeffrey Guenther @jeffreyguenther",
   "bin": {
     "shopkeeper": "./bin/run"
@@ -19,12 +19,13 @@
   "dependencies": {
     "@oclif/core": "^1.21.0",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^2.2.2",
-    "@shopify/cli-kit": "^3.0.24"
+    "@oclif/plugin-plugins": "^2.2.2"
   },
   "devDependencies": {
-    "@shopify/cli": "^3.0.24",
     "@oclif/test": "^2.3.3",
+    "@shopify/cli": "3.47.5",
+    "@shopify/cli-kit": "3.47.5",
+    "@shopify/theme": "3.47.5",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.11",
@@ -47,16 +48,11 @@
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
     ],
-    "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    "topicSeparator": " "
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "dev": "npm run build && npm exec shopify",
+    "dev": "yarn build && npm exec -- shopify",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postinstall": "node bin/patch-cli.js",
     "postpack": "shx rm -f oclif.manifest.json",

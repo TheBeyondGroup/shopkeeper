@@ -1,12 +1,29 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "lib": ["ES2020"],
+    "module": "ES2020",
+    "target": "ES2020",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "isolatedModules": false,
+    "sourceMap": true,
+    "inlineSources": true,
+    "noUncheckedIndexedAccess": true,
+    "jsx": "react",
     "declaration": true,
     "importHelpers": true,
-    "module": "NodeNext",
     "outDir": "dist",
     "rootDir": "src",
-    "strict": true,
-    "target": "es2019"
+    "paths": {
+      "@shopify/cli-kit/*": ["./node_modules/@shopify/cli-kit/dist/public/*", "./node_modules/@shopify/cli-kit/dist/private/*"]
+    }
   },
   "include": [
     "src/**/*"

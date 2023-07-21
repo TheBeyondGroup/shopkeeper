@@ -52,7 +52,7 @@
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "dev": "npm run build && npm exec shopify",
+    "dev": "yarn build && npm exec -- shopify",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postinstall": "node bin/patch-cli.js",
     "postpack": "shx rm -f oclif.manifest.json",

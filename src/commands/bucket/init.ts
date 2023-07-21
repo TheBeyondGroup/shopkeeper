@@ -1,11 +1,15 @@
-import { Command } from "@oclif/core";
+import BaseCommand from "@shopify/cli-kit/node/base-command";
+import { init } from "../../services/bucket/init.js";
+import { globalFlags } from '@shopify/cli-kit/node/cli'
 
-export default class Init extends Command {
-  static description = "";
+export default class Init extends BaseCommand {
+  static description = "Initialize .shopkeeper directory in the current directory";
 
-  static examples = [];
+  static flags: any = {
+    ...globalFlags
+  };
 
-  static flags = {};
-
-  async run(): Promise<void> { }
+  async run(): Promise<void> {
+    init()
+  }
 }

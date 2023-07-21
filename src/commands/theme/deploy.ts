@@ -1,9 +1,7 @@
-import { Command } from "@oclif/core";
+import ThemeCommand from "@shopify/theme/dist/cli/utilities/theme-command.js";
 
-export default class Deploy extends Command {
-  static description = "";
-
-  static examples = [];
+export default class Deploy extends ThemeCommand {
+  static description = "Deploy source to on-deck theme";
 
   static flags = {};
 

@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "commands": {
+    "bucket:create": {
+      "id": "bucket:create",
+      "description": "Create a bucket in .shopkeeper",
+      "strict": false,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        }
+      },
+      "args": {}
+    },
+    "bucket:current": {
+      "id": "bucket:current",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "bucket:init": {
+      "id": "bucket:init",
+      "description": "Initialize .shopkeeper directory in the current directory",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        }
+      },
+      "args": {}
+    },
+    "bucket:restore": {
+      "id": "bucket:restore",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "bucket:save": {
+      "id": "bucket:save",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "bucket:switch": {
+      "id": "bucket:switch",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "theme:deploy": {
+      "id": "theme:deploy",
+      "description": "Deploy source to on-deck theme",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {},
+      "args": {}
+    },
+    "theme:get": {
+      "id": "theme:get",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "theme:settings:backup": {
+      "id": "theme:settings:backup",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    },
+    "theme:settings:download": {
+      "id": "theme:settings:download",
+      "description": "",
+      "strict": true,
+      "pluginName": "shopkeeper",
+      "pluginAlias": "shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [],
+      "flags": {},
+      "args": {}
+    }
+  }
+}

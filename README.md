@@ -20,7 +20,7 @@ $ npm install -g shopkeeper
 $ shopkeeper COMMAND
 running command...
 $ shopkeeper (--version)
-shopkeeper/1.0.0 darwin-x64 node-v16.13.2
+shopkeeper/1.0.0 darwin-x64 node-v18.17.0
 $ shopkeeper --help [COMMAND]
 USAGE
   $ shopkeeper COMMAND
@@ -52,9 +52,18 @@ USAGE
 
 ## `shopkeeper bucket create`
 
+Create a bucket in .shopkeeper
+
 ```
 USAGE
-  $ shopkeeper bucket create
+  $ shopkeeper bucket create [--no-color] [--verbose]
+
+FLAGS
+  --no-color  Disable color output.
+  --verbose   Increase the verbosity of the logs.
+
+DESCRIPTION
+  Create a bucket in .shopkeeper
 ```
 
 ## `shopkeeper bucket current`
@@ -66,9 +75,18 @@ USAGE
 
 ## `shopkeeper bucket init`
 
+Initialize .shopkeeper directory in the current directory
+
 ```
 USAGE
-  $ shopkeeper bucket init
+  $ shopkeeper bucket init [--no-color] [--verbose]
+
+FLAGS
+  --no-color  Disable color output.
+  --verbose   Increase the verbosity of the logs.
+
+DESCRIPTION
+  Initialize .shopkeeper directory in the current directory
 ```
 
 ## `shopkeeper bucket restore`
@@ -344,9 +362,14 @@ DESCRIPTION
 
 ## `shopkeeper theme deploy`
 
+Deploy source to on-deck theme
+
 ```
 USAGE
   $ shopkeeper theme deploy
+
+DESCRIPTION
+  Deploy source to on-deck theme
 ```
 
 ## `shopkeeper theme get`

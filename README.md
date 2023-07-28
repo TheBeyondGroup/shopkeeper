@@ -32,9 +32,9 @@ USAGE
 * [`shopkeeper bucket create`](#shopkeeper-bucket-create)
 * [`shopkeeper bucket current`](#shopkeeper-bucket-current)
 * [`shopkeeper bucket init`](#shopkeeper-bucket-init)
-* [`shopkeeper bucket restore`](#shopkeeper-bucket-restore)
+* [`shopkeeper bucket restore [BUCKET]`](#shopkeeper-bucket-restore-bucket)
 * [`shopkeeper bucket save [BUCKET]`](#shopkeeper-bucket-save-bucket)
-* [`shopkeeper bucket switch BUCKET`](#shopkeeper-bucket-switch-bucket)
+* [`shopkeeper bucket switch [BUCKET]`](#shopkeeper-bucket-switch-bucket)
 * [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
 * [`shopkeeper plugins`](#shopkeeper-plugins)
 * [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
@@ -98,11 +98,26 @@ DESCRIPTION
   Initialize .shopkeeper directory in the current directory
 ```
 
-## `shopkeeper bucket restore`
+## `shopkeeper bucket restore [BUCKET]`
+
+Restores the theme settings from the specified bucket
 
 ```
 USAGE
-  $ shopkeeper bucket restore
+  $ shopkeeper bucket restore [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
+
+ARGUMENTS
+  BUCKET  The bucket you want to restore your settings from.
+
+FLAGS
+  -e, --environment=<value>  The environment to apply to the current command.
+  -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
+  --no-color                 Disable color output.
+  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
+  --verbose                  Increase the verbosity of the logs.
+
+DESCRIPTION
+  Restores the theme settings from the specified bucket
 ```
 
 ## `shopkeeper bucket save [BUCKET]`
@@ -127,20 +142,23 @@ DESCRIPTION
   Saves the current theme settings to the specified bucket
 ```
 
-## `shopkeeper bucket switch BUCKET`
+## `shopkeeper bucket switch [BUCKET]`
 
 Switches the current bucket by copying settings and .env
 
 ```
 USAGE
-  $ shopkeeper bucket switch BUCKET [--no-color] [--verbose]
+  $ shopkeeper bucket switch [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
 
 ARGUMENTS
   BUCKET  The bucket to switch to
 
 FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  -e, --environment=<value>  The environment to apply to the current command.
+  -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
+  --no-color                 Disable color output.
+  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
+  --verbose                  Increase the verbosity of the logs.
 
 DESCRIPTION
   Switches the current bucket by copying settings and .env

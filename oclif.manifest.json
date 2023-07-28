@@ -185,15 +185,55 @@
     },
     "bucket:switch": {
       "id": "bucket:switch",
-      "description": "",
+      "description": "Switches the current bucket by copying settings and .env",
       "strict": true,
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "description": "The path to your theme directory.",
+          "multiple": false,
+          "default": "/Users/jeff/Beyond/shopkeeper@1"
+        },
+        "environment": {
+          "name": "environment",
+          "type": "option",
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "multiple": false
+        },
+        "nodelete": {
+          "name": "nodelete",
+          "type": "boolean",
+          "char": "n",
+          "description": "Runs the restore command without removing the theme's JSON settings.",
+          "allowNo": false
+        }
+      },
+      "args": {
+        "bucket": {
+          "name": "bucket",
+          "description": "The bucket to switch to"
+        }
+      }
     },
     "theme:deploy": {
       "id": "theme:deploy",

@@ -1,8 +1,8 @@
 import { AbortError } from "@shopify/cli-kit/node/error"
-import { copyFile, findPathUp, glob } from "@shopify/cli-kit/node/fs"
-import { basename, cwd } from "@shopify/cli-kit/node/path"
-import { renderFatalError, renderSelectPrompt } from "@shopify/cli-kit/node/ui"
-import { shopkeeperDirectory } from "./constants.js"
+import { copyFile, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { basename, cwd, resolvePath } from "@shopify/cli-kit/node/path"
+import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
+import { currentBucketFile, shopkeeperDirectory } from "./constants.js"
 
 export type FileMove = {
   source: string,
@@ -53,6 +53,18 @@ export async function getShopkeeperPath(): Promise<string> {
   }
 
   return shopkeeperRoot
+}
+
+export async function getProjectDir() {
+  const shopkeeperRoot = await getShopkeeperPath()
+  const projectDir = resolvePath(shopkeeperRoot, "..")
+  return projectDir
+}
+
+export async function setCurrentBucket(bucket: string) {
+  const shopkeeperRoot = await getShopkeeperPath()
+  const contents = `${bucket}\n`
+  await writeFile(`${shopkeeperRoot}/${currentBucketFile}`, contents)
 }
 
 export function getSettingsPatterns() {

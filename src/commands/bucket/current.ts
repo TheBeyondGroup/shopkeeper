@@ -1,11 +1,15 @@
-import { Command } from "@oclif/core";
+import BaseCommand from "@shopify/cli-kit/node/base-command";
+import { globalFlags } from "@shopify/cli-kit/node/cli";
+import { current } from "../../services/bucket/current.js";
 
-export default class Current extends Command {
-  static description = "";
+export default class Current extends BaseCommand {
+  static description = "Output the current bucket";
 
-  static examples = [];
+  static flags: any = {
+    ...globalFlags,
+  };
 
-  static flags = {};
-
-  async run(): Promise<void> { }
+  async run(): Promise<void> {
+    current();
+  }
 }

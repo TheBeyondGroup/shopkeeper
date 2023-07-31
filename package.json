@@ -1,10 +1,10 @@
 {
-  "name": "shopkeeper",
+  "name": "@thebeyondgroup/shopkeeper",
   "version": "1.0.0",
-  "description": "A CLI to manage Shopify stores",
+  "description": "A CLI to manage settings and deployments for Shopify themes",
   "author": "Jeffrey Guenther @jeffreyguenther",
   "bin": {
-    "shopkeeper": "./bin/run"
+    "shopkeeper": "./bin/run.js"
   },
   "homepage": "https://github.com/TheBeyondGroup/shopkeeper",
   "license": "MIT",
@@ -17,20 +17,20 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@oclif/core": "^1.21.0",
-    "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^2.2.2"
+    "@shopify/cli": "3.48.0",
+    "@shopify/cli-kit": "3.48.0",
+    "@shopify/theme": "3.48.0",
+    "@oclif/core": "2.8.11",
+    "@oclif/plugin-commands": "2.2.17",
+    "@oclif/plugin-help": "5.2.1"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.3",
-    "@shopify/cli": "3.47.5",
-    "@shopify/cli-kit": "3.47.5",
-    "@shopify/theme": "3.47.5",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.11",
     "chai": "^4",
-    "eslint": "^7.32.0",
+    "eslint": "^8.44.0",
     "eslint-config-oclif": "^4",
     "eslint-config-oclif-typescript": "^1.0.3",
     "mocha": "^9",
@@ -62,7 +62,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.17.0"
   },
   "bugs": "https://github.com/TheBeyondGroup/shopkeeper/issues",
   "keywords": [

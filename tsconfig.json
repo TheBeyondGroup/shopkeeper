@@ -1,7 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "lib": ["ES2020"],
+    "lib": [
+      "ES2020"
+    ],
     "module": "ES2020",
     "target": "ES2020",
     "moduleResolution": "NodeNext",
@@ -17,13 +19,18 @@
     "inlineSources": true,
     "noUncheckedIndexedAccess": true,
     "jsx": "react",
-    "declaration": true,
     "importHelpers": true,
     "outDir": "dist",
     "rootDir": "src",
     "paths": {
-      "@shopify/cli-kit/*": ["./node_modules/@shopify/cli-kit/dist/public/*", "./node_modules/@shopify/cli-kit/dist/private/*"]
+      "@shopify/cli-kit/*": [
+        "./node_modules/@shopify/cli-kit/dist/public/*",
+        "./node_modules/@shopify/cli-kit/dist/private/*"
+      ]
     }
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": [
     "src/**/*"

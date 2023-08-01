@@ -7,7 +7,7 @@ export default class Create extends BaseCommand {
 
   static strict = false
 
-  static flags: any = {
+  static flags = {
     ...globalFlags
   };
 

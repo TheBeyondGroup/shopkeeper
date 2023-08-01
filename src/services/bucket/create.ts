@@ -1,10 +1,10 @@
-import { mkdir, findPathUp, touchFile } from "@shopify/cli-kit/node/fs"
+import { mkdir, touchFile } from "@shopify/cli-kit/node/fs"
+import { getBucketPath } from "../../utilities/bucket.js"
 
 export async function create(buckets: string[]) {
-  const bucketRoot = await findPathUp("./.shopkeeper", { type: "directory" })
 
   buckets.forEach(async bucket => {
-    const bucketPath = `${bucketRoot}/${bucket}`
+    const bucketPath = await getBucketPath(bucket)
     await mkdir(bucketPath)
     await touchFile(`${bucketPath}/.env`)
     await touchFile(`${bucketPath}/.env.sample`)
@@ -13,4 +13,3 @@ export async function create(buckets: string[]) {
     await mkdir(`${bucketPath}/sections`)
   })
 }
-

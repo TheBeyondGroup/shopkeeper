@@ -16,11 +16,11 @@ oclif example Hello World CLI
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g shopkeeper
+$ npm install -g @thebeyondgroup/shopkeeper
 $ shopkeeper COMMAND
 running command...
 $ shopkeeper (--version)
-shopkeeper/1.0.0 darwin-x64 node-v18.17.0
+@thebeyondgroup/shopkeeper/1.0.0 darwin-x64 node-v18.17.0
 $ shopkeeper --help [COMMAND]
 USAGE
   $ shopkeeper COMMAND
@@ -33,8 +33,8 @@ USAGE
 * [`shopkeeper bucket current`](#shopkeeper-bucket-current)
 * [`shopkeeper bucket init`](#shopkeeper-bucket-init)
 * [`shopkeeper bucket restore`](#shopkeeper-bucket-restore)
-* [`shopkeeper bucket save`](#shopkeeper-bucket-save)
-* [`shopkeeper bucket switch`](#shopkeeper-bucket-switch)
+* [`shopkeeper bucket save [BUCKET]`](#shopkeeper-bucket-save-bucket)
+* [`shopkeeper bucket switch BUCKET`](#shopkeeper-bucket-switch-bucket)
 * [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
 * [`shopkeeper plugins`](#shopkeeper-plugins)
 * [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
@@ -68,9 +68,18 @@ DESCRIPTION
 
 ## `shopkeeper bucket current`
 
+Output the current bucket
+
 ```
 USAGE
-  $ shopkeeper bucket current
+  $ shopkeeper bucket current [--no-color] [--verbose]
+
+FLAGS
+  --no-color  Disable color output.
+  --verbose   Increase the verbosity of the logs.
+
+DESCRIPTION
+  Output the current bucket
 ```
 
 ## `shopkeeper bucket init`
@@ -96,18 +105,45 @@ USAGE
   $ shopkeeper bucket restore
 ```
 
-## `shopkeeper bucket save`
+## `shopkeeper bucket save [BUCKET]`
+
+Saves the current theme settings to the specified bucket
 
 ```
 USAGE
-  $ shopkeeper bucket save
+  $ shopkeeper bucket save [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
+
+ARGUMENTS
+  BUCKET  The bucket where you want to save your settings.
+
+FLAGS
+  -e, --environment=<value>  The environment to apply to the current command.
+  -n, --nodelete             Runs the save command without deleting the bucket's contents.
+  --no-color                 Disable color output.
+  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
+  --verbose                  Increase the verbosity of the logs.
+
+DESCRIPTION
+  Saves the current theme settings to the specified bucket
 ```
 
-## `shopkeeper bucket switch`
+## `shopkeeper bucket switch BUCKET`
+
+Switches the current bucket by copying settings and .env
 
 ```
 USAGE
-  $ shopkeeper bucket switch
+  $ shopkeeper bucket switch BUCKET [--no-color] [--verbose]
+
+ARGUMENTS
+  BUCKET  The bucket to switch to
+
+FLAGS
+  --no-color  Disable color output.
+  --verbose   Increase the verbosity of the logs.
+
+DESCRIPTION
+  Switches the current bucket by copying settings and .env
 ```
 
 ## `shopkeeper help [COMMANDS]`
@@ -128,7 +164,7 @@ DESCRIPTION
   Display help for shopkeeper.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.1/src/commands/help.ts)_
 
 ## `shopkeeper plugins`
 
@@ -148,7 +184,7 @@ EXAMPLES
   $ shopkeeper plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.2.2/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
 
 ## `shopkeeper plugins:install PLUGIN...`
 
@@ -202,6 +238,9 @@ ARGUMENTS
 FLAGS
   -h, --help     Show CLI help.
   -v, --verbose
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   Displays installation properties of a plugin.

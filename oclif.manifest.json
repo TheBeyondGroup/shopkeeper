@@ -5,8 +5,8 @@
       "id": "bucket:create",
       "description": "Create a bucket in .shopkeeper",
       "strict": false,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "flags": {
@@ -29,22 +29,36 @@
     },
     "bucket:current": {
       "id": "bucket:current",
-      "description": "",
+      "description": "Output the current bucket",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
-      "flags": {},
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        }
+      },
       "args": {}
     },
     "bucket:init": {
       "id": "bucket:init",
       "description": "Initialize .shopkeeper directory in the current directory",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "flags": {
@@ -69,44 +83,103 @@
       "id": "bucket:restore",
       "description": "",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
       "flags": {},
       "args": {}
     },
     "bucket:save": {
       "id": "bucket:save",
-      "description": "",
+      "description": "Saves the current theme settings to the specified bucket",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "description": "The path to your theme directory.",
+          "multiple": false,
+          "default": "/Users/jeff/Beyond/shopkeeper@1"
+        },
+        "environment": {
+          "name": "environment",
+          "type": "option",
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "multiple": false
+        },
+        "nodelete": {
+          "name": "nodelete",
+          "type": "boolean",
+          "char": "n",
+          "description": "Runs the save command without deleting the bucket's contents.",
+          "allowNo": false
+        }
+      },
+      "args": {
+        "bucket": {
+          "name": "bucket",
+          "description": "The bucket where you want to save your settings."
+        }
+      }
     },
     "bucket:switch": {
       "id": "bucket:switch",
-      "description": "",
+      "description": "Switches the current bucket by copying settings and .env",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        }
+      },
+      "args": {
+        "bucket": {
+          "name": "bucket",
+          "description": "The bucket to switch to",
+          "required": true
+        }
+      }
     },
     "theme:deploy": {
       "id": "theme:deploy",
       "description": "Deploy source to on-deck theme",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "flags": {},
@@ -116,8 +189,8 @@
       "id": "theme:get",
       "description": "",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "examples": [],
@@ -128,8 +201,8 @@
       "id": "theme:settings:backup",
       "description": "",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "examples": [],
@@ -140,8 +213,8 @@
       "id": "theme:settings:download",
       "description": "",
       "strict": true,
-      "pluginName": "shopkeeper",
-      "pluginAlias": "shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
       "examples": [],

@@ -5,7 +5,7 @@ import { current } from "../../services/bucket/current.js";
 export default class Current extends BaseCommand {
   static description = "Output the current bucket";
 
-  static flags: any = {
+  static flags = {
     ...globalFlags,
   };
 

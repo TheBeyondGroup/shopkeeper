@@ -1,7 +1,7 @@
 import { AbortError } from "@shopify/cli-kit/node/error"
 import { copyFile, findPathUp, glob } from "@shopify/cli-kit/node/fs"
 import { basename, cwd } from "@shopify/cli-kit/node/path"
-import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
+import { renderFatalError, renderSelectPrompt } from "@shopify/cli-kit/node/ui"
 import { shopkeeperDirectory } from "./constants.js"
 
 export type FileMove = {
@@ -70,7 +70,7 @@ export function getSettingsFolders() {
 }
 
 export async function copyFiles(moves: FileMove[]) {
-  moves.forEach(async move => {
-    await copyFile(move.source, move.dest)
-  })
+  await Promise.all(moves.map(async move => {
+    return copyFile(move.source, move.dest)
+  }))
 }

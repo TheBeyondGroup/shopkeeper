@@ -7,9 +7,9 @@ export async function save(bucket: string, path: string, skipEmptyDirectory: boo
   const bucketRoot = await getBucketPath(bucket)
 
   if (!skipEmptyDirectory) {
-    getSettingsFolders().forEach(async folder => {
-      await emptyDir(`${bucketRoot}/${folder}`)
-    })
+    await Promise.all(getSettingsFolders().map(async folder => {
+      return emptyDir(`${bucketRoot}/${folder}`)
+    }))
   }
 
   const fileMoves = themeSettingsPaths.map(settingPath => {

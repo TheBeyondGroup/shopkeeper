@@ -28,15 +28,17 @@ export async function getBuckets(): Promise<string[]> {
 
 export async function getBucketSettingsFilePaths(bucket: string): Promise<string[]> {
   const bucketRoot = await getBucketPath(bucket)
-  const settingsPatterns = getSettingsPatterns()
-  const bucketSettingsPaths = await glob(settingsPatterns, { cwd: bucketRoot })
-  return bucketSettingsPaths
+  return getSettingsFilePaths(bucketRoot)
 }
 
 export async function getThemeSettingsFilePaths(path: string): Promise<string[]> {
+  return getSettingsFilePaths(path)
+}
+
+export async function getSettingsFilePaths(cwd: string): Promise<string[]> {
   const settingsPatterns = getSettingsPatterns()
-  const themeSettingsPaths = await glob(settingsPatterns, { cwd: path })
-  return themeSettingsPaths
+  const settingsPaths = await glob(settingsPatterns, { cwd: cwd })
+  return settingsPaths
 }
 
 export async function getBucketPath(bucket: string): Promise<string> {

@@ -3,7 +3,7 @@ import { copyFiles, FileMove, getBucketPath, getSettingsFolders, getThemeSetting
 
 
 export async function save(bucket: string, path: string, skipEmptyDirectory: boolean): Promise<FileMove[]> {
-  const themeSettingsPaths = await getThemeSettingsFilePaths(path)
+  const settingsFromTheme = await getThemeSettingsFilePaths(path)
   const bucketRoot = await getBucketPath(bucket)
 
   if (!skipEmptyDirectory) {
@@ -12,7 +12,7 @@ export async function save(bucket: string, path: string, skipEmptyDirectory: boo
     }))
   }
 
-  const fileMoves = themeSettingsPaths.map(settingPath => {
+  const fileMoves = settingsFromTheme.map(settingPath => {
     return {
       file: settingPath,
       source: `${path}/${settingPath}`,

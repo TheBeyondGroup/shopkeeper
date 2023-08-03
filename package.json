@@ -23,12 +23,12 @@
     "@shopify/cli": "3.48.0",
     "@shopify/cli-kit": "3.48.0",
     "@shopify/theme": "3.48.0",
-    "@types/fs-extra": "^11.0.1",
     "fs-extra": "^11.1.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.3",
     "@types/chai": "^4",
+    "@types/fs-extra": "^11.0.1",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.11",
     "chai": "^4",

@@ -75,6 +75,14 @@ export function getSettingsPatterns() {
   ]
 }
 
+export function CLI2settingFlags() {
+  const patternFlags = getSettingsPatterns().flatMap(pattern => {
+    return ["--only", `${pattern}`]
+  })
+
+  return ["--live", ...patternFlags]
+}
+
 export function getSettingsFolders() {
   return [
     'config',

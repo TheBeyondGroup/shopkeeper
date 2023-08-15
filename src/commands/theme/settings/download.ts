@@ -20,7 +20,7 @@ export default class Download extends ThemeCommand {
     }),
     nodelete: Flags.boolean({
       char: 'n',
-      description: 'Runs the pull command without deleting local files.',
+      description: 'Runs the download command without deleting local files.',
       env: 'SHOPIFY_FLAG_NODELETE',
     }),
   };

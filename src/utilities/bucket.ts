@@ -75,7 +75,7 @@ export function getSettingsPatterns() {
   ]
 }
 
-export function CLI2settingFlags() {
+export function cli2settingFlags() {
   const patternFlags = getSettingsPatterns().flatMap(pattern => {
     return ["--only", `${pattern}`]
   })

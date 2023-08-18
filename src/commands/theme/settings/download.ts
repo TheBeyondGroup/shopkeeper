@@ -5,7 +5,7 @@ import { ensureAuthenticatedThemes } from '@shopify/cli-kit/node/session'
 import { themeFlags } from '@shopify/theme/dist/cli/flags.js';
 import ThemeCommand from '@shopify/theme/dist/cli/utilities/theme-command.js';
 import { ensureThemeStore } from '@shopify/theme/dist/cli/utilities/theme-store.js'
-import { CLI2settingFlags } from '../../../utilities/bucket.js';
+import { cli2settingFlags } from '../../../utilities/bucket.js';
 
 export default class Download extends ThemeCommand {
   static description = "Download settings from live theme.";
@@ -32,7 +32,7 @@ export default class Download extends ThemeCommand {
     const store = ensureThemeStore(flags)
     const adminSession = await ensureAuthenticatedThemes(store, flags.password)
     const flagsToPass = this.passThroughFlags(flags, { allowedFlags: Download.cli2Flags })
-    const settingFilterFlags = CLI2settingFlags()
+    const settingFilterFlags = cli2settingFlags()
     const command = ['theme', 'pull', flags.path, ...flagsToPass, ...settingFilterFlags]
 
     await execCLI2(command, { store, adminToken: adminSession.token })

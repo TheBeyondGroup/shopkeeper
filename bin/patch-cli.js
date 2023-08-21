@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { promises as fs } from "node:fs";
-import path from "node:path";
 import url from "node:url";
+import { findPathUp } from "@shopify/cli-kit/node/fs";
 
 if (process.env["$npm_config_production"]) {
   // We don't patch when the package is installed by the user
@@ -9,7 +9,7 @@ if (process.env["$npm_config_production"]) {
 }
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const cliPackageJsonPath = path.join(__dirname, "../node_modules/@shopify/cli/package.json")
+const cliPackageJsonPath = await findPathUp("node_modules/@shopify/cli/package.json", { type: "file", cwd: __dirname })
 const cliPackageJson = JSON.parse(await fs.readFile(cliPackageJsonPath))
 if (cliPackageJson.oclif.plugins.includes("@thebeyondgroup/shopkeeper")) {
   process.exit(0);

@@ -1,6 +1,6 @@
 import { mkdir } from "@shopify/cli-kit/node/fs"
-import { shopkeeperDirectory } from "../../utilities/constants.js"
+import { SHOPKEEPER_DIRECTORY } from "../../utilities/constants.js"
 
 export async function init() {
-  mkdir(`./${shopkeeperDirectory}`)
+  mkdir(`./${SHOPKEEPER_DIRECTORY}`)
 }

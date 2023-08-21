@@ -1,3 +1,5 @@
-export const shopkeeperDirectory = ".shopkeeper";
-export const legacyCurrentBucketFile = ".current-store";
-export const currentBucketFile = ".current-bucket";
+export const SHOPKEEPER_DIRECTORY = ".shopkeeper";
+export const LEGACY_CURRENT_BUCKET_FILE = ".current-store";
+export const CURRENT_BUCKET_FILE = ".current-bucket";
+export const BLUE_GREEN_STRATEGY = "blue-green"
+export const BASIC_STRATEGY = "basic"

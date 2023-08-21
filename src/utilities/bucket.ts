@@ -2,7 +2,7 @@ import { AbortError } from "@shopify/cli-kit/node/error"
 import { copyFile, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
 import { basename, cwd, resolvePath } from "@shopify/cli-kit/node/path"
 import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
-import { currentBucketFile, shopkeeperDirectory } from "./constants.js"
+import { CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY } from "./constants.js"
 
 export type FileMove = {
   source: string,
@@ -47,9 +47,9 @@ export async function getBucketPath(bucket: string): Promise<string> {
 }
 
 export async function getShopkeeperPath(): Promise<string> {
-  const shopkeeperRoot = await findPathUp(shopkeeperDirectory, { type: "directory" })
-  if (shopkeeperRoot == undefined) {
-    throw new AbortError(`Cannot find ${shopkeeperDirectory} directory when searching up from ${cwd()}.`);
+  const shopkeeperRoot = await findPathUp(SHOPKEEPER_DIRECTORY, { type: "directory" })
+  if (!shopkeeperRoot) {
+    throw new AbortError(`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${cwd()}.`);
   }
 
   return shopkeeperRoot
@@ -64,7 +64,7 @@ export async function getProjectDir() {
 export async function setCurrentBucket(bucket: string) {
   const shopkeeperRoot = await getShopkeeperPath()
   const contents = `${bucket}\n`
-  await writeFile(`${shopkeeperRoot}/${currentBucketFile}`, contents)
+  await writeFile(`${shopkeeperRoot}/${CURRENT_BUCKET_FILE}`, contents)
 }
 
 export function getSettingsPatterns() {
@@ -75,7 +75,7 @@ export function getSettingsPatterns() {
   ]
 }
 
-export function CLI2settingFlags() {
+export function cli2settingFlags() {
   const patternFlags = getSettingsPatterns().flatMap(pattern => {
     return ["--only", `${pattern}`]
   })

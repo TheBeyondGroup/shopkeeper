@@ -243,8 +243,93 @@
       "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "flags": {},
-      "args": {}
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "description": "The path to your theme directory.",
+          "multiple": false,
+          "default": "/Users/jeff/Beyond/shopkeeper@1"
+        },
+        "password": {
+          "name": "password",
+          "type": "option",
+          "description": "Password generated from the Theme Access app.",
+          "multiple": false
+        },
+        "store": {
+          "name": "store",
+          "type": "option",
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "multiple": false
+        },
+        "environment": {
+          "name": "environment",
+          "type": "option",
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "multiple": false
+        },
+        "nodelete": {
+          "name": "nodelete",
+          "type": "boolean",
+          "char": "n",
+          "description": "Runs the push command without deleting local files.",
+          "allowNo": false
+        },
+        "green": {
+          "name": "green",
+          "type": "option",
+          "description": "Green theme ID",
+          "multiple": false
+        },
+        "blue": {
+          "name": "blue",
+          "type": "option",
+          "description": "Blue theme ID",
+          "multiple": false
+        },
+        "strategy": {
+          "name": "strategy",
+          "type": "option",
+          "description": "Strategy to use for deployment",
+          "hidden": true,
+          "multiple": false,
+          "relationships": [
+            {
+              "type": "all",
+              "flags": [
+                {
+                  "name": "blue"
+                },
+                {
+                  "name": "green"
+                }
+              ]
+            }
+          ],
+          "default": "blue-green"
+        }
+      },
+      "args": {},
+      "cli2Flags": [
+        "nodelete"
+      ]
     },
     "theme:get": {
       "id": "theme:get",
@@ -272,15 +357,75 @@
     },
     "theme:settings:download": {
       "id": "theme:settings:download",
-      "description": "",
+      "description": "Download settings from live theme.",
       "strict": true,
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "description": "The path to your theme directory.",
+          "multiple": false,
+          "default": "/Users/jeff/Beyond/shopkeeper@1"
+        },
+        "password": {
+          "name": "password",
+          "type": "option",
+          "description": "Password generated from the Theme Access app.",
+          "multiple": false
+        },
+        "store": {
+          "name": "store",
+          "type": "option",
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "multiple": false
+        },
+        "environment": {
+          "name": "environment",
+          "type": "option",
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "multiple": false
+        },
+        "theme": {
+          "name": "theme",
+          "type": "option",
+          "char": "t",
+          "description": "Theme ID or name of the remote theme.",
+          "multiple": false
+        },
+        "nodelete": {
+          "name": "nodelete",
+          "type": "boolean",
+          "char": "n",
+          "description": "Runs the pull command without deleting local files.",
+          "allowNo": false
+        }
+      },
+      "args": {},
+      "cli2Flags": [
+        "theme",
+        "live",
+        "nodelete"
+      ]
     }
   }
 }

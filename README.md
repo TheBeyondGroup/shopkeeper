@@ -1,5 +1,6 @@
-Shopkeeper
-=================
+# Shopkeeper
+<a href="http://twitter.com/_thebeyondgroup"><img src="https://img.shields.io/twitter/follow/_thebeyondgroup?style=flat-square" alt="Twitter Followers"></a>
+<img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 
 Shopkeeper is a CLI to help manage Shopify stores. It is built as a Shopify plugin
 to allow seamless integration with the Shopify CLI theme developers use every day.
@@ -45,11 +46,11 @@ Add a `.shopkeeper` folder to the root of your project to store buckets of setti
 >
 > Therefore, we call our groups of settings buckets :bucket:
 
-For example, here we introduce a `production` buckets that
-refers to a particular a production Shopify instance. In multi-store,
+For example, here we introduce a `production` bucket that
+refers to a Shopify instance. In multi-store,
 multi-region setups, you might have a directory for each region. Say `canada`,
 `united-states`, or `united-kingdom`. Or you might use a bucket to contains the settings for
-and A/B test.
+an A/B test.
 
 Here we see an example bucket created from the default 
 installation of [Dawn](https://github.com/shopify/dawn):

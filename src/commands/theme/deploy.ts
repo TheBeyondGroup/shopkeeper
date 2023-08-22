@@ -8,7 +8,7 @@ import { deploy } from '../../services/theme/deploy.js';
 import { BLUE_GREEN_STRATEGY } from '../../utilities/constants.js';
 
 export default class Deploy extends ThemeCommand {
-  static description = "Deploy source to on-deck theme";
+  static description = "Deploy theme source to store";
 
   static flags = {
     ...globalFlags,

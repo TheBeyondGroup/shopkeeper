@@ -1,482 +1,143 @@
-oclif-hello-world
+Shopkeeper
 =================
 
-oclif example Hello World CLI
+Shopkeeper is a CLI to help manage Shopify stores. It is built as a Shopify plugin
+to allow seamless integration with the Shopify CLI theme developers use every day.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
+It can be used as a standalone CLI (`shopkeeper command`) 
+or integrated with the Shopify CLI (`shopify COMMAND`).
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
+It helps developers:
+* Manage settings
+* Deploy theme changes
+
+
+## Installation
+
+You can install the CLI globally with:
+
 ```sh-session
-$ npm install -g @thebeyondgroup/shopkeeper
-$ shopkeeper COMMAND
-running command...
-$ shopkeeper (--version)
-@thebeyondgroup/shopkeeper/1.0.0 darwin-x64 node-v18.17.0
-$ shopkeeper --help [COMMAND]
-USAGE
-  $ shopkeeper COMMAND
-...
-```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
-* [`shopkeeper bucket create`](#shopkeeper-bucket-create)
-* [`shopkeeper bucket current`](#shopkeeper-bucket-current)
-* [`shopkeeper bucket init`](#shopkeeper-bucket-init)
-* [`shopkeeper bucket restore [BUCKET]`](#shopkeeper-bucket-restore-bucket)
-* [`shopkeeper bucket save [BUCKET]`](#shopkeeper-bucket-save-bucket)
-* [`shopkeeper bucket switch [BUCKET]`](#shopkeeper-bucket-switch-bucket)
-* [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
-* [`shopkeeper plugins`](#shopkeeper-plugins)
-* [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
-* [`shopkeeper plugins:inspect PLUGIN...`](#shopkeeper-pluginsinspect-plugin)
-* [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin-1)
-* [`shopkeeper plugins:link PLUGIN`](#shopkeeper-pluginslink-plugin)
-* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin)
-* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-1)
-* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-2)
-* [`shopkeeper plugins update`](#shopkeeper-plugins-update)
-* [`shopkeeper theme deploy`](#shopkeeper-theme-deploy)
-* [`shopkeeper theme get`](#shopkeeper-theme-get)
-* [`shopkeeper theme settings backup`](#shopkeeper-theme-settings-backup)
-* [`shopkeeper theme settings download`](#shopkeeper-theme-settings-download)
-
-## `shopkeeper bucket create`
-
-Create a bucket in .shopkeeper
-
-```
-USAGE
-  $ shopkeeper bucket create [--no-color] [--verbose]
-
-FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
-
-DESCRIPTION
-  Create a bucket in .shopkeeper
+npm install -g @thebeyondgroup/shopkeeper
 ```
 
-## `shopkeeper bucket current`
+Or if your theme has a `package.json`:
 
-Output the current bucket
-
+```sh-session
+npm add --save-dev @thebeyondgroup/shopkeeper
 ```
-USAGE
-  $ shopkeeper bucket current [--no-color] [--verbose]
+> :rotating_light: It is not currently possible to use Shopkeeper 
+> as a plugin with a homebrew installation of the Shopify CLI.
+> You would need to install it as a global npm package and 
+> use the `shopkeeper` executable.
 
-FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+## Manage Settings
 
-DESCRIPTION
-  Output the current bucket
-```
+Shopkeeper makes it easy to manage multiple Shopify stores from a single codebase.
+In particular, it makes it easy to switch between store instances and manage theme settings.
 
-## `shopkeeper bucket init`
+Add a `.shopkeeper` folder to the root of your project to store buckets of settings.
 
-Initialize .shopkeeper directory in the current directory
+> :warning: We refer to groups of settings because the term environment is overloaded in
+> Shopify development. You might have a product and staging store instance. These might be
+> referred to as "environments." To add to the confusion, Shopify recently added the ability to
+> specify groups of flags in a `shopify.theme.toml` file and calls these groups 
+> [environments](https://shopify.dev/docs/themes/tools/cli/environments).
+>
+> Therefore, we call our groups of settings buckets :bucket:
 
-```
-USAGE
-  $ shopkeeper bucket init [--no-color] [--verbose]
+For example, here we introduce a `production` buckets that
+refers to a particular a production Shopify instance. In multi-store,
+multi-region setups, you might have a directory for each region. Say `canada`,
+`united-states`, or `united-kingdom`. Or you might use a bucket to contains the settings for
+and A/B test.
 
-FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+Here we see an example bucket created from the default 
+installation of [Dawn](https://github.com/shopify/dawn):
 
-DESCRIPTION
-  Initialize .shopkeeper directory in the current directory
-```
-
-## `shopkeeper bucket restore [BUCKET]`
-
-Restores the theme settings from the specified bucket
-
-```
-USAGE
-  $ shopkeeper bucket restore [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
-
-ARGUMENTS
-  BUCKET  The bucket you want to restore your settings from.
-
-FLAGS
-  -e, --environment=<value>  The environment to apply to the current command.
-  -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
-
-DESCRIPTION
-  Restores the theme settings from the specified bucket
-```
-
-## `shopkeeper bucket save [BUCKET]`
-
-Saves the current theme settings to the specified bucket
-
-```
-USAGE
-  $ shopkeeper bucket save [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
-
-ARGUMENTS
-  BUCKET  The bucket where you want to save your settings.
-
-FLAGS
-  -e, --environment=<value>  The environment to apply to the current command.
-  -n, --nodelete             Runs the save command without deleting the bucket's contents.
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
-
-DESCRIPTION
-  Saves the current theme settings to the specified bucket
+```sh-session
+.shopkeeper
+└── production
+    ├── config
+    │   └── settings_data.json
+    ├── sections
+    │   ├── footer-group.json
+    │   └── header-group.json
+    └── templates
+        ├── 404.json
+        ├── article.json
+        ├── blog.json
+        ├── cart.json
+        ├── collection.json
+        ├── customers
+        │   ├── account.json
+        │   ├── activate_account.json
+        │   ├── addresses.json
+        │   ├── login.json
+        │   ├── order.json
+        │   ├── register.json
+        │   └── reset_password.json
+        ├── index.json
+        ├── list-collections.json
+        ├── page.contact.json
+        ├── page.json
+        ├── password.json
+        ├── product.json
+        └── search.json
 ```
 
-## `shopkeeper bucket switch [BUCKET]`
+Each folder contains theme settings stored in their corresponding `config` and
+`templates` folders. It also contains a `.env` file that's copied to the project
+root as `.env ` when the bucket is switched.
 
-Switches the current bucket by copying settings and .env
+## Deploy Changes
 
-```
-USAGE
-  $ shopkeeper bucket switch [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
+Shopkeeper supports multiple deployment strategies:
 
-ARGUMENTS
-  BUCKET  The bucket to switch to
+* Basic
+* Blue/Green
 
-FLAGS
-  -e, --environment=<value>  The environment to apply to the current command.
-  -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+Shopkeeper extends the Shopify CLI `theme` topic with a 
+[`deploy`](docs/theme#shopkeeper-theme-deploy) command.
 
-DESCRIPTION
-  Switches the current bucket by copying settings and .env
-```
+### Basic Deployment
 
-## `shopkeeper help [COMMANDS]`
+When you run `shopkeeper theme deploy --strategy basic`, Shopkeeper will:
+1. Download settings from the live theme
+2. Push code to the live theme
+3. Update the live theme's name to be `[HEAD_SHA] Production`
 
-Display help for shopkeeper.
+> :warning: the default deployment strategy is `blue-green`, so the `--strategy` must be set.
 
-```
-USAGE
-  $ shopkeeper help [COMMANDS] [-n]
+### Blue/Green Deployment
 
-ARGUMENTS
-  COMMANDS  Command to show help for.
+A blue/green deployment strategy alternates between a blue and a green theme.
+One theme is live and the other we refer to as on-deck. For example, using this
+approach, if a the blue :large_blue_circle: theme is live, the green :green_circle: theme is on-deck.
 
-FLAGS
-  -n, --nested-commands  Include all nested commands in the output.
+When you run `shopkeeper theme deploy`, Shopkeeper will:
 
-DESCRIPTION
-  Display help for shopkeeper.
-```
+1. Download settings from the live theme
+2. Push code to the on-deck theme
+3. Rename the on-deck theme to be `[HEAD] Production - <Color>`
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.1/src/commands/help.ts)_
+Using blue/green deploys requires additional setup. You must specify the theme IDs for the blue
+and green themes. You can pass these values as flags:
 
-## `shopkeeper plugins`
-
-List installed plugins.
+```sh-session
+shopkeeper theme deploy --blue 13455343 --green 654321
 
 ```
-USAGE
-  $ shopkeeper plugins [--core]
 
-FLAGS
-  --core  Show core plugins.
+A better option is to set the flags in the bucket's `.env` file. Every flag in the Shopify CLI can be set
+with an environment variable. Shopkeeper follows this pattern:
 
-DESCRIPTION
-  List installed plugins.
+| Flag                  | Use                                   |
+| ---------------------- | ------------------------------------- |
+| `SKR_FLAG_BLUE_THEME_ID`| blue theme ID, cannot be name as name will be update   |
+| `SKR_FLAG_GREEN_THEME_ID`| green theme ID, cannot be name as name will be update   |
 
-EXAMPLES
-  $ shopkeeper plugins
-```
+Using a tool like [direnv](https://direnv.net), you can have your environment variables automatically
+updated when you switch buckets.
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
-
-## `shopkeeper plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ shopkeeper plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-
-ALIASES
-  $ shopkeeper plugins add
-
-EXAMPLES
-  $ shopkeeper plugins:install myplugin 
-
-  $ shopkeeper plugins:install https://github.com/someuser/someplugin
-
-  $ shopkeeper plugins:install someuser/someplugin
-```
-
-## `shopkeeper plugins:inspect PLUGIN...`
-
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ shopkeeper plugins:inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Displays installation properties of a plugin.
-
-EXAMPLES
-  $ shopkeeper plugins:inspect myplugin
-```
-
-## `shopkeeper plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ shopkeeper plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-
-ALIASES
-  $ shopkeeper plugins add
-
-EXAMPLES
-  $ shopkeeper plugins:install myplugin 
-
-  $ shopkeeper plugins:install https://github.com/someuser/someplugin
-
-  $ shopkeeper plugins:install someuser/someplugin
-```
-
-## `shopkeeper plugins:link PLUGIN`
-
-Links a plugin into the CLI for development.
-
-```
-USAGE
-  $ shopkeeper plugins:link PLUGIN
-
-ARGUMENTS
-  PATH  [default: .] path to plugin
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Links a plugin into the CLI for development.
-  Installation of a linked plugin will override a user-installed or core plugin.
-
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
-
-EXAMPLES
-  $ shopkeeper plugins:link myplugin
-```
-
-## `shopkeeper plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ shopkeeper plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ shopkeeper plugins unlink
-  $ shopkeeper plugins remove
-```
-
-## `shopkeeper plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ shopkeeper plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ shopkeeper plugins unlink
-  $ shopkeeper plugins remove
-```
-
-## `shopkeeper plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ shopkeeper plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ shopkeeper plugins unlink
-  $ shopkeeper plugins remove
-```
-
-## `shopkeeper plugins update`
-
-Update installed plugins.
-
-```
-USAGE
-  $ shopkeeper plugins update [-h] [-v]
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Update installed plugins.
-```
-
-## `shopkeeper theme deploy`
-
-Deploy source to on-deck theme
-
-```
-USAGE
-  $ shopkeeper theme deploy [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
-    <value>] [-n] [--green <value>] [--blue <value>]
-
-FLAGS
-  -e, --environment=<value>  The environment to apply to the current command.
-  -n, --nodelete             Runs the push command without deleting local files.
-  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
-  --blue=<value>             Blue theme ID
-  --green=<value>            Green theme ID
-  --no-color                 Disable color output.
-  --password=<value>         Password generated from the Theme Access app.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
-
-DESCRIPTION
-  Deploy source to on-deck theme
-```
-
-## `shopkeeper theme get`
-
-```
-USAGE
-  $ shopkeeper theme get
-```
-
-## `shopkeeper theme settings backup`
-
-```
-USAGE
-  $ shopkeeper theme settings backup
-```
-
-## `shopkeeper theme settings download`
-
-Download settings from live theme.
-
-```
-USAGE
-  $ shopkeeper theme settings download [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
-    <value>] [-t <value>] [-n]
-
-FLAGS
-  -e, --environment=<value>  The environment to apply to the current command.
-  -n, --nodelete             Runs the pull command without deleting local files.
-  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
-  -t, --theme=<value>        Theme ID or name of the remote theme.
-  --no-color                 Disable color output.
-  --password=<value>         Password generated from the Theme Access app.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper@1] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
-
-DESCRIPTION
-  Download settings from live theme.
-```
-<!-- commandsstop -->
+## Contribute
+If you'd like to contribute to the project, check out the [contributors docs](docs/contribute.md) to get started.

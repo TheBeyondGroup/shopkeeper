@@ -2,7 +2,7 @@
 <a href="http://twitter.com/_thebeyondgroup"><img src="https://img.shields.io/twitter/follow/_thebeyondgroup?style=flat-square" alt="Twitter Followers"></a>
 <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 
-Shopkeeper is a CLI to help manage Shopify stores. It is built as a Shopify plugin
+Shopkeeper is a CLI to help manage Shopify stores. It is built as a plugin
 to allow seamless integration with the Shopify CLI theme developers use every day.
 
 It can be used as a standalone CLI (`shopkeeper command`) 
@@ -30,6 +30,10 @@ npm add --save-dev @thebeyondgroup/shopkeeper
 > as a plugin with a homebrew installation of the Shopify CLI.
 > You would need to install it as a global npm package and 
 > use the `shopkeeper` executable.
+
+## Commands
+
+To learn the full capability of Shopkeeper, see the [command docs](docs/commands) 
 
 ## Manage Settings
 
@@ -98,7 +102,7 @@ Shopkeeper supports multiple deployment strategies:
 * Blue/Green
 
 Shopkeeper extends the Shopify CLI `theme` topic with a 
-[`deploy`](docs/theme#shopkeeper-theme-deploy) command.
+[`deploy`](docs/commands/readme#shopkeeper-theme-deploy) command.
 
 ### Basic Deployment
 

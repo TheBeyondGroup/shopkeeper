@@ -107,7 +107,7 @@
           "type": "option",
           "description": "The path to your theme directory.",
           "multiple": false,
-          "default": "/Users/jeff/Beyond/shopkeeper@1"
+          "default": "/Users/jeff/Beyond/shopkeeper"
         },
         "environment": {
           "name": "environment",
@@ -159,7 +159,7 @@
           "type": "option",
           "description": "The path to your theme directory.",
           "multiple": false,
-          "default": "/Users/jeff/Beyond/shopkeeper@1"
+          "default": "/Users/jeff/Beyond/shopkeeper"
         },
         "environment": {
           "name": "environment",
@@ -211,7 +211,7 @@
           "type": "option",
           "description": "The path to your theme directory.",
           "multiple": false,
-          "default": "/Users/jeff/Beyond/shopkeeper@1"
+          "default": "/Users/jeff/Beyond/shopkeeper"
         },
         "environment": {
           "name": "environment",
@@ -237,7 +237,7 @@
     },
     "theme:deploy": {
       "id": "theme:deploy",
-      "description": "Deploy source to on-deck theme",
+      "description": "Deploy theme source to store",
       "strict": true,
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginAlias": "@thebeyondgroup/shopkeeper",
@@ -263,7 +263,7 @@
           "type": "option",
           "description": "The path to your theme directory.",
           "multiple": false,
-          "default": "/Users/jeff/Beyond/shopkeeper@1"
+          "default": "/Users/jeff/Beyond/shopkeeper"
         },
         "password": {
           "name": "password",
@@ -331,30 +331,6 @@
         "nodelete"
       ]
     },
-    "theme:get": {
-      "id": "theme:get",
-      "description": "",
-      "strict": true,
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
-    },
-    "theme:settings:backup": {
-      "id": "theme:settings:backup",
-      "description": "",
-      "strict": true,
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "aliases": [],
-      "examples": [],
-      "flags": {},
-      "args": {}
-    },
     "theme:settings:download": {
       "id": "theme:settings:download",
       "description": "Download settings from live theme.",
@@ -383,7 +359,7 @@
           "type": "option",
           "description": "The path to your theme directory.",
           "multiple": false,
-          "default": "/Users/jeff/Beyond/shopkeeper@1"
+          "default": "/Users/jeff/Beyond/shopkeeper"
         },
         "password": {
           "name": "password",

@@ -45,11 +45,11 @@ Add a `.shopkeeper` folder to the root of your project to store buckets of setti
 >
 > Therefore, we call our groups of settings buckets :bucket:
 
-For example, here we introduce a `production` buckets that
-refers to a particular a production Shopify instance. In multi-store,
+For example, here we introduce a `production` bucket that
+refers to a Shopify instance. In multi-store,
 multi-region setups, you might have a directory for each region. Say `canada`,
 `united-states`, or `united-kingdom`. Or you might use a bucket to contains the settings for
-and A/B test.
+an A/B test.
 
 Here we see an example bucket created from the default 
 installation of [Dawn](https://github.com/shopify/dawn):

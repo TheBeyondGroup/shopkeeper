@@ -2,16 +2,14 @@
 <a href="http://twitter.com/_thebeyondgroup"><img src="https://img.shields.io/twitter/follow/_thebeyondgroup?style=flat-square" alt="Twitter Followers"></a>
 <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 
-Shopkeeper is a CLI to help manage Shopify stores. It is built as a plugin
-to allow seamless integration with the Shopify CLI theme developers use every day.
+Shopkeeper is a CLI to help manage Shopify stores. 
 
-It can be used as a standalone CLI (`shopkeeper command`) 
-or integrated with the Shopify CLI (`shopify COMMAND`).
+It is built as an oclif plugin to allow seamless integration with the Shopify CLI 
+theme developers use every day.
 
 It helps developers:
 * Manage settings
 * Deploy theme changes
-
 
 ## Installation
 
@@ -27,13 +25,31 @@ Or if your theme has a `package.json`:
 npm add --save-dev @thebeyondgroup/shopkeeper
 ```
 > :rotating_light: It is not currently possible to use Shopkeeper 
-> as a plugin with a homebrew installation of the Shopify CLI.
+> as a plugin to the homebrew installation of the Shopify CLI.
 > You would need to install it as a global npm package and 
 > use the `shopkeeper` executable.
+
+### tl;dr
+
+Download settings from the live theme:
+```sh-session
+shopkeeper theme settings download
+```
+
+Deploy _directly_ to the live theme after pulling down the live theme's settings:
+```sh-session
+shopkeeper theme deploy --strategy basic
+```
 
 ## Commands
 
 To learn the full capability of Shopkeeper, see the [command docs](docs/commands) 
+
+When using it as a standalone, call commands using `shopkeeper COMMAND`.
+When using it as a plugin to the Shopify CLI, you can call command using `shopify COMMAND`.
+
+You can verify Shopkeeper has been correctly installed as a plugin by running `shopify commands`.
+If you can see the bucket commands listed, Shopkeeper is installed correctly.
 
 ## Manage Settings
 
@@ -56,38 +72,41 @@ multi-region setups, you might have a directory for each region. Say `canada`,
 `united-states`, or `united-kingdom`. Or you might use a bucket to contains the settings for
 an A/B test.
 
-Here we see an example bucket created from the default 
+Here we see an example `production` bucket created from the default 
 installation of [Dawn](https://github.com/shopify/dawn):
 
 ```sh-session
 .shopkeeper
-└── production
-    ├── config
-    │   └── settings_data.json
-    ├── sections
-    │   ├── footer-group.json
-    │   └── header-group.json
-    └── templates
-        ├── 404.json
-        ├── article.json
-        ├── blog.json
-        ├── cart.json
-        ├── collection.json
-        ├── customers
-        │   ├── account.json
-        │   ├── activate_account.json
-        │   ├── addresses.json
-        │   ├── login.json
-        │   ├── order.json
-        │   ├── register.json
-        │   └── reset_password.json
-        ├── index.json
-        ├── list-collections.json
-        ├── page.contact.json
-        ├── page.json
-        ├── password.json
-        ├── product.json
-        └── search.json
+├── production
+│   ├── config
+│   │   └── settings_data.json
+│   ├── sections
+│   │   ├── footer-group.json
+│   │   └── header-group.json
+│   ├── templates
+│   │   ├── customers
+│   │   │   ├── account.json
+│   │   │   ├── activate_account.json
+│   │   │   ├── addresses.json
+│   │   │   ├── login.json
+│   │   │   ├── order.json
+│   │   │   ├── register.json
+│   │   │   └── reset_password.json
+│   │   ├── 404.json
+│   │   ├── article.json
+│   │   ├── blog.json
+│   │   ├── cart.json
+│   │   ├── collection.json
+│   │   ├── index.json
+│   │   ├── list-collections.json
+│   │   ├── page.contact.json
+│   │   ├── page.json
+│   │   ├── password.json
+│   │   ├── product.json
+│   │   └── search.json
+│   ├── .env
+│   └── .env.sample
+└── .current-bucket
 ```
 
 Each folder contains theme settings stored in their corresponding `config` and

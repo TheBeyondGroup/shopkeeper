@@ -41,6 +41,9 @@ Deploy _directly_ to the live theme after pulling down the live theme's settings
 shopkeeper theme deploy --strategy basic
 ```
 
+For a more complete introduction and walkthrough of how Shopkeeper, see [The
+Complete Guide](/docs/the_complete_guide.md)
+
 ## Commands
 
 To learn the full capability of Shopkeeper, see the [command docs](docs/commands) 
@@ -142,7 +145,7 @@ When you run `shopkeeper theme deploy`, Shopkeeper will:
 
 1. Download settings from the live theme
 2. Push code to the on-deck theme
-3. Rename the on-deck theme to be `[HEAD] Production - <Color>`
+3. Rename the on-deck theme to be `[<HEAD_SHA>] Production - <color>`
 
 Using blue/green deploys requires additional setup. You must specify the theme IDs for the blue
 and green themes. You can pass these values as flags:

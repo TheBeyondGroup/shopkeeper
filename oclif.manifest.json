@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "commands": {
     "bucket:create": {
       "id": "bucket:create",
@@ -308,8 +308,11 @@
           "name": "strategy",
           "type": "option",
           "description": "Strategy to use for deployment",
-          "hidden": true,
           "multiple": false,
+          "options": [
+            "blue-green",
+            "basic"
+          ],
           "relationships": [
             {
               "type": "all",

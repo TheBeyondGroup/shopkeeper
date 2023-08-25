@@ -20,9 +20,9 @@
     "@oclif/core": "2.8.11",
     "@oclif/plugin-commands": "2.2.17",
     "@oclif/plugin-help": "5.2.1",
-    "@shopify/cli": "3.48.3",
-    "@shopify/cli-kit": "3.48.3",
-    "@shopify/theme": "3.48.3",
+    "@shopify/cli": "3.48.4",
+    "@shopify/cli-kit": "3.48.4",
+    "@shopify/theme": "3.48.4",
     "fs-extra": "^11.1.0"
   },
   "devDependencies": {
@@ -50,6 +50,7 @@
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
     ],
+    "repositoryPrefix": "<%- repo %>/tree/main/src/<%- commandPath %>",
     "topicSeparator": " "
   },
   "scripts": {
@@ -60,7 +61,7 @@
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "yarn lint",
     "postpublish": "npm publish --ignore-scripts --@thebeyondgroup:registry='https://registry.npmjs.org'",
-    "prepack": "yarn build && oclif manifest",
+    "prepack": "yarn build && oclif manifest && ./bin/generate-readme.sh",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
   "engines": {

@@ -5,7 +5,7 @@ import { themeFlags } from '@shopify/theme/dist/cli/flags.js';
 import { ensureThemeStore } from '@shopify/theme/dist/cli/utilities/theme-store.js';
 import ThemeCommand from '@shopify/theme/dist/cli/utilities/theme-command.js';
 import { deploy } from '../../services/theme/deploy.js';
-import { BLUE_GREEN_STRATEGY } from '../../utilities/constants.js';
+import { BLUE_GREEN_STRATEGY, DEPLOYMENT_STRATEGIES } from '../../utilities/constants.js';
 
 export default class Deploy extends ThemeCommand {
   static description = "Deploy theme source to store";
@@ -28,8 +28,8 @@ export default class Deploy extends ThemeCommand {
     }),
     strategy: Flags.string({
       description: 'Strategy to use for deployment',
-      hidden: true,
       default: BLUE_GREEN_STRATEGY,
+      options: DEPLOYMENT_STRATEGIES,
       env: 'SKR_FLAG_STRATEGY',
       relationships: [
         {

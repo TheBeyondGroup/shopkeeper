@@ -1,6 +1,7 @@
 import { Flags } from '@oclif/core';
 import BaseCommand from "@shopify/cli-kit/node/base-command";
 import { globalFlags } from "@shopify/cli-kit/node/cli";
+import { themeEditorUrl, themePreviewUrl } from "@shopify/cli-kit/node/themes/theme-urls";
 import { ensureAuthenticatedThemes } from "@shopify/cli-kit/node/session";
 import { themeFlags } from "@shopify/theme/dist/cli/flags.js";
 import { ensureThemeStore } from "@shopify/theme/dist/cli/utilities/theme-store.js";
@@ -35,10 +36,14 @@ export default class Get extends BaseCommand {
 
     if (flags.json) {
       themes.map(theme => this.logJson({
-        id: theme.id,
-        name: theme.name,
-        role: theme.role,
-        development: theme.hasDevelopmentRole
+        theme: {
+          id: theme.id,
+          name: theme.name,
+          role: theme.role,
+          shop: adminSession.storeFqdn,
+          editor_url: themeEditorUrl(theme, adminSession),
+          preview_url: themePreviewUrl(theme, adminSession)
+        }
       }))
     } else {
       themes.map(theme => this.log(`${theme.id}`))

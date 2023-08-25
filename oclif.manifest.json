@@ -235,6 +235,87 @@
         }
       }
     },
+    "theme:create": {
+      "id": "theme:create",
+      "description": "\nCreate a theme with theme name or ID.\nIn most cases, you should use theme push.\n\nThis command exists for the case when you want create a theme by name that may\nor may not exist. It will ensure that if one with the same name already exists,\nit is updated.\n\ntheme push --unpublished --theme yellow will create a new theme named yellow each\ntime the command is run.\n\nAs a result this command exists.\n",
+      "strict": true,
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "description": "The path to your theme directory.",
+          "multiple": false,
+          "default": "/Users/jeff/Beyond/shopkeeper"
+        },
+        "password": {
+          "name": "password",
+          "type": "option",
+          "description": "Password generated from the Theme Access app.",
+          "multiple": false
+        },
+        "store": {
+          "name": "store",
+          "type": "option",
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "multiple": false
+        },
+        "environment": {
+          "name": "environment",
+          "type": "option",
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "multiple": false
+        },
+        "theme": {
+          "name": "theme",
+          "type": "option",
+          "char": "t",
+          "description": "Theme ID or name of the remote theme.",
+          "required": true,
+          "multiple": false
+        },
+        "nodelete": {
+          "name": "nodelete",
+          "type": "boolean",
+          "char": "n",
+          "description": "Runs the push command without deleting local files.",
+          "allowNo": false
+        },
+        "json": {
+          "name": "json",
+          "type": "boolean",
+          "char": "j",
+          "description": "Output JSON instead of a UI.",
+          "allowNo": false
+        }
+      },
+      "args": {},
+      "cli2Flags": [
+        "theme",
+        "nodelete",
+        "json",
+        "unpublished"
+      ]
+    },
     "theme:deploy": {
       "id": "theme:deploy",
       "description": "Deploy theme source to store",

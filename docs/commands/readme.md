@@ -16,6 +16,7 @@
 * [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-1)
 * [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-2)
 * [`shopkeeper plugins update`](#shopkeeper-plugins-update)
+* [`shopkeeper theme create`](#shopkeeper-theme-create)
 * [`shopkeeper theme deploy`](#shopkeeper-theme-deploy)
 * [`shopkeeper theme get`](#shopkeeper-theme-get)
 * [`shopkeeper theme settings download`](#shopkeeper-theme-settings-download)
@@ -408,6 +409,44 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/update.ts)_
+
+## `shopkeeper theme create`
+
+Create a theme with theme name or ID.
+
+```
+USAGE
+  $ shopkeeper theme create -t <value> [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>]
+    [-e <value>] [-n] [-j]
+
+FLAGS
+  -e, --environment=<value>  The environment to apply to the current command.
+  -j, --json                 Output JSON instead of a UI.
+  -n, --nodelete             Runs the push command without deleting local files.
+  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
+                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
+  -t, --theme=<value>        (required) Theme ID or name of the remote theme.
+  --no-color                 Disable color output.
+  --password=<value>         Password generated from the Theme Access app.
+  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
+  --verbose                  Increase the verbosity of the logs.
+
+DESCRIPTION
+
+  Create a theme with theme name or ID.
+  In most cases, you should use theme push.
+
+  This command exists for the case when you want create a theme by name that may
+  or may not exist. It will ensure that if one with the same name already exists,
+  it is updated.
+
+  theme push --unpublished --theme yellow will create a new theme named yellow each
+  time the command is run.
+
+  As a result this command exists.
+```
+
+_See code: [dist/commands/theme/create.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/theme/create.ts)_
 
 ## `shopkeeper theme deploy`
 

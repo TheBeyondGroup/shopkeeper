@@ -515,7 +515,7 @@ jobs:
         run: npx shopify theme delete --theme $GITHUB_REF_NAME --force
 ```
 Latest but not least, we clean up after ourselves. When a PR is closed, we
-delete theme corresponding to its branch.
+delete the theme corresponding to its branch.
 
 ## Conclusion
 

@@ -48,7 +48,7 @@ To deploy _directly_ to the live theme after pulling down the live theme's setti
 shopkeeper theme deploy --strategy basic
 ```
 
-For a more complete introduction and walkthrough of how Shopkeeper, see
+For a more complete introduction and walkthrough of how to use Shopkeeper, see
 [guide](/docs/the_complete_guide.md).
 
 ## Commands

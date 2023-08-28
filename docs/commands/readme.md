@@ -2,6 +2,7 @@
 <!-- commands -->
 * [`shopkeeper bucket create`](#shopkeeper-bucket-create)
 * [`shopkeeper bucket current`](#shopkeeper-bucket-current)
+* [`shopkeeper bucket delete`](#shopkeeper-bucket-delete)
 * [`shopkeeper bucket init`](#shopkeeper-bucket-init)
 * [`shopkeeper bucket list`](#shopkeeper-bucket-list)
 * [`shopkeeper bucket restore [BUCKET]`](#shopkeeper-bucket-restore-bucket)
@@ -28,11 +29,12 @@ Create a bucket in .shopkeeper
 
 ```
 USAGE
-  $ shopkeeper bucket create [--no-color] [--verbose]
+  $ shopkeeper bucket create -b <value> [--no-color] [--verbose]
 
 FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  -b, --bucket=<value>...  (required)
+  --no-color               Disable color output.
+  --verbose                Increase the verbosity of the logs.
 
 DESCRIPTION
   Create a bucket in .shopkeeper
@@ -57,6 +59,26 @@ DESCRIPTION
 ```
 
 _See code: [dist/commands/bucket/current.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/current.ts)_
+
+## `shopkeeper bucket delete`
+
+Delete a bucket
+
+```
+USAGE
+  $ shopkeeper bucket delete -b <value> [--no-color] [--verbose] [-f]
+
+FLAGS
+  -b, --bucket=<value>...  (required)
+  -f, --force              Skip confirmation.
+  --no-color               Disable color output.
+  --verbose                Increase the verbosity of the logs.
+
+DESCRIPTION
+  Delete a bucket
+```
+
+_See code: [dist/commands/bucket/delete.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/delete.ts)_
 
 ## `shopkeeper bucket init`
 

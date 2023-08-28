@@ -4,7 +4,7 @@
     "bucket:create": {
       "id": "bucket:create",
       "description": "Create a bucket in .shopkeeper",
-      "strict": false,
+      "strict": true,
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginAlias": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
@@ -23,6 +23,13 @@
           "description": "Increase the verbosity of the logs.",
           "hidden": false,
           "allowNo": false
+        },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "char": "b",
+          "required": true,
+          "multiple": true
         }
       },
       "args": {}

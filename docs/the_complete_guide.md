@@ -36,7 +36,7 @@ To manage theme settings we create buckets of settings. These buckets of setting
 are kept in a `.shopkeeper` directory in the root of your project.
 
 Run `shopkeeper bucket init` to create this directory. To add a `production`
-bucket, run `shopkeeper bucket create production`.
+bucket, run `shopkeeper bucket create --bucket production`.
 
 ```console
 .shopkeeper
@@ -79,7 +79,7 @@ settings:
 
 ```console
 npx shopify bucket init
-npx shopify bucket create production
+npx shopify bucket create --bucket production
 ```
 We also install [direnv](https://direnv.net) in our shell so our environment
 variables are updated anytime we update our `.env` file.

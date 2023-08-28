@@ -29,11 +29,12 @@ Create a bucket in .shopkeeper
 
 ```
 USAGE
-  $ shopkeeper bucket create [--no-color] [--verbose]
+  $ shopkeeper bucket create -b <value> [--no-color] [--verbose]
 
 FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  -b, --bucket=<value>...  (required)
+  --no-color               Disable color output.
+  --verbose                Increase the verbosity of the logs.
 
 DESCRIPTION
   Create a bucket in .shopkeeper

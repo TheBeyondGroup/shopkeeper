@@ -79,6 +79,32 @@
       },
       "args": {}
     },
+    "bucket:list": {
+      "id": "bucket:list",
+      "description": "List buckets",
+      "strict": true,
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        }
+      },
+      "args": {}
+    },
     "bucket:restore": {
       "id": "bucket:restore",
       "description": "Restores the theme settings from the specified bucket",

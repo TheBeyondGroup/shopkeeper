@@ -3,6 +3,7 @@
 * [`shopkeeper bucket create`](#shopkeeper-bucket-create)
 * [`shopkeeper bucket current`](#shopkeeper-bucket-current)
 * [`shopkeeper bucket init`](#shopkeeper-bucket-init)
+* [`shopkeeper bucket list`](#shopkeeper-bucket-list)
 * [`shopkeeper bucket restore [BUCKET]`](#shopkeeper-bucket-restore-bucket)
 * [`shopkeeper bucket save [BUCKET]`](#shopkeeper-bucket-save-bucket)
 * [`shopkeeper bucket switch [BUCKET]`](#shopkeeper-bucket-switch-bucket)
@@ -74,6 +75,24 @@ DESCRIPTION
 ```
 
 _See code: [dist/commands/bucket/init.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/init.ts)_
+
+## `shopkeeper bucket list`
+
+List buckets
+
+```
+USAGE
+  $ shopkeeper bucket list [--no-color] [--verbose]
+
+FLAGS
+  --no-color  Disable color output.
+  --verbose   Increase the verbosity of the logs.
+
+DESCRIPTION
+  List buckets
+```
+
+_See code: [dist/commands/bucket/list.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/list.ts)_
 
 ## `shopkeeper bucket restore [BUCKET]`
 

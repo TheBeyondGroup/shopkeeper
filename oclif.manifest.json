@@ -53,6 +53,46 @@
       },
       "args": {}
     },
+    "bucket:delete": {
+      "id": "bucket:delete",
+      "description": "Delete a bucket",
+      "strict": true,
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "aliases": [],
+      "flags": {
+        "no-color": {
+          "name": "no-color",
+          "type": "boolean",
+          "description": "Disable color output.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "verbose": {
+          "name": "verbose",
+          "type": "boolean",
+          "description": "Increase the verbosity of the logs.",
+          "hidden": false,
+          "allowNo": false
+        },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "char": "b",
+          "required": true,
+          "multiple": true
+        },
+        "force": {
+          "name": "force",
+          "type": "boolean",
+          "char": "f",
+          "description": "Skip confirmation.",
+          "allowNo": false
+        }
+      },
+      "args": {}
+    },
     "bucket:init": {
       "id": "bucket:init",
       "description": "Initialize .shopkeeper directory in the current directory",

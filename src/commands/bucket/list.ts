@@ -1,15 +1,15 @@
 import BaseCommand from "@shopify/cli-kit/node/base-command";
 import { globalFlags } from "@shopify/cli-kit/node/cli";
-import { current } from "../../services/bucket/current.js";
+import { list } from "../../services/bucket/list.js";
 
-export default class Current extends BaseCommand {
-  static description = "Output the current bucket";
+export default class List extends BaseCommand {
+  static description = "List buckets";
 
   static flags = {
     ...globalFlags,
   };
 
   async run(): Promise<void> {
-    await current();
+    list();
   }
 }

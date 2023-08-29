@@ -9,17 +9,14 @@ import { getBucketByPrompt } from "../../utilities/bucket.js";
 export default class Switch extends BaseCommand {
   static description = "Switches the current bucket by copying settings and .env";
 
-  static args = {
-    bucket: Args.string({
-      name: "bucket",
-      description: "The bucket to switch to",
-    }),
-  }
-
   static flags = {
     ...globalFlags,
     path: themeFlags.path,
     environment: themeFlags.environment,
+    bucket: Flags.string({
+      name: "bucket",
+      description: "The bucket to switch to",
+    }),
     nodelete: Flags.boolean({
       char: "n",
       default: false,
@@ -29,8 +26,8 @@ export default class Switch extends BaseCommand {
   }
 
   async run(): Promise<void> {
-    const { args, flags } = await this.parse(Switch);
-    const bucket = args.bucket || await getBucketByPrompt()
+    const { flags } = await this.parse(Switch);
+    const bucket = flags.bucket || await getBucketByPrompt()
     const fileMoves = await switchBucket(bucket, flags.path, flags.nodelete)
 
     renderSuccess({

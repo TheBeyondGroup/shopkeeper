@@ -1,4 +1,4 @@
-import { Args, Flags } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import BaseCommand from "@shopify/cli-kit/node/base-command";
 import { globalFlags } from '@shopify/cli-kit/node/cli'
 import { renderSuccess } from "@shopify/cli-kit/node/ui";
@@ -9,17 +9,14 @@ import { getBucketByPrompt } from "../../utilities/bucket.js";
 export default class Restore extends BaseCommand {
   static description = "Restores the theme settings from the specified bucket";
 
-  static args = {
-    bucket: Args.string({
-      name: "bucket",
-      description: "The bucket you want to restore your settings from.",
-    })
-  }
-
   static flags = {
     ...globalFlags,
     path: themeFlags.path,
     environment: themeFlags.environment,
+    bucket: Flags.string({
+      name: "bucket",
+      description: "The bucket you want to restore your settings from.",
+    }),
     nodelete: Flags.boolean({
       char: "n",
       default: false,

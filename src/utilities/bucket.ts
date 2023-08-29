@@ -1,5 +1,6 @@
 import { AbortError } from "@shopify/cli-kit/node/error"
-import { copyFile, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { copyFile, fileExists, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { outputContent, outputToken } from "@shopify/cli-kit/node/output"
 import { basename, cwd, resolvePath } from "@shopify/cli-kit/node/path"
 import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
 import { CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY } from "./constants.js"
@@ -18,6 +19,17 @@ export async function getBucketByPrompt() {
       return { label: bucket, value: bucket }
     })
   })
+}
+
+export async function ensureBucketExists(bucket: string, bucketPath: string) {
+  const bucketExists = await fileExists(bucketPath)
+
+  if (!bucketExists) {
+    throw new AbortError(
+      outputContent`${bucket} does not exist.`,
+      outputContent`Run ${outputToken.genericShellCommand(`bucket create --bucket ${bucket}`)} to create it first.`
+    )
+  }
 }
 
 export async function getBuckets(): Promise<string[]> {

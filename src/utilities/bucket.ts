@@ -13,6 +13,12 @@ export type FileMove = {
 
 export async function getBucketByPrompt() {
   const buckets = await getBuckets()
+  if (!buckets.length) {
+    throw new AbortError(
+      outputContent`No buckets can be found.`,
+      outputContent`Run ${outputToken.genericShellCommand('bucket create --bucket <bucket name>')}`
+    )
+  }
   return await renderSelectPrompt({
     message: "Select a bucket",
     choices: buckets.map(bucket => {
@@ -61,7 +67,7 @@ export async function getBucketPath(bucket: string): Promise<string> {
 export async function getShopkeeperPath(): Promise<string> {
   const shopkeeperRoot = await findPathUp(SHOPKEEPER_DIRECTORY, { type: "directory" })
   if (!shopkeeperRoot) {
-    throw new AbortError(`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${cwd()}.`);
+    throw new AbortError(outputContent`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${outputToken.path(cwd())}.`);
   }
 
   return shopkeeperRoot
@@ -75,7 +81,7 @@ export async function getProjectDir() {
 
 export async function setCurrentBucket(bucket: string) {
   const shopkeeperRoot = await getShopkeeperPath()
-  const contents = `${bucket}\n`
+  const contents = `${bucket} \n`
   await writeFile(`${shopkeeperRoot}/${CURRENT_BUCKET_FILE}`, contents)
 }
 

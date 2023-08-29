@@ -496,7 +496,7 @@ Deploy theme source to store
 ```
 USAGE
   $ shopkeeper theme deploy [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
-    <value>] [-n] [--green <value>] [--blue <value>] [--strategy blue-green|basic]
+    <value>] [-n] [--publish] [--green <value>] [--blue <value>] [--strategy blue-green|basic]
 
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
@@ -508,6 +508,7 @@ FLAGS
   --no-color                 Disable color output.
   --password=<value>         Password generated from the Theme Access app.
   --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
+  --publish                  Publishes the on-deck theme after deploying
   --strategy=<option>        [default: blue-green] Strategy to use for deployment
                              <options: blue-green|basic>
   --verbose                  Increase the verbosity of the logs.

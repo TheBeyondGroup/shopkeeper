@@ -1,7 +1,11 @@
 import { removeFile } from "@shopify/cli-kit/node/fs";
-import { copyFiles, FileMove, getBucketPath, getBucketSettingsFilePaths, getProjectDir, getThemeSettingsFilePaths, setCurrentBucket } from "../../utilities/bucket.js";
+import { copyFiles, ensureBucketExists, FileMove, getBucketPath, getBucketSettingsFilePaths, getProjectDir, getThemeSettingsFilePaths, setCurrentBucket } from "../../utilities/bucket.js";
 
 export async function switchBucket(bucket: string, path: string, skipFileRemoval: boolean): Promise<FileMove[]> {
+  const bucketRoot = await getBucketPath(bucket)
+
+  ensureBucketExists(bucket, bucketRoot)
+
   if (!skipFileRemoval) {
     const themeSettingsPaths = await getThemeSettingsFilePaths(path)
     await Promise.all(themeSettingsPaths.map(async file => {
@@ -9,7 +13,6 @@ export async function switchBucket(bucket: string, path: string, skipFileRemoval
     }))
   }
 
-  const bucketRoot = await getBucketPath(bucket)
   const settingsFromBucket = await getBucketSettingsFilePaths(bucket)
   let fileMoves = settingsFromBucket.map(settingPath => {
     return {

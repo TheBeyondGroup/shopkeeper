@@ -40,7 +40,7 @@ shopkeeper theme settings download
 ```
 To switch buckets:
 ```sh-session
-shopkeeper bucket switch <bucket name>
+shopkeeper bucket switch --bucket <bucket name>
 ```
 
 To deploy _directly_ to the live theme after pulling down the live theme's settings:

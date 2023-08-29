@@ -106,7 +106,7 @@ the flag and you don't need to pass the flag.
 Assuming we have the correct store URL and password, we can now run:
 
 ```console
-shopify bucket switch production --nodelete
+shopify bucket switch --bucket production --nodelete
 ```
 
 This copies the `.env` from `.shopkeeper/production` into our project
@@ -123,7 +123,7 @@ This pulls down the latest settings into `theme`. We can then store these in
 our `production` bucket by running:
 
 ```console
-shopify bucket save production
+shopify bucket save --bucket production
 
 We add the following lines to our project's `.gitignore`:
 
@@ -152,14 +152,14 @@ Let's look at a couple more commands before combining these tools with GitHub Ac
 To switch between buckets, run:
 
 ```console
-shopify bucket switch <bucket name>
+shopify bucket switch --bucket <bucket name>
 ```
 
 Sometimes you'll want to update the settings in `theme` to those in a bucket.
 To do that, run:
 
 ```console
-shopify bucket restore <bucket name>
+shopify bucket restore --bucket <bucket name>
 ```
 
 Each of `bucket save`, `bucket restore`, and `bucket switch` can be passed a
@@ -347,7 +347,7 @@ jobs:
       - name: Download published theme settings
         run: npx shopify theme settings download
       - name: Store the settings
-        run: npx shopify bucket save production
+        run: npx shopify bucket save --bucket production
       - name: Set up up git user
         run: |
           # Setup username and email
@@ -418,7 +418,7 @@ jobs:
       - name: Install packages
         run: npm ci
       - name: Select theme settings
-        run: npx shopkeeper bucket restore production
+        run: npx shopkeeper bucket restore --bucket production
       - name: Build assets
         run: npm run build:prod
       - name: Create theme
@@ -465,7 +465,7 @@ jobs:
       - name: Install packages
         run: npm ci
       - name: Select theme settings
-        run: npx shopify bucket restore production
+        run: npx shopify bucket restore --bucket production
       - name: Build assets
         run: npm run build:prod
       - name: Create theme

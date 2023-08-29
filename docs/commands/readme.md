@@ -5,9 +5,9 @@
 * [`shopkeeper bucket delete`](#shopkeeper-bucket-delete)
 * [`shopkeeper bucket init`](#shopkeeper-bucket-init)
 * [`shopkeeper bucket list`](#shopkeeper-bucket-list)
-* [`shopkeeper bucket restore [BUCKET]`](#shopkeeper-bucket-restore-bucket)
-* [`shopkeeper bucket save [BUCKET]`](#shopkeeper-bucket-save-bucket)
-* [`shopkeeper bucket switch [BUCKET]`](#shopkeeper-bucket-switch-bucket)
+* [`shopkeeper bucket restore`](#shopkeeper-bucket-restore)
+* [`shopkeeper bucket save`](#shopkeeper-bucket-save)
+* [`shopkeeper bucket switch`](#shopkeeper-bucket-switch)
 * [`shopkeeper help [COMMANDS]`](#shopkeeper-help-commands)
 * [`shopkeeper plugins`](#shopkeeper-plugins)
 * [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
@@ -116,20 +116,18 @@ DESCRIPTION
 
 _See code: [dist/commands/bucket/list.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/list.ts)_
 
-## `shopkeeper bucket restore [BUCKET]`
+## `shopkeeper bucket restore`
 
 Restores the theme settings from the specified bucket
 
 ```
 USAGE
-  $ shopkeeper bucket restore [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
-
-ARGUMENTS
-  BUCKET  The bucket you want to restore your settings from.
+  $ shopkeeper bucket restore [--no-color] [--verbose] [--path <value>] [-e <value>] [--bucket <value>] [-n]
 
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
+  --bucket=<value>           The bucket you want to restore your settings from.
   --no-color                 Disable color output.
   --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
   --verbose                  Increase the verbosity of the logs.
@@ -140,20 +138,18 @@ DESCRIPTION
 
 _See code: [dist/commands/bucket/restore.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/restore.ts)_
 
-## `shopkeeper bucket save [BUCKET]`
+## `shopkeeper bucket save`
 
 Saves the current theme settings to the specified bucket
 
 ```
 USAGE
-  $ shopkeeper bucket save [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
-
-ARGUMENTS
-  BUCKET  The bucket where you want to save your settings.
+  $ shopkeeper bucket save [--no-color] [--verbose] [--path <value>] [-e <value>] [--bucket <value>] [-n]
 
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the save command without deleting the bucket's contents.
+  --bucket=<value>           The bucket where you want to save your settings.
   --no-color                 Disable color output.
   --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
   --verbose                  Increase the verbosity of the logs.
@@ -164,20 +160,18 @@ DESCRIPTION
 
 _See code: [dist/commands/bucket/save.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/save.ts)_
 
-## `shopkeeper bucket switch [BUCKET]`
+## `shopkeeper bucket switch`
 
 Switches the current bucket by copying settings and .env
 
 ```
 USAGE
-  $ shopkeeper bucket switch [BUCKET] [--no-color] [--verbose] [--path <value>] [-e <value>] [-n]
-
-ARGUMENTS
-  BUCKET  The bucket to switch to
+  $ shopkeeper bucket switch [--no-color] [--verbose] [--path <value>] [-e <value>] [--bucket <value>] [-n]
 
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
+  --bucket=<value>           The bucket to switch to
   --no-color                 Disable color output.
   --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
   --verbose                  Increase the verbosity of the logs.

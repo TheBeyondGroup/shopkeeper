@@ -1,5 +1,6 @@
 import { AbortError } from "@shopify/cli-kit/node/error"
-import { copyFile, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { copyFile, fileExists, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { outputContent, outputToken } from "@shopify/cli-kit/node/output"
 import { basename, cwd, resolvePath } from "@shopify/cli-kit/node/path"
 import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
 import { CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY } from "./constants.js"
@@ -12,12 +13,29 @@ export type FileMove = {
 
 export async function getBucketByPrompt() {
   const buckets = await getBuckets()
+  if (!buckets.length) {
+    throw new AbortError(
+      outputContent`No buckets can be found.`,
+      outputContent`Run ${outputToken.genericShellCommand('bucket create --bucket <bucket name>')}`
+    )
+  }
   return await renderSelectPrompt({
     message: "Select a bucket",
     choices: buckets.map(bucket => {
       return { label: bucket, value: bucket }
     })
   })
+}
+
+export async function ensureBucketExists(bucket: string, bucketPath: string) {
+  const bucketExists = await fileExists(bucketPath)
+
+  if (!bucketExists) {
+    throw new AbortError(
+      outputContent`${bucket} does not exist.`,
+      outputContent`Run ${outputToken.genericShellCommand(`bucket create --bucket ${bucket}`)} to create it first.`
+    )
+  }
 }
 
 export async function getBuckets(): Promise<string[]> {
@@ -49,7 +67,7 @@ export async function getBucketPath(bucket: string): Promise<string> {
 export async function getShopkeeperPath(): Promise<string> {
   const shopkeeperRoot = await findPathUp(SHOPKEEPER_DIRECTORY, { type: "directory" })
   if (!shopkeeperRoot) {
-    throw new AbortError(`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${cwd()}.`);
+    throw new AbortError(outputContent`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${outputToken.path(cwd())}.`);
   }
 
   return shopkeeperRoot
@@ -63,7 +81,7 @@ export async function getProjectDir() {
 
 export async function setCurrentBucket(bucket: string) {
   const shopkeeperRoot = await getShopkeeperPath()
-  const contents = `${bucket}\n`
+  const contents = `${bucket} \n`
   await writeFile(`${shopkeeperRoot}/${CURRENT_BUCKET_FILE}`, contents)
 }
 

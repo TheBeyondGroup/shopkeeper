@@ -189,6 +189,12 @@
           "description": "The environment to apply to the current command.",
           "multiple": false
         },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "description": "The bucket you want to restore your settings from.",
+          "multiple": false
+        },
         "nodelete": {
           "name": "nodelete",
           "type": "boolean",
@@ -197,12 +203,7 @@
           "allowNo": false
         }
       },
-      "args": {
-        "bucket": {
-          "name": "bucket",
-          "description": "The bucket you want to restore your settings from."
-        }
-      }
+      "args": {}
     },
     "bucket:save": {
       "id": "bucket:save",
@@ -241,6 +242,12 @@
           "description": "The environment to apply to the current command.",
           "multiple": false
         },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "description": "The bucket where you want to save your settings.",
+          "multiple": false
+        },
         "nodelete": {
           "name": "nodelete",
           "type": "boolean",
@@ -249,12 +256,7 @@
           "allowNo": false
         }
       },
-      "args": {
-        "bucket": {
-          "name": "bucket",
-          "description": "The bucket where you want to save your settings."
-        }
-      }
+      "args": {}
     },
     "bucket:switch": {
       "id": "bucket:switch",
@@ -293,6 +295,12 @@
           "description": "The environment to apply to the current command.",
           "multiple": false
         },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "description": "The bucket to switch to",
+          "multiple": false
+        },
         "nodelete": {
           "name": "nodelete",
           "type": "boolean",
@@ -301,12 +309,7 @@
           "allowNo": false
         }
       },
-      "args": {
-        "bucket": {
-          "name": "bucket",
-          "description": "The bucket to switch to"
-        }
-      }
+      "args": {}
     },
     "theme:create": {
       "id": "theme:create",

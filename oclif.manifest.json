@@ -446,6 +446,12 @@
           "description": "Runs the push command without deleting local files.",
           "allowNo": false
         },
+        "publish": {
+          "name": "publish",
+          "type": "boolean",
+          "description": "Publishes the on-deck theme after deploying",
+          "allowNo": false
+        },
         "green": {
           "name": "green",
           "type": "option",

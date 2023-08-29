@@ -3,7 +3,7 @@ import { AdminSession } from "@shopify/cli-kit/node/session";
 import { updateTheme } from "@shopify/cli-kit/node/themes/themes-api";
 import { getLatestGitCommit } from "@shopify/cli-kit/node/git";
 import { findThemes } from "@shopify/theme/dist/cli/utilities/theme-selector.js";
-import { pullLiveThemeSettings, push, pushLive } from "../../utilities/theme.js";
+import { pullLiveThemeSettings, push, pushToLive } from "../../utilities/theme.js";
 import { findPathUp } from "@shopify/cli-kit/node/fs";
 import { BLUE_GREEN_STRATEGY } from "../../utilities/constants.js";
 
@@ -12,10 +12,10 @@ type OnDeckTheme = {
   name: string
 }
 
-export async function deploy(adminSession: AdminSession, path: string, themeFlags: string[], strategy: string, blue: number, green: number) {
+export async function deploy(adminSession: AdminSession, path: string, publish: boolean, themeFlags: string[], strategy: string, blue: number, green: number) {
   switch (strategy) {
     case BLUE_GREEN_STRATEGY:
-      await blueGreenDeploy(adminSession, path, themeFlags, blue, green)
+      await blueGreenDeploy(adminSession, path, publish, themeFlags, blue, green)
       break;
 
     default:
@@ -24,12 +24,12 @@ export async function deploy(adminSession: AdminSession, path: string, themeFlag
   }
 }
 
-export async function blueGreenDeploy(adminSession: AdminSession, path: string, themeFlags: string[], blue: number, green: number) {
+export async function blueGreenDeploy(adminSession: AdminSession, path: string, publish: boolean, themeFlags: string[], blue: number, green: number) {
   const liveThemeId = await getLiveTheme(adminSession)
   const onDeckTheme = getOnDeckThemeId(liveThemeId, blue, green)
 
   await pullLiveThemeSettings(adminSession, path, themeFlags)
-  await push(adminSession, path, themeFlags, onDeckTheme.id)
+  await push(adminSession, path, publish, themeFlags, onDeckTheme.id)
 
   const headSHA = await gitHeadHash()
   const onDeckThemeName = `[${headSHA}] Production - ${onDeckTheme.name}`
@@ -41,7 +41,7 @@ export async function basicDeploy(adminSession: AdminSession, path: string, them
   const liveThemeId = await getLiveTheme(adminSession)
 
   await pullLiveThemeSettings(adminSession, path, themeFlags)
-  await pushLive(adminSession, path, themeFlags)
+  await pushToLive(adminSession, path, themeFlags)
 
   const headSHA = await gitHeadHash()
   const themeName = `[${headSHA}] Production`

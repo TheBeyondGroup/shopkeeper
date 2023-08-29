@@ -18,6 +18,11 @@ export default class Deploy extends ThemeCommand {
       description: 'Runs the push command without deleting local files.',
       env: 'SHOPIFY_FLAG_NODELETE',
     }),
+    publish: Flags.boolean({
+      description: 'Publishes the on-deck theme after deploying',
+      default: false,
+      env: 'SKR_FLAG_PUBLISH',
+    }),
     green: Flags.integer({
       description: 'Green theme ID',
       env: 'SKR_FLAG_GREEN_THEME_ID'
@@ -50,6 +55,6 @@ export default class Deploy extends ThemeCommand {
     const adminSession = await ensureAuthenticatedThemes(store, flags.password)
     const passThroughFlags = this.passThroughFlags(flags, { allowedFlags: Deploy.cli2Flags })
 
-    await deploy(adminSession, flags.path, passThroughFlags, flags.strategy!, flags.blue || 0, flags.green || 0)
+    await deploy(adminSession, flags.path, flags.publish, passThroughFlags, flags.strategy!, flags.blue || 0, flags.green || 0)
   }
 }

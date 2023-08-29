@@ -11,13 +11,16 @@ export async function pullLiveThemeSettings(adminSession: AdminSession, path: st
   await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })
 }
 
-export async function push(adminSession: AdminSession, path: string, themeFlags: string[], themeId: number) {
+export async function push(adminSession: AdminSession, path: string, publish: boolean, themeFlags: string[], themeId: number) {
   const themeFlag = ['--theme', themeId.toString()]
+  if (publish) {
+    themeFlag.push('--publish')
+  }
   const command = ['theme', 'push', path, ...themeFlags, ...themeFlag]
   await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })
 }
 
-export async function pushLive(adminSession: AdminSession, path: string, themeFlags: string[]) {
+export async function pushToLive(adminSession: AdminSession, path: string, themeFlags: string[]) {
   const themeFlag = ['--live', '--allow-live']
   const command = ['theme', 'push', path, ...themeFlags, ...themeFlag]
   await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })

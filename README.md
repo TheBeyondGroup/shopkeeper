@@ -133,7 +133,7 @@ Shopkeeper supports multiple deployment strategies:
 * Blue/Green
 
 Shopkeeper extends the Shopify CLI `theme` topic with a 
-[`deploy`](docs/commands/readme#shopkeeper-theme-deploy) command.
+[`deploy`](docs/commands/readme.md#shopkeeper-theme-deploy) command.
 
 ### Basic Deployment
 

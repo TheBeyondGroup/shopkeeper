@@ -87,6 +87,10 @@ export default class ShopkeeperConfig {
     )}/templates/customers/${fileName}`;
   }
 
+  backupSectionSettingsPath(store: string, fileName: string): string {
+    return `${this.backupEnvironmentRootPath(store)}/sections/${fileName}`;
+  }
+
   async backupThemeSettingsSaveFileMoves(
     environment: string
   ): Promise<Array<FileMove>> {
@@ -119,7 +123,16 @@ export default class ShopkeeperConfig {
       };
     });
 
-    return fileMoves.concat(templateMoves).concat(customerTemplateMoves);
+    const sectionSettingFiles = glob.sync(`${themeDir}/sections/*.json`);
+    const sectionSettingsMoves = sectionSettingFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
+      return {
+        source: process.cwd() + `/${fileName}`,
+        destination: this.backupSectionSettingsPath(environment, baseName),
+      };
+    });
+
+    return fileMoves.concat(templateMoves).concat(customerTemplateMoves).concat(sectionSettingsMoves);
   }
 
   async backupThemeSettingsRestoreFileMoves(
@@ -158,13 +171,31 @@ export default class ShopkeeperConfig {
       };
     });
 
-    return fileMoves.concat(templateMoves).concat(customerTemplateMoves);
+    const sectionSettingFiles = glob.sync(
+      `${this.backupEnvironmentRootPath(environment)}/sections/*.json`
+    );
+    const sectionSettingsMoves = sectionSettingFiles.map((fileName) => {
+      const baseName = fileName.split("/").pop() || "";
+      return {
+        source: fileName,
+        destination:
+          process.cwd() + `/${themeDir}/sections/${baseName}`,
+      };
+    });
+
+    return fileMoves.concat(templateMoves).concat(customerTemplateMoves).concat(sectionSettingsMoves);
   }
 
-  async themeJSONTemplates(){
+  async themeJSONTemplates() {
     const themeDir = await this.themeDirectory()
     const jsonTemplateFiles = glob.sync(`${themeDir}/templates/**/*.json`)
     return jsonTemplateFiles
+  }
+
+  async sectionsJSONTemplates() {
+    const themeDir = await this.themeDirectory()
+    const sectionSettingFiles = glob.sync(`${themeDir}/sections/*.json`)
+    return sectionSettingFiles
   }
 
   get themeEnvPath(): string {

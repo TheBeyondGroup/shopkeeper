@@ -32,6 +32,12 @@ program.action(async(environment) => {
         fs.rm(fileName)
         console.log(`Deleted ${fileName}`)
       })
+
+      const sectionsSettings = await config.sectionsJSONTemplates()
+      sectionsSettings.forEach(fileName => {
+        fs.rm(fileName)
+        console.log(`Deleted ${fileName}`)
+      })
     }
 
     const fileMoves = await config.backupThemeSettingsRestoreFileMoves(backupEnv)

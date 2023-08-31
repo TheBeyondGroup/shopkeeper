@@ -30,6 +30,11 @@ program.action(async(environment) => {
       const templatePath = config.backupThemeTemplatePath(backupEnv)
       await fs.emptyDir(templatePath)
       console.log(`Emptied ${backupEnv}/templates`)
+
+      // Remove all JSON files from .shopkeeper/<env>/sections
+      const sectionsPath = `${config.backupEnvironmentRootPath(backupEnv)}/sections`
+      await fs.emptyDir(sectionsPath)
+      console.log(`Emptied ${backupEnv}/sections`)
     }
 
     const fileMoves = await config.backupThemeSettingsSaveFileMoves(backupEnv)

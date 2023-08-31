@@ -4,19 +4,20 @@ import themeKit from '@shopify/themekit';
 
 export default class Shopkeeper {
   options: any;
-  
+
   constructor(options: any) {
     this.options = options;
   }
 
   async settingsDownload() {
-    const flags: {[k: string]: any} = {
+    const flags: { [k: string]: any } = {
       files: [
         'config/settings_data.json',
-        "templates/*.json"
+        'templates/**/*.json',
+        'sections/*.json'
       ]
     };
-  
+
     if (this.options.env) {
       flags.env = this.options.env;
     } else {
@@ -32,18 +33,19 @@ export default class Shopkeeper {
         process.exit(1);
       }
     }
-  
+
     await themeKit.command('download', flags);
   }
 
   async settingsUpload() {
-    const flags: {[k: string]: any} = {
+    const flags: { [k: string]: any } = {
       files: [
         'config/settings_data.json',
-        "templates/*.json"
+        'templates/**/*.json',
+        'sections/*.json'
       ]
     };
-  
+
     // TODO: Need to add credentials
     if (this.options.themeid && this.options.storeUrl && this.options.password) {
       flags.themeid = this.options.themeid;

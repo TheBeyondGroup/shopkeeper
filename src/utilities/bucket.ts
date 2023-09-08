@@ -85,7 +85,7 @@ export async function setCurrentBucket(bucket: string) {
   await writeFile(`${shopkeeperRoot}/${CURRENT_BUCKET_FILE}`, contents)
 }
 
-export function getSettingsPatterns() {
+export function getSettingsPatterns(): string[] {
   return [
     'config/settings_data.json',
     'templates/**/*.json',
@@ -93,8 +93,22 @@ export function getSettingsPatterns() {
   ]
 }
 
+export function getCLISettingsPatterns(): string[] {
+  return [
+    'config/settings_data.json',
+    'sections/*.json',
+    'templates/*.json',
+    'templates/customers/*.json'
+  ]
+}
+
 export function cli2settingFlags() {
-  const patternFlags = getSettingsPatterns().flatMap(pattern => {
+  const patternFlags = [
+    'config/settings_data.json',
+    'sections/*.json',
+    'templates/*.json',
+    'templates/customers/*.json'
+  ].flatMap(pattern => {
     return ["--only", `${pattern}`]
   })
 

@@ -58,7 +58,6 @@
     "dev": "yarn build && npm exec -- shopify",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postinstall": "node bin/patch-cli.js",
-    "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "yarn lint",
     "postpublish": "npm publish --ignore-scripts --@thebeyondgroup:registry='https://registry.npmjs.org'",
     "prepack": "yarn build && oclif manifest && ./bin/generate-readme.sh",

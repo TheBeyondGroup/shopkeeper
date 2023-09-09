@@ -22,8 +22,8 @@ export async function switchBucket(bucket: string, path: string, skipFileRemoval
     }
   })
   fileMoves = await appendEnv(fileMoves, bucketRoot)
-  copyFiles(fileMoves)
-  setCurrentBucket(bucket)
+  await copyFiles(fileMoves)
+  await setCurrentBucket(bucket)
   return fileMoves
 }
 

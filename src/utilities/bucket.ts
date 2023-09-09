@@ -93,22 +93,15 @@ export function getSettingsPatterns(): string[] {
   ]
 }
 
-export function getCLISettingsPatterns(): string[] {
-  return [
-    'config/settings_data.json',
-    'sections/*.json',
-    'templates/*.json',
-    'templates/customers/*.json'
-  ]
-}
+export const CLI_SETTINGS_FLAGS = [
+  'config/settings_data.json',
+  'sections/*.json',
+  'templates/*.json',
+  'templates/customers/*.json'
+]
 
 export function cli2settingFlags() {
-  const patternFlags = [
-    'config/settings_data.json',
-    'sections/*.json',
-    'templates/*.json',
-    'templates/customers/*.json'
-  ].flatMap(pattern => {
+  const patternFlags = CLI_SETTINGS_FLAGS.flatMap(pattern => {
     return ["--only", `${pattern}`]
   })
 

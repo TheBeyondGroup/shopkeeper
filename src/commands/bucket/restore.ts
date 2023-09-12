@@ -26,8 +26,8 @@ export default class Restore extends BaseCommand {
   };
 
   async run(): Promise<void> {
-    const { args, flags } = await this.parse(Restore)
-    const bucket = args.bucket || await getBucketByPrompt()
+    const { flags } = await this.parse(Restore)
+    const bucket = flags.bucket || await getBucketByPrompt()
     const fileMoves = await restore(bucket, flags.path, flags.nodelete)
 
     renderSuccess({

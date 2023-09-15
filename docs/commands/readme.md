@@ -86,11 +86,12 @@ Initialize .shopkeeper directory in the current directory
 
 ```
 USAGE
-  $ shopkeeper bucket init [--no-color] [--verbose]
+  $ shopkeeper bucket init [--no-color] [--verbose] [-b <value>]
 
 FLAGS
-  --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  -b, --bucket=<value>...
+  --no-color               Disable color output.
+  --verbose                Increase the verbosity of the logs.
 
 DESCRIPTION
   Initialize .shopkeeper directory in the current directory

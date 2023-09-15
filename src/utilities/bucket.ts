@@ -1,5 +1,5 @@
 import { AbortError } from "@shopify/cli-kit/node/error"
-import { copyFile, fileExists, findPathUp, glob, writeFile } from "@shopify/cli-kit/node/fs"
+import { copyFile, fileExists, findPathUp, glob, mkdir, writeFile } from "@shopify/cli-kit/node/fs"
 import { outputContent, outputToken } from "@shopify/cli-kit/node/output"
 import { basename, cwd, resolvePath } from "@shopify/cli-kit/node/path"
 import { renderSelectPrompt } from "@shopify/cli-kit/node/ui"
@@ -9,6 +9,27 @@ export type FileMove = {
   source: string,
   dest: string,
   file: string
+}
+
+export const DEFAULT_ENV_FILE = [
+  "SHOPIFY_CLI_THEME_TOKEN=<Theme Access token>",
+  "SHOPIFY_FLAG_STORE=<Shopify store url>",
+  "SHOPIFY_FLAG_PATH=<path to folder containing theme>",
+  "# Set these flags if you're using the blue/green strategy",
+  "# SKR_FLAG_GREEN_THEME_ID=<theme ID>",
+  "# SKR_FLAG_BLUE_THEME_ID=<theme ID>"
+].join("\n")
+
+export async function createBuckets(buckets: string[]) {
+  return await Promise.all(buckets.map(async bucket => {
+    const bucketPath = await getBucketPath(bucket)
+    await mkdir(bucketPath)
+    await writeFile(`${bucketPath}/.env`, DEFAULT_ENV_FILE)
+    await writeFile(`${bucketPath}/.env.sample`, DEFAULT_ENV_FILE)
+    await mkdir(`${bucketPath}/config`)
+    await mkdir(`${bucketPath}/templates`)
+    await mkdir(`${bucketPath}/sections`)
+  }))
 }
 
 export async function getBucketByPrompt() {

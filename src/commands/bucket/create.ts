@@ -18,6 +18,7 @@ export default class Create extends BaseCommand {
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Create)
-    await create(flags.bucket!)
+    const buckets = flags.bucket || []
+    await create(buckets)
   }
 }

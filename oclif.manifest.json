@@ -122,6 +122,12 @@
           "description": "Increase the verbosity of the logs.",
           "hidden": false,
           "allowNo": false
+        },
+        "bucket": {
+          "name": "bucket",
+          "type": "option",
+          "char": "b",
+          "multiple": true
         }
       },
       "args": {}

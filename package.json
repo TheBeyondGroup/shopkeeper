@@ -20,9 +20,9 @@
     "@oclif/core": "2.8.11",
     "@oclif/plugin-commands": "2.2.17",
     "@oclif/plugin-help": "5.2.1",
-    "@shopify/cli": "~3.48.4",
-    "@shopify/cli-kit": "~3.48.4",
-    "@shopify/theme": "~3.48.4",
+    "@shopify/cli": "3.x",
+    "@shopify/cli-kit": "3.x",
+    "@shopify/theme": "3.x",
     "fs-extra": "^11.1.0"
   },
   "devDependencies": {

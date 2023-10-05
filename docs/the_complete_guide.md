@@ -287,28 +287,39 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+jobs:
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
       SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
-      SHOPIFY_FLAG_PATH: "theme"
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
       SKR_FLAG_BLUE_THEME_ID: ${{ secrets.SKR_FLAG_BLUE_THEME_ID }}
       SKR_FLAG_GREEN_THEME_ID: ${{ secrets.SKR_FLAG_GREEN_THEME_ID }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: "19"
+          cache: "yarn"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: 'latest'
       - name: Install packages
-        run: npm ci
-       - name: Build assets
-        run: npm run build:prod
+        run: yarn install
+      - name: Select theme settings
+        run: npx shopify bucket restore --bucket production
+      - name: Build assets
+        run: yarn build:prod
       - name: Deploy to on deck theme
-        run: npx shopkeeper theme deploy
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          command: npx shopify theme deploy
 ```
 
 When a PR is merged to `main`, a commit is added and this workflow is
@@ -331,19 +342,22 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
-      SHOPIFY_FLAG_PATH: "theme"
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SETTINGS_APPROVER: ${{ secrets.SETTINGS_APPROVER }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: "19"
+          cache: "yarn"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: 'latest'
       - name: Install packages
-        run: npm ci
+        run: yarn install
       - name: Download published theme settings
         run: npx shopify theme settings download
       - name: Store the settings
@@ -352,7 +366,7 @@ jobs:
         run: |
           # Setup username and email
           git config user.name "GitHub Actions Bot"
-          git config user.email "ops@your-company.com"
+          git config user.email "ops@thebeyondgroup.la"
       - name: Store datetime
         run: echo "NOW=$(date +"%Y-%m-%d-%H")" >> $GITHUB_ENV
       - name: Store branch name
@@ -362,7 +376,7 @@ jobs:
           if [[ -z $(git status -s) ]]
           then
             echo "No changes. Nothing to commit"
-          else 
+          else
             gh label create settings-update --force
             git checkout -b $NEW_BRANCH
             git add .
@@ -376,7 +390,6 @@ jobs:
             GITHUB_TOKEN=$OLD_GITHUB_TOKEN
             gh pr merge --merge
           fi
-
 ```
 
 To back up theme settings, we need to know when any theme settings file
@@ -391,42 +404,78 @@ to approve the PR.
 In `.github/workflows/generate-preview-theme.yml`, write:
 
 ```yaml
-name: Generate Preview Theme
+name: Generate Preview
 
 on:
+  pull_request:
+    types:
+      - reopened
+    branches-ignore:
+      - "github-action/**"
   push:
     branches-ignore:
-      - "main"
+      - "master"
       - "github-action/**"
 
   workflow_dispatch:
 
 jobs:
-  deploy:
+  preview:
     runs-on: ubuntu-latest
     env:
       SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
-      SHOPIFY_FLAG_PATH: "theme"
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: rlespinasse/github-slug-action@v4
         with:
-          node-version: "18"
+          slug-maxlength: 50 # Shopify preview environment name cannot be more than 50 chars
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
           cache: "yarn"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: 'latest'
+      - uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: pr_status
+        with:
+          # Verbose setting SHA when using Pull_Request event trigger
+          sha: ${{ github.event.pull_request.head.sha }}
+          # Only return if PR is still open. (By default it returns PRs in any state.)
+          filterOutClosed: true
+          # Only return if PR is not in draft state. (By default it returns PRs in any state.)
+          filterOutDraft: true
       - name: Install packages
-        run: npm ci
+        run: yarn install
       - name: Select theme settings
-        run: npx shopkeeper bucket restore --bucket production
+        run: npx shopify bucket restore --bucket production
       - name: Build assets
-        run: npm run build:prod
+        run: yarn build:prod
       - name: Create theme
-        run: npx shopify theme create --theme $GITHUB_REF_NAME
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          command: npx shopify theme create --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }}
+      - name: Get theme ID
+        run: echo "THEME_ID=$(npx shopify theme get --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }})" >> $GITHUB_ENV
+      - name: Add preview link to PR
+        if: steps.pr_status.outputs.pr_found == 'true'
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: |
+           **Preview:** [Storefront](https://${{ vars.SHOPIFY_FLAG_STORE }}?preview_theme_id=${{ env.THEME_ID }}) | [Admin](https://${{ vars.SHOPIFY_FLAG_STORE }}/admin/themes/${{ env.THEME_ID }}/editor)
+          delete_prev_regex_msg: "Preview:" # OPTIONAL
 ```
-To generate a preview theme, we list to pushes on any branch other than `main`
+To generate a preview theme, we listen to pushes on any branch other than `main`
 and ones starting with `github-action/`. Branches starting with `github-action/`
-will be used for settings commits. We restore the theme settings from our
+are used for settings commits. We restore the theme settings from our
 `production` bucket, build the theme, and push it to Shopify.
 
 > :warning: We use a special `theme create` command that's provided by Shopkeeper that ensures theme
@@ -435,54 +484,8 @@ will be used for settings commits. We restore the theme settings from our
 > exists.`theme push --unpublished` is not idempotent and will add many themes of
 > the same name, so it cannot be used.
 
-#### Generate Preview Links on PR
-
-In `.github/workflows/generate-preview-link.yml`, write:
-
-```yaml
-name: Generate Preview Link
-
-on:
-  pull_request:
-    types: [opened, reopened]
-
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    env:
-      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
-      SHOPIFY_FLAG_PATH: "theme"
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: "npm"
-      - name: Install packages
-        run: npm ci
-      - name: Select theme settings
-        run: npx shopify bucket restore --bucket production
-      - name: Build assets
-        run: npm run build:prod
-      - name: Create theme
-        run: npx shopify theme create --theme $GITHUB_REF_NAME
-      - name: Get theme ID
-        run: echo "THEME_ID=$(npx shopify theme get --theme $GITHUB_HEAD_REF)" >> $GITHUB_ENV
-      - name: Add preview link to PR
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          msg: "[Preview](https://${{ secrets.SHOPIFY_FLAG_STORE }}?preview_theme_id=${{ env.THEME_ID }})"
-```
 When a PR is opened, we generate a comment on the PR with a link to the preview
-theme on Shopify. You might wonder why we need to create the theme in this
-workflow. It's because a PR can be reopened. As you'll see in the next
-workflow, we delete the preview theme when the PR is closed.
+theme on Shopify. 
 
 #### Delete Preview Theme
 
@@ -497,22 +500,28 @@ on:
     branches-ignore: ["github-action/**"]
 
 jobs:
-  deploy:
+  delete:
     runs-on: ubuntu-latest
     env:
       SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
       SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: rlespinasse/github-slug-action@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          slug-maxlength: 50 # Shopify preview environment name cannot be more than 50 chars
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
+          cache: "yarn"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: 'latest'
       - name: Install packages
-        run: npm ci
+        run: yarn install
       - name: Delete theme
-        run: npx shopify theme delete --theme $GITHUB_REF_NAME --force
+        run: npx shopify theme delete --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }} --force
 ```
 Latest but not least, we clean up after ourselves. When a PR is closed, we
 delete the theme corresponding to its branch.

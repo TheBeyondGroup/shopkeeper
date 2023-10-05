@@ -6,11 +6,10 @@ import { ensureThemeStore } from "@shopify/theme/dist/cli/utilities/theme-store.
 import ThemeCommand from '@shopify/theme/dist/cli/utilities/theme-command.js';
 import { execCLI2 } from '@shopify/cli-kit/node/ruby';
 import { getThemesByIdentifier } from '../../utilities/theme.js';
-import { AbortError } from '@shopify/cli-kit/node/error';
 
 export default class Create extends ThemeCommand {
-  static description = `
-Create a theme with theme name or ID.
+  static summary = "Create a theme with a name or ID. Update theme if one with name already exists"
+  static description = `Create a theme with theme name or ID.
 In most cases, you should use theme push.
 
 This command exists for the case when you want create a theme by name that may

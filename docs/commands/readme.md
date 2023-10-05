@@ -448,7 +448,7 @@ _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/
 
 ## `shopkeeper theme create`
 
-Create a theme with theme name or ID.
+Create a theme with a name or ID. Update theme if one with name already exists
 
 ```
 USAGE
@@ -468,6 +468,7 @@ FLAGS
   --verbose                  Increase the verbosity of the logs.
 
 DESCRIPTION
+  Create a theme with a name or ID. Update theme if one with name already exists
 
   Create a theme with theme name or ID.
   In most cases, you should use theme push.

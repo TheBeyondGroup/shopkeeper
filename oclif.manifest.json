@@ -319,7 +319,8 @@
     },
     "theme:create": {
       "id": "theme:create",
-      "description": "\nCreate a theme with theme name or ID.\nIn most cases, you should use theme push.\n\nThis command exists for the case when you want create a theme by name that may\nor may not exist. It will ensure that if one with the same name already exists,\nit is updated.\n\ntheme push --unpublished --theme yellow will create a new theme named yellow each\ntime the command is run.\n\nAs a result this command exists.\n",
+      "summary": "Create a theme with a name or ID. Update theme if one with name already exists",
+      "description": "Create a theme with theme name or ID.\nIn most cases, you should use theme push.\n\nThis command exists for the case when you want create a theme by name that may\nor may not exist. It will ensure that if one with the same name already exists,\nit is updated.\n\ntheme push --unpublished --theme yellow will create a new theme named yellow each\ntime the command is run.\n\nAs a result this command exists.\n",
       "strict": true,
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginAlias": "@thebeyondgroup/shopkeeper",

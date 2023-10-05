@@ -71,11 +71,11 @@ manage theme settings.
 
 It uses a `.shopkeeper` folder at the root of your project to store buckets of settings.
 
-> :brain: We refer to groups of settings because the term environment is
-> overloaded in Shopify development. You might have production and staging
-> store instances. These might be referred to as "environments." To add to the
-> confusion, Shopify recently added the ability to specify groups of flags in a
-> `shopify.theme.toml` file and calls these groups
+> :brain: We refer to groups of settings as "buckets" because the term
+> environment is overloaded in Shopify development. You might have production
+> and staging store instances. These might be referred to as "environments." To
+> add to the confusion, Shopify recently added the ability to specify groups of
+> flags in a `shopify.theme.toml` file and calls these groups
 > [environments](https://shopify.dev/docs/themes/tools/cli/environments).
 >
 > Therefore, we call our groups of settings buckets. :bucket:

@@ -118,7 +118,8 @@ export const CLI_SETTINGS_FLAGS = [
   'config/settings_data.json',
   'sections/*.json',
   'templates/*.json',
-  'templates/customers/*.json'
+  'templates/customers/*.json',
+  'templates/metaobject/*.json'
 ]
 
 export function cli2settingFlags() {

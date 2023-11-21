@@ -1,6 +1,6 @@
 {
   "name": "@thebeyondgroup/shopkeeper",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0",
   "description": "A CLI to manage settings and deployments for Shopify themes",
   "author": "Jeffrey Guenther @jeffreyguenther",
   "bin": {

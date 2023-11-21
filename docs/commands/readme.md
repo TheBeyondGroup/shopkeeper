@@ -12,11 +12,8 @@
 * [`shopkeeper plugins`](#shopkeeper-plugins)
 * [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin)
 * [`shopkeeper plugins:inspect PLUGIN...`](#shopkeeper-pluginsinspect-plugin)
-* [`shopkeeper plugins:install PLUGIN...`](#shopkeeper-pluginsinstall-plugin-1)
 * [`shopkeeper plugins:link PLUGIN`](#shopkeeper-pluginslink-plugin)
 * [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin)
-* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-1)
-* [`shopkeeper plugins:uninstall PLUGIN...`](#shopkeeper-pluginsuninstall-plugin-2)
 * [`shopkeeper plugins update`](#shopkeeper-plugins-update)
 * [`shopkeeper theme create`](#shopkeeper-theme-create)
 * [`shopkeeper theme deploy`](#shopkeeper-theme-deploy)
@@ -209,10 +206,13 @@ List installed plugins.
 
 ```
 USAGE
-  $ shopkeeper plugins [--core]
+  $ shopkeeper plugins [--json] [--core]
 
 FLAGS
   --core  Show core plugins.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   List installed plugins.
@@ -221,7 +221,7 @@ EXAMPLES
   $ shopkeeper plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/index.ts)_
 
 ## `shopkeeper plugins:install PLUGIN...`
 
@@ -286,7 +286,7 @@ EXAMPLES
   $ shopkeeper plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/inspect.ts)_
 
 ## `shopkeeper plugins:install PLUGIN...`
 
@@ -326,7 +326,7 @@ EXAMPLES
   $ shopkeeper plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/install.ts)_
 
 ## `shopkeeper plugins:link PLUGIN`
 
@@ -355,7 +355,7 @@ EXAMPLES
   $ shopkeeper plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/link.ts)_
 
 ## `shopkeeper plugins:uninstall PLUGIN...`
 
@@ -403,7 +403,7 @@ ALIASES
   $ shopkeeper plugins remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/uninstall.ts)_
 
 ## `shopkeeper plugins:uninstall PLUGIN...`
 
@@ -444,7 +444,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.8/src/commands/plugins/update.ts)_
 
 ## `shopkeeper theme create`
 

@@ -125,6 +125,7 @@ our `production` bucket by running:
 
 ```console
 shopify bucket save --bucket production
+```
 
 We add the following lines to our project's `.gitignore`:
 

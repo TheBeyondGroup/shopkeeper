@@ -52,7 +52,7 @@ bucket, run `shopkeeper bucket create --bucket production`.
 Each folder in the bucket refers to the corresponding folders in the theme
 directory structure where a `.json` file might be found.
 
-To learn the too, let's build a sample project. We create a directory called
+To learn the tool, let's build a sample project. We create a directory called
 `client-theme`, we can bootstrap a theme project using
 [Dawn](https://github.com/shopify/dawn):
 
@@ -60,7 +60,7 @@ To learn the too, let's build a sample project. We create a directory called
 mkdir client-theme
 cd client-theme
 npm init
-npm ci --save-dev @shopify/cli @shopify/theme @thebeyondgroup/shopkeeper
+npm install --save-dev @thebeyondgroup/shopkeeper
 npx shopify theme init --path theme
 cd theme
 rm -rf .git # theme init clones the Dawn repo. We'll create our git repo at our project root
@@ -125,6 +125,7 @@ our `production` bucket by running:
 
 ```console
 shopify bucket save --bucket production
+```
 
 We add the following lines to our project's `.gitignore`:
 
@@ -241,7 +242,7 @@ When you run `shopkeeper theme deploy`, Shopkeeper will:
 
 Don't worry about updating the name of the live theme. It will be updated when
 it becomes the on-deck theme. Also, note this command does not automatically
-publish the on-deck theme. Quite often you'll want to do take a moment to run
+publish the on-deck theme. Quite often you'll want to take a moment to run
 final checks before publishing the theme.
 
 When you're ready, you can publish the on-deck theme by running:
@@ -255,7 +256,7 @@ And now for the grand finale. It's time to bring in the robots. :robot:
 
 ### CI/CD with GitHub Actions
 
-Shopkeeper is a handy to when used locally. Where it really shines :sparkles:
+Shopkeeper is a handy when used locally. Where it really shines :sparkles:
 is when used in combination with [GitHub Actions](https://docs.github.com/en/actions).
 
 To automate your workflow with GitHub Actions, the following workflows are needed:
@@ -264,7 +265,6 @@ To automate your workflow with GitHub Actions, the following workflows are neede
 | [Blue/Green Deploy](#automate-bluegreen-deploys)   | On merge to `main`, deploy code to on-deck theme |
 | [Backup Theme Settings](#backup-theme-settings) | On a set interval, create PRs for theme settings |
 | [Generate Preview Theme](#generate-preview-theme) | When a branch receives a push, create/update a preview theme |
-| [Generate Preview Links on PR](#generate-preview-links-on-pr) | When a PR is opened, add a comment with links to the preview |
 | [Delete Preview Theme](#delete-preview-theme) | When a PR is closed, delete the preview theme |
 
 This next sections assumes a working knowledge of GitHub Actions. Also, each of these workflows assumes you have
@@ -384,7 +384,7 @@ jobs:
             git commit -m "Update theme settings as of $NOW"
             git push origin  $NEW_BRANCH
             gh pr create --title "Update theme settings as of $NOW" --body "Update to latest theme settings"--label settings-update
-            # We can't approve the PR with same token we created it.
+            # We can't approve the PR with same token that created it.
             OLD_GITHUB_TOKEN=$GITHUB_TOKEN
             GITHUB_TOKEN=$SETTINGS_APPROVER
             gh pr review --approve

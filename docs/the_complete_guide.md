@@ -89,6 +89,7 @@ Run the following to configure `direnv`:
 ```console
 echo "dotenv .env" > .envrc
 direnv allow
+```
 
 Why we do this will be come clear in the next steps. Our final bit of setup is
 to edit `.shopkeeper/production/.env` to contain:

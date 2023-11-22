@@ -63,6 +63,9 @@ If you can see the bucket commands listed, Shopkeeper is installed correctly.
 
 Use `npx` to run the version local to your project's `node_modules`.
 
+If the commands are not showing up, reinstall the package. This triggers a postinstall hook
+that registers Shopkeeper with the Shopify CLI.
+
 ## Manage Settings
 
 Shopkeeper makes it easy to manage multiple Shopify stores from a single

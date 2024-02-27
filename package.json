@@ -53,6 +53,14 @@
     "prepack": "yarn build && oclif manifest && ./bin/generate-readme.sh",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "trailingComma": "all",
+    "semi": false,
+    "printWidth": 120
+  },
   "engines": {
     "node": ">=14.17.0"
   },

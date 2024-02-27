@@ -1,5 +1,5 @@
 import { AdminSession } from "@shopify/cli-kit/node/session";
-import { Theme } from "@shopify/cli-kit/node/themes/models/theme.js";
+import { Theme } from "@shopify/cli-kit/node/themes/types.js";
 import { fetchStoreThemes } from "@shopify/theme/dist/cli/utilities/theme-selector/fetch.js";
 import { Filter, filterThemes } from "@shopify/theme/dist/cli/utilities/theme-selector/filter.js";
 

@@ -1,6 +1,6 @@
 import { execCLI2 } from "@shopify/cli-kit/node/ruby"
 import { AdminSession } from "@shopify/cli-kit/node/session"
-import { Theme } from "@shopify/cli-kit/node/themes/models/theme.js"
+import { Theme } from "@shopify/cli-kit/node/themes/types.js"
 import { fetchStoreThemes } from "@shopify/theme/dist/cli/utilities/theme-selector/fetch.js"
 import { Filter } from "@shopify/theme/dist/cli/utilities/theme-selector/filter.js"
 import { cli2settingFlags } from "./bucket.js"

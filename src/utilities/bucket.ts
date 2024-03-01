@@ -1,7 +1,7 @@
 import {AbortError} from '@shopify/cli-kit/node/error'
 import {copyFile, fileExists, findPathUp, glob, mkdir, writeFile} from '@shopify/cli-kit/node/fs'
 import {outputContent, outputToken} from '@shopify/cli-kit/node/output'
-import {basename, cwd, resolvePath} from '@shopify/cli-kit/node/path'
+import {basename, cwd, joinPath, resolvePath} from '@shopify/cli-kit/node/path'
 import {renderSelectPrompt} from '@shopify/cli-kit/node/ui'
 import {CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY} from './constants.js'
 
@@ -25,11 +25,11 @@ export async function createBuckets(buckets: string[]) {
     buckets.map(async (bucket) => {
       const bucketPath = await getBucketPath(bucket)
       await mkdir(bucketPath)
-      await writeFile(`${bucketPath}/.env`, DEFAULT_ENV_FILE)
-      await writeFile(`${bucketPath}/.env.sample`, DEFAULT_ENV_FILE)
-      await mkdir(`${bucketPath}/config`)
-      await mkdir(`${bucketPath}/templates`)
-      await mkdir(`${bucketPath}/sections`)
+      await writeFile(joinPath(bucketPath, '.env'), DEFAULT_ENV_FILE)
+      await writeFile(joinPath(bucketPath, '.env.sample'), DEFAULT_ENV_FILE)
+      await mkdir(joinPath(bucketPath, 'config'))
+      await mkdir(joinPath(bucketPath, 'templates'))
+      await mkdir(joinPath(bucketPath, 'sections'))
     }),
   )
 }
@@ -84,7 +84,7 @@ export async function getSettingsFilePaths(cwd: string): Promise<string[]> {
 
 export async function getBucketPath(bucket: string): Promise<string> {
   const shopkeeperRoot = await getShopkeeperPath()
-  return `${shopkeeperRoot}/${bucket}`
+  return joinPath(shopkeeperRoot, bucket)
 }
 
 export async function getShopkeeperPath(): Promise<string> {
@@ -107,7 +107,7 @@ export async function getProjectDir() {
 export async function setCurrentBucket(bucket: string) {
   const shopkeeperRoot = await getShopkeeperPath()
   const contents = `${bucket} \n`
-  await writeFile(`${shopkeeperRoot}/${CURRENT_BUCKET_FILE}`, contents)
+  await writeFile(joinPath(shopkeeperRoot, CURRENT_BUCKET_FILE), contents)
 }
 
 export function getSettingsPatterns(): string[] {

@@ -23,17 +23,15 @@
     "@oclif/test": "3.2.1",
     "@types/chai": "^4",
     "@types/fs-extra": "^11.0.1",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "^16.18.11",
-    "chai": "^4",
+    "@types/node": "18.19.3",
     "eslint": "^8.48.0",
-    "mocha": "^9",
-    "prettier": "^2.8.7",
     "oclif": "4.0.2",
-    "shx": "^0.3.3",
+    "prettier": "^3.2.5",
+    "shx": "^0.3.4",
     "ts-node": "^10.9.1",
-    "tslib": "^2.4.1",
-    "typescript": "5.2.2"
+    "tslib": "^2.6.2",
+    "typescript": "5.2.2",
+    "vitest": "^1.3.1"
   },
   "oclif": {
     "bin": "shopkeeper",
@@ -45,13 +43,13 @@
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "dev": "yarn build && npm exec -- shopify",
+    "dev": "pnpm build && pnpm exec -- shopify",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postinstall": "node bin/patch-cli.js",
-    "posttest": "yarn lint",
+    "posttest": "pnpm lint",
     "postpublish": "npm publish --ignore-scripts --@thebeyondgroup:registry='https://registry.npmjs.org'",
-    "prepack": "yarn build && oclif manifest && ./bin/generate-readme.sh",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\""
+    "prepack": "pnpm build && pnpm oclif manifest && ./bin/generate-readme.sh",
+    "test": "vitest --run"
   },
   "prettier": {
     "arrowParens": "always",
@@ -62,7 +60,7 @@
     "printWidth": 120
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": ">=18.12.0"
   },
   "bugs": "https://github.com/TheBeyondGroup/shopkeeper/issues",
   "keywords": ["oclif"],

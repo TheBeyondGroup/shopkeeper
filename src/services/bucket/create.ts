@@ -1,9 +1,10 @@
 import { pluralize } from "@shopify/cli-kit/common/string"
 import { renderSuccess } from "@shopify/cli-kit/node/ui"
-import { createBuckets } from "../../utilities/bucket.js"
+import { createBuckets, getShopkeeperPath } from "../../utilities/bucket.js"
 
-export async function create(buckets: string[]) {
-  await createBuckets(buckets)
+export async function create(buckets: string[], rootPath?: string) {
+  const shopkeeperRoot = rootPath || await getShopkeeperPath()
+  await createBuckets(shopkeeperRoot, buckets)
 
   renderSuccess({
     body: pluralize(

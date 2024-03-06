@@ -1,6 +1,6 @@
-import {fileExists, inTemporaryDirectory, mkdir, readFile} from '@shopify/cli-kit/node/fs'
-import {joinPath} from '@shopify/cli-kit/node/path'
-import {describe, expect, test, vi} from 'vitest'
+import { fileExists, inTemporaryDirectory, mkdir, readFile } from '@shopify/cli-kit/node/fs'
+import { joinPath } from '@shopify/cli-kit/node/path'
+import { describe, expect, test, vi } from 'vitest'
 import {
   DEFAULT_ENV_FILE,
   cli2settingFlags,
@@ -10,26 +10,25 @@ import {
   getBucketPath,
   getBucketSettingsFilePaths,
   getBuckets,
-  getProjectDir,
+  getProjectPath,
   getSettingsFilePaths,
   getSettingsFolders,
   getSettingsPatterns,
   getShopkeeperPath,
   getThemeSettingsFilePaths,
 } from './bucket.js'
-import {renderSelectPrompt} from '@shopify/cli-kit/node/ui'
+import { renderSelectPrompt } from '@shopify/cli-kit/node/ui'
 
 vi.mock('@shopify/cli-kit/node/ui')
 
-describe('bucket', () => {
+describe('bucket utilities', () => {
   describe('createBuckets', async () => {
     test('creates a bucket', async () => {
       await inTemporaryDirectory(async (tmpDir: string) => {
         // Given
         const shopkeeperRoot = joinPath(tmpDir, '.shopkeeper')
-        vi.spyOn(process, 'cwd').mockReturnValue(shopkeeperRoot)
-
         await mkdir(shopkeeperRoot)
+
         const envPath = joinPath(shopkeeperRoot, 'production', '.env')
         const envSamplePath = joinPath(shopkeeperRoot, 'production', '.env.sample')
         const configPath = joinPath(shopkeeperRoot, 'production', 'config')
@@ -37,7 +36,7 @@ describe('bucket', () => {
         const sectionsPath = joinPath(shopkeeperRoot, 'production', 'sections')
 
         // When
-        await createBuckets(['production'])
+        await createBuckets(shopkeeperRoot, ['production'])
 
         // Then
         expect(await fileExists(envPath)).toBe(true)
@@ -54,11 +53,10 @@ describe('bucket', () => {
   describe('getBucketByPrompt', async () => {
     test('throws an error when not buckets are found', async () => {
       // Given
-      const fixturesPath = joinPath(__dirname, 'fixtures-without-buckets')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures-without-buckets', '.shopkeeper')
 
       // When
-      const errorFunc = async () => await getBucketByPrompt()
+      const errorFunc = async () => await getBucketByPrompt(shopkeeperRoot)
 
       // Then
       expect(errorFunc).rejects.toThrowError(/No buckets can be found/)
@@ -66,16 +64,15 @@ describe('bucket', () => {
 
     test('renders a select prompt', async () => {
       // Given
-      const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When
-      await getBucketByPrompt()
+      await getBucketByPrompt(shopkeeperRoot)
 
       // Then
       expect(renderSelectPrompt).toHaveBeenCalledWith({
         message: 'Select a bucket',
-        choices: [{label: 'production', value: 'production'}],
+        choices: [{ label: 'production', value: 'production' }],
       })
     })
   })
@@ -84,30 +81,29 @@ describe('bucket', () => {
     test('returns list of buckets', async () => {
       // Given
       const bucketName = 'production'
-      const bucketPath = joinPath(__dirname, 'fixtures', '.shopkeeper', bucketName)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When/Then
-      expect(() => ensureBucketExists(bucketName, bucketPath)).not.toThrowError()
+      expect(() => ensureBucketExists(shopkeeperRoot, bucketName)).not.toThrowError()
     })
 
     test('throws error', async () => {
       // Given
       const bucketName = 'staging'
-      const bucketPath = joinPath(__dirname, 'fixtures', '.shopkeeper', bucketName)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When/Then
-      expect(() => ensureBucketExists(bucketName, bucketPath)).rejects.toThrowError()
+      expect(() => ensureBucketExists(shopkeeperRoot, bucketName)).rejects.toThrowError()
     })
   })
 
   describe('getBuckets', async () => {
     test('returns list of buckets', async () => {
       // Given
-      const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When
-      const actualBucketNames = await getBuckets()
+      const actualBucketNames = await getBuckets(shopkeeperRoot)
 
       // Then
       expect(actualBucketNames).toEqual(['production'])
@@ -117,12 +113,11 @@ describe('bucket', () => {
   describe('getBucketSettingsFilePaths', async () => {
     test('returns list of setting file paths', async () => {
       // Given
-      const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
       const bucketName = 'production'
 
       // When
-      const actualSettingsFilePaths = await getBucketSettingsFilePaths(bucketName)
+      const actualSettingsFilePaths = await getBucketSettingsFilePaths(shopkeeperRoot, bucketName)
 
       // Then
       expect(actualSettingsFilePaths.sort()).toEqual(
@@ -140,10 +135,10 @@ describe('bucket', () => {
   describe('getThemeSettingsFilePaths', async () => {
     test('returns list of setting file paths', async () => {
       // Given
-      const fixturesPath = joinPath(__dirname, 'fixtures', 'theme')
+      const themeRoot = joinPath(__dirname, 'fixtures', 'theme')
 
       // When
-      const actualSettingsFilePaths = await getThemeSettingsFilePaths(fixturesPath)
+      const actualSettingsFilePaths = await getThemeSettingsFilePaths(themeRoot)
 
       // Then
       expect(actualSettingsFilePaths.sort()).toEqual(
@@ -183,12 +178,12 @@ describe('bucket', () => {
     test('returns path to bucket', async () => {
       // Given
       const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
       const bucketName = 'production'
+      const shopkeeperRoot = joinPath(fixturesPath, '.shopkeeper')
       const expectedBucketPath = joinPath(fixturesPath, '.shopkeeper', bucketName)
 
       // When
-      const actualBucketPath = await getBucketPath(bucketName)
+      const actualBucketPath = await getBucketPath(shopkeeperRoot, bucketName)
 
       // Then
       expect(actualBucketPath).toMatch(expectedBucketPath)
@@ -199,11 +194,10 @@ describe('bucket', () => {
     test('returns path to .shopkeeper directory', async () => {
       // Given
       const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
       const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When
-      const actualShopkeeperRoot = await getShopkeeperPath()
+      const actualShopkeeperRoot = await getShopkeeperPath(fixturesPath)
 
       // Then
       expect(actualShopkeeperRoot).toMatch(shopkeeperRoot)
@@ -212,10 +206,9 @@ describe('bucket', () => {
     test('throws an abort error if the directory cannot be found', async () => {
       // Given
       const fixturesPath = joinPath(__dirname, 'fixtures-that-dont-exist')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
 
       // When
-      const errorFunc = async () => await getShopkeeperPath()
+      const errorFunc = async () => await getShopkeeperPath(fixturesPath)
 
       // Then
       expect(errorFunc).rejects.toThrowError(/Cannot find/)
@@ -226,10 +219,10 @@ describe('bucket', () => {
     test('return path to .shopkeeper parent directory', async () => {
       // Given
       const fixturesPath = joinPath(__dirname, 'fixtures')
-      vi.spyOn(process, 'cwd').mockReturnValue(fixturesPath)
+      const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When
-      const actualProjectDirectory = await getProjectDir()
+      const actualProjectDirectory = await getProjectPath(shopkeeperRoot)
 
       // Then
       expect(actualProjectDirectory).toMatch(fixturesPath)
@@ -238,9 +231,7 @@ describe('bucket', () => {
 
   describe('getSettingsPatterns', () => {
     test('returns glob patterns for settings files', () => {
-      // Given
-
-      // When
+      // Given When
       const settingsFolders = getSettingsPatterns()
 
       // Then
@@ -250,9 +241,7 @@ describe('bucket', () => {
 
   describe('cliSettingsFlags', () => {
     test('returns cli2 flags for settigns files', () => {
-      // Given
-
-      // When
+      // Given When
       const settingsFolders = cli2settingFlags()
 
       // Then
@@ -274,9 +263,7 @@ describe('bucket', () => {
 
   describe('getSettingsFolders', () => {
     test('returns list of folders that could contain JSON templates', () => {
-      // Given
-
-      // When
+      // Given When
       const settingsFolders = getSettingsFolders()
 
       // Then

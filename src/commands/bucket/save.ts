@@ -4,7 +4,7 @@ import { globalFlags } from '@shopify/cli-kit/node/cli';
 import { renderSuccess } from "@shopify/cli-kit/node/ui";
 import { themeFlags } from '@shopify/theme/dist/cli/flags.js';
 import { save } from "../../services/bucket/save.js";
-import { getBucketByPrompt } from "../../utilities/bucket.js";
+import { getBucketByPrompt, getShopkeeperPath } from "../../utilities/bucket.js";
 
 export default class Save extends BaseCommand {
   static description = "Saves the current theme settings to the specified bucket";
@@ -26,8 +26,10 @@ export default class Save extends BaseCommand {
   };
 
   async run(): Promise<void> {
+    const shopKeeperRoot = await getShopkeeperPath()
+
     const { flags } = await this.parse(Save)
-    const bucket = flags.bucket || await getBucketByPrompt()
+    const bucket = flags.bucket || await getBucketByPrompt(shopKeeperRoot)
     const fileMoves = await save(bucket, flags.path, flags.nodelete)
 
     renderSuccess({

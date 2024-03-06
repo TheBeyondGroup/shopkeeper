@@ -1,19 +1,20 @@
-import {joinPath} from '@shopify/cli-kit/node/path'
-import {emptyDir} from 'fs-extra/esm'
+import { joinPath } from '@shopify/cli-kit/node/path'
+import { emptyDir } from 'fs-extra/esm'
 import {
   copyFiles,
   ensureBucketExists,
   FileMove,
   getBucketPath,
   getSettingsFolders,
+  getShopkeeperPath,
   getThemeSettingsFilePaths,
 } from '../../utilities/bucket.js'
 
-export async function save(bucket: string, path: string, skipEmptyDirectory: boolean): Promise<FileMove[]> {
-  const settingsFromTheme = await getThemeSettingsFilePaths(path)
-  const bucketRoot = await getBucketPath(bucket)
+export async function save(bucket: string, path: string, skipEmptyDirectory: boolean, rootPath?: string): Promise<FileMove[]> {
+  const shopkeeperRoot = rootPath || await getShopkeeperPath()
+  const bucketRoot = await getBucketPath(shopkeeperRoot, bucket)
 
-  await ensureBucketExists(bucket, bucketRoot)
+  await ensureBucketExists(shopkeeperRoot, bucket)
 
   if (!skipEmptyDirectory) {
     await Promise.all(
@@ -24,6 +25,7 @@ export async function save(bucket: string, path: string, skipEmptyDirectory: boo
     )
   }
 
+  const settingsFromTheme = await getThemeSettingsFilePaths(path)
   const fileMoves = settingsFromTheme.map((settingPath) => {
     return {
       file: settingPath,
@@ -31,6 +33,7 @@ export async function save(bucket: string, path: string, skipEmptyDirectory: boo
       dest: joinPath(bucketRoot, settingPath),
     }
   })
-  copyFiles(fileMoves)
+
+  await copyFiles(fileMoves)
   return fileMoves
 }

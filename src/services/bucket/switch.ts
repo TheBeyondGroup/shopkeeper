@@ -1,20 +1,22 @@
-import {removeFile} from '@shopify/cli-kit/node/fs'
+import { removeFile } from '@shopify/cli-kit/node/fs'
 import {
   copyFiles,
   ensureBucketExists,
   FileMove,
   getBucketPath,
   getBucketSettingsFilePaths,
-  getProjectDir,
+  getProjectPath,
+  getShopkeeperPath,
   getThemeSettingsFilePaths,
   setCurrentBucket,
 } from '../../utilities/bucket.js'
-import {joinPath} from '@shopify/cli-kit/node/path'
+import { joinPath } from '@shopify/cli-kit/node/path'
 
-export async function switchBucket(bucket: string, path: string, skipFileRemoval: boolean): Promise<FileMove[]> {
-  const bucketRoot = await getBucketPath(bucket)
+export async function switchBucket(bucket: string, path: string, skipFileRemoval: boolean, rootPath?: string): Promise<FileMove[]> {
+  const shopkeeperRoot = rootPath || await getShopkeeperPath()
+  const bucketRoot = await getBucketPath(shopkeeperRoot, bucket)
 
-  ensureBucketExists(bucket, bucketRoot)
+  ensureBucketExists(shopkeeperRoot, bucket)
 
   if (!skipFileRemoval) {
     const themeSettingsPaths = await getThemeSettingsFilePaths(path)
@@ -26,7 +28,7 @@ export async function switchBucket(bucket: string, path: string, skipFileRemoval
     )
   }
 
-  const settingsFromBucket = await getBucketSettingsFilePaths(bucket)
+  const settingsFromBucket = await getBucketSettingsFilePaths(shopkeeperRoot, bucket)
   let fileMoves = settingsFromBucket.map((settingPath) => {
     return {
       file: settingPath,
@@ -34,14 +36,14 @@ export async function switchBucket(bucket: string, path: string, skipFileRemoval
       dest: joinPath(path, settingPath),
     }
   })
-  fileMoves = await appendEnv(fileMoves, bucketRoot)
+  fileMoves = await appendEnv(shopkeeperRoot, fileMoves, bucketRoot)
   await copyFiles(fileMoves)
-  await setCurrentBucket(bucket)
+  await setCurrentBucket(shopkeeperRoot, bucket)
   return fileMoves
 }
 
-async function appendEnv(fileMoves: FileMove[], bucketRoot: string): Promise<FileMove[]> {
-  const projectDir = await getProjectDir()
+async function appendEnv(shopkeeperRoot: string, fileMoves: FileMove[], bucketRoot: string): Promise<FileMove[]> {
+  const projectDir = await getProjectPath(shopkeeperRoot)
   return fileMoves.concat({
     file: '.env',
     source: joinPath(bucketRoot, '.env'),

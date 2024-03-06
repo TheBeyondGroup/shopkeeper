@@ -1,17 +1,19 @@
-import {removeFile} from '@shopify/cli-kit/node/fs'
+import { removeFile } from '@shopify/cli-kit/node/fs'
 import {
   copyFiles,
   ensureBucketExists,
   FileMove,
   getBucketPath,
   getBucketSettingsFilePaths,
+  getShopkeeperPath,
   getThemeSettingsFilePaths,
 } from '../../utilities/bucket.js'
-import {joinPath} from '@shopify/cli-kit/node/path'
+import { joinPath } from '@shopify/cli-kit/node/path'
 
-export async function restore(bucket: string, path: string, skipFileRemoval: boolean): Promise<FileMove[]> {
-  const bucketRoot = await getBucketPath(bucket)
-  await ensureBucketExists(bucket, bucketRoot)
+export async function restore(bucket: string, path: string, skipFileRemoval: boolean, rootPath?: string): Promise<FileMove[]> {
+  const shopkeeperRoot = rootPath || await getShopkeeperPath()
+  const bucketRoot = await getBucketPath(shopkeeperRoot, bucket)
+  await ensureBucketExists(shopkeeperRoot, bucket)
 
   if (!skipFileRemoval) {
     const themeSettingsPaths = await getThemeSettingsFilePaths(path)
@@ -22,7 +24,7 @@ export async function restore(bucket: string, path: string, skipFileRemoval: boo
     )
   }
 
-  const settingsFromBucket = await getBucketSettingsFilePaths(bucket)
+  const settingsFromBucket = await getBucketSettingsFilePaths(shopkeeperRoot, bucket)
   const fileMoves = settingsFromBucket.map((settingPath) => {
     return {
       file: settingPath,

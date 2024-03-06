@@ -1,8 +1,9 @@
 import { renderTable } from "@shopify/cli-kit/node/ui"
-import { getBuckets } from "../../utilities/bucket.js"
+import { getBuckets, getShopkeeperPath } from "../../utilities/bucket.js"
 
-export async function list() {
-  const buckets = await getBuckets()
+export async function list(rootPath?: string) {
+  const shopkeeperRoot = rootPath || await getShopkeeperPath()
+  const buckets = await getBuckets(shopkeeperRoot)
 
   renderTable({
     rows: buckets.map(bucket => ({ bucket })),

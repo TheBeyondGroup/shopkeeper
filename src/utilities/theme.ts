@@ -39,7 +39,7 @@ export async function getThemesByIdentifier(adminSession: AdminSession, theme: s
 
 // These functions are near direct copies of the ones in the Shopify CLI codebase.
 // They have been modified to not throw errors
-export function filterByTheme(themes: Theme[], filter: Filter): Theme[] {
+function filterByTheme(themes: Theme[], filter: Filter): Theme[] {
   const identifiers = filter.themeIdentifiers
   return identifiers.flatMap((identifier) => {
     return filterArray(themes, (theme) => {
@@ -49,7 +49,7 @@ export function filterByTheme(themes: Theme[], filter: Filter): Theme[] {
 }
 
 
-export function filterArray(themes: Theme[], predicate: (theme: Theme) => boolean): Theme[] {
+function filterArray(themes: Theme[], predicate: (theme: Theme) => boolean): Theme[] {
   return themes.filter(predicate)
 }
 

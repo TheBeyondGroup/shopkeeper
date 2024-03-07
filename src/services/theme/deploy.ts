@@ -68,7 +68,7 @@ export function getOnDeckThemeId(liveThemeId: number, blueThemeId: number, green
   }
 }
 
-async function gitHeadHash(): Promise<string> {
+export async function gitHeadHash(): Promise<string> {
   const gitDirectory = await findPathUp(".git", { type: "directory" })
   const latestCommit = await getLatestGitCommit(gitDirectory)
   return latestCommit.hash.substring(0, 8)

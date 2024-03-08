@@ -1,6 +1,6 @@
 import { AbortError } from "@shopify/cli-kit/node/error";
 import { AdminSession } from "@shopify/cli-kit/node/session";
-import { updateTheme } from "@shopify/cli-kit/node/themes/themes-api";
+import { updateTheme } from "@shopify/cli-kit/node/themes/api";
 import { getLatestGitCommit } from "@shopify/cli-kit/node/git";
 import { findThemes } from "@shopify/theme/dist/cli/utilities/theme-selector.js";
 import { pullLiveThemeSettings, push, pushToLive } from "../../utilities/theme.js";
@@ -68,7 +68,7 @@ export function getOnDeckThemeId(liveThemeId: number, blueThemeId: number, green
   }
 }
 
-async function gitHeadHash(): Promise<string> {
+export async function gitHeadHash(): Promise<string> {
   const gitDirectory = await findPathUp(".git", { type: "directory" })
   const latestCommit = await getLatestGitCommit(gitDirectory)
   return latestCommit.hash.substring(0, 8)

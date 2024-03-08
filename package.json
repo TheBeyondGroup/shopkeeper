@@ -10,65 +10,59 @@
   "license": "MIT",
   "type": "module",
   "repository": "TheBeyondGroup/shopkeeper",
-  "files": [
-    "/bin",
-    "/dist",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
-  ],
+  "files": ["/bin", "/dist", "/npm-shrinkwrap.json", "/oclif.manifest.json"],
   "dependencies": {
-    "@oclif/core": "2.11.7",
-    "@oclif/plugin-commands": "2.2.17",
-    "@oclif/plugin-help": "5.2.1",
-    "@shopify/cli": "3.51",
-    "@shopify/cli-kit": "3.51",
-    "@shopify/theme": "3.51",
+    "@oclif/core": "3.19.6",
+    "@oclif/plugin-help": "6.0.1",
+    "@shopify/cli": "3.57.0",
+    "@shopify/cli-kit": "3.57.0",
+    "@shopify/theme": "3.57.0",
     "fs-extra": "^11.1.0"
   },
   "devDependencies": {
-    "@oclif/test": "^2.3.3",
+    "@oclif/test": "3.2.1",
     "@types/chai": "^4",
     "@types/fs-extra": "^11.0.1",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "^16.18.11",
-    "chai": "^4",
-    "eslint": "^8.44.0",
-    "eslint-config-oclif": "^4",
-    "eslint-config-oclif-typescript": "^1.0.3",
-    "mocha": "^9",
-    "oclif": "3.16.0",
-    "shx": "^0.3.3",
+    "@types/node": "18.19.3",
+    "eslint": "^8.48.0",
+    "oclif": "4.0.2",
+    "prettier": "^3.2.5",
+    "shx": "^0.3.4",
     "ts-node": "^10.9.1",
-    "tslib": "^2.4.1",
-    "typescript": "5.2.2"
+    "tslib": "^2.6.2",
+    "typescript": "5.2.2",
+    "vitest": "^1.3.1"
   },
   "oclif": {
     "bin": "shopkeeper",
     "dirname": "shopkeeper",
     "commands": "./dist/commands",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
-    ],
+    "plugins": ["@oclif/plugin-help", "@oclif/plugin-plugins"],
     "repositoryPrefix": "<%- repo %>/tree/main/src/<%- commandPath %>",
     "topicSeparator": " "
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "dev": "yarn build && npm exec -- shopify",
+    "dev": "pnpm build && pnpm exec -- shopify",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postinstall": "node bin/patch-cli.js",
-    "posttest": "yarn lint",
+    "posttest": "pnpm lint",
     "postpublish": "npm publish --ignore-scripts --@thebeyondgroup:registry='https://registry.npmjs.org'",
-    "prepack": "yarn build && oclif manifest && ./bin/generate-readme.sh",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\""
+    "prepack": "pnpm build && pnpm oclif manifest && ./bin/generate-readme.sh",
+    "test": "vitest --run"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "trailingComma": "all",
+    "semi": false,
+    "printWidth": 120
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": ">=18.12.0"
   },
   "bugs": "https://github.com/TheBeyondGroup/shopkeeper/issues",
-  "keywords": [
-    "oclif"
-  ],
+  "keywords": ["oclif"],
   "types": "dist/index.d.ts"
 }

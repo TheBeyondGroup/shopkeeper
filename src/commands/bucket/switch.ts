@@ -4,7 +4,7 @@ import { globalFlags } from '@shopify/cli-kit/node/cli';
 import { renderSuccess } from "@shopify/cli-kit/node/ui";
 import { themeFlags } from '@shopify/theme/dist/cli/flags.js';
 import { switchBucket } from "../../services/bucket/switch.js";
-import { getBucketByPrompt } from "../../utilities/bucket.js";
+import { getBucketByPrompt, getShopkeeperPath } from "../../utilities/bucket.js";
 
 export default class Switch extends BaseCommand {
   static description = "Switches the current bucket by copying settings and .env";
@@ -26,8 +26,10 @@ export default class Switch extends BaseCommand {
   }
 
   async run(): Promise<void> {
+    const shopKeeperRoot = await getShopkeeperPath()
+
     const { flags } = await this.parse(Switch);
-    const bucket = flags.bucket || await getBucketByPrompt()
+    const bucket = flags.bucket || await getBucketByPrompt(shopKeeperRoot)
     const fileMoves = await switchBucket(bucket, flags.path, flags.nodelete)
 
     renderSuccess({

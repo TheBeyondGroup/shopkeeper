@@ -1,6 +1,6 @@
 {
   "name": "@thebeyondgroup/shopkeeper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI to manage settings and deployments for Shopify themes",
   "author": "Jeffrey Guenther @jeffreyguenther",
   "bin": {
@@ -37,7 +37,7 @@
     "bin": "shopkeeper",
     "dirname": "shopkeeper",
     "commands": "./dist/commands",
-    "plugins": ["@oclif/plugin-help", "@oclif/plugin-plugins"],
+    "plugins": ["@oclif/plugin-help"],
     "repositoryPrefix": "<%- repo %>/tree/main/src/<%- commandPath %>",
     "topicSeparator": " "
   },

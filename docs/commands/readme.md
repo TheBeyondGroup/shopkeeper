@@ -24,14 +24,14 @@ USAGE
 
 FLAGS
   -b, --bucket=<value>...  (required)
-  --no-color               Disable color output.
-  --verbose                Increase the verbosity of the logs.
+      --no-color           Disable color output.
+      --verbose            Increase the verbosity of the logs.
 
 DESCRIPTION
   Create a bucket in .shopkeeper
 ```
 
-_See code: [dist/commands/bucket/create.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/create.ts)_
+_See code: [src/commands/bucket/create.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/create.ts)_
 
 ## `shopkeeper bucket current`
 
@@ -49,7 +49,7 @@ DESCRIPTION
   Output the current bucket
 ```
 
-_See code: [dist/commands/bucket/current.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/current.ts)_
+_See code: [src/commands/bucket/current.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/current.ts)_
 
 ## `shopkeeper bucket delete`
 
@@ -62,14 +62,14 @@ USAGE
 FLAGS
   -b, --bucket=<value>...  (required)
   -f, --force              Skip confirmation.
-  --no-color               Disable color output.
-  --verbose                Increase the verbosity of the logs.
+      --no-color           Disable color output.
+      --verbose            Increase the verbosity of the logs.
 
 DESCRIPTION
   Delete a bucket
 ```
 
-_See code: [dist/commands/bucket/delete.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/delete.ts)_
+_See code: [src/commands/bucket/delete.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/delete.ts)_
 
 ## `shopkeeper bucket init`
 
@@ -81,14 +81,14 @@ USAGE
 
 FLAGS
   -b, --bucket=<value>...
-  --no-color               Disable color output.
-  --verbose                Increase the verbosity of the logs.
+      --no-color           Disable color output.
+      --verbose            Increase the verbosity of the logs.
 
 DESCRIPTION
   Initialize .shopkeeper directory in the current directory
 ```
 
-_See code: [dist/commands/bucket/init.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/init.ts)_
+_See code: [src/commands/bucket/init.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/init.ts)_
 
 ## `shopkeeper bucket list`
 
@@ -106,7 +106,7 @@ DESCRIPTION
   List buckets
 ```
 
-_See code: [dist/commands/bucket/list.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/list.ts)_
+_See code: [src/commands/bucket/list.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/list.ts)_
 
 ## `shopkeeper bucket restore`
 
@@ -119,16 +119,16 @@ USAGE
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
-  --bucket=<value>           The bucket you want to restore your settings from.
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+      --bucket=<value>       The bucket you want to restore your settings from.
+      --no-color             Disable color output.
+      --path=<value>         The path to your theme directory.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Restores the theme settings from the specified bucket
 ```
 
-_See code: [dist/commands/bucket/restore.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/restore.ts)_
+_See code: [src/commands/bucket/restore.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/restore.ts)_
 
 ## `shopkeeper bucket save`
 
@@ -141,16 +141,16 @@ USAGE
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the save command without deleting the bucket's contents.
-  --bucket=<value>           The bucket where you want to save your settings.
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+      --bucket=<value>       The bucket where you want to save your settings.
+      --no-color             Disable color output.
+      --path=<value>         The path to your theme directory.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Saves the current theme settings to the specified bucket
 ```
 
-_See code: [dist/commands/bucket/save.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/save.ts)_
+_See code: [src/commands/bucket/save.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/save.ts)_
 
 ## `shopkeeper bucket switch`
 
@@ -163,16 +163,16 @@ USAGE
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the restore command without removing the theme's JSON settings.
-  --bucket=<value>           The bucket to switch to
-  --no-color                 Disable color output.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+      --bucket=<value>       The bucket to switch to
+      --no-color             Disable color output.
+      --path=<value>         The path to your theme directory.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Switches the current bucket by copying settings and .env
 ```
 
-_See code: [dist/commands/bucket/switch.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/bucket/switch.ts)_
+_See code: [src/commands/bucket/switch.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/bucket/switch.ts)_
 
 ## `shopkeeper help [COMMANDS]`
 
@@ -192,7 +192,7 @@ DESCRIPTION
   Display help for shopkeeper.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.1/src/commands/help.ts)_
 
 ## `shopkeeper theme create`
 
@@ -210,10 +210,10 @@ FLAGS
   -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
                              (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
   -t, --theme=<value>        (required) Theme ID or name of the remote theme.
-  --no-color                 Disable color output.
-  --password=<value>         Password generated from the Theme Access app.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+      --no-color             Disable color output.
+      --password=<value>     Password generated from the Theme Access app.
+      --path=<value>         The path to your theme directory.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Create a theme with a name or ID. Update theme if one with name already exists
@@ -231,7 +231,7 @@ DESCRIPTION
   As a result this command exists.
 ```
 
-_See code: [dist/commands/theme/create.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/theme/create.ts)_
+_See code: [src/commands/theme/create.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/create.ts)_
 
 ## `shopkeeper theme deploy`
 
@@ -247,21 +247,21 @@ FLAGS
   -n, --nodelete             Runs the push command without deleting local files.
   -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
                              (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
-  --blue=<value>             Blue theme ID
-  --green=<value>            Green theme ID
-  --no-color                 Disable color output.
-  --password=<value>         Password generated from the Theme Access app.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --publish                  Publishes the on-deck theme after deploying
-  --strategy=<option>        [default: blue-green] Strategy to use for deployment
+      --blue=<value>         Blue theme ID
+      --green=<value>        Green theme ID
+      --no-color             Disable color output.
+      --password=<value>     Password generated from the Theme Access app.
+      --path=<value>         The path to your theme directory.
+      --publish              Publishes the on-deck theme after deploying
+      --strategy=<option>    [default: blue-green] Strategy to use for deployment
                              <options: blue-green|basic>
-  --verbose                  Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Deploy theme source to store
 ```
 
-_See code: [dist/commands/theme/deploy.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/theme/deploy.ts)_
+_See code: [src/commands/theme/deploy.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/deploy.ts)_
 
 ## `shopkeeper theme get`
 
@@ -272,19 +272,19 @@ USAGE
   $ shopkeeper theme get -t <value> [--no-color] [--verbose] [-s <value>] [--password <value>] [-j]
 
 FLAGS
-  -j, --json           Output JSON instead of a UI.
-  -s, --store=<value>  Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                       (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
-  -t, --theme=<value>  (required) Theme ID or name of the remote theme.
-  --no-color           Disable color output.
-  --password=<value>   Password generated from the Theme Access app.
-  --verbose            Increase the verbosity of the logs.
+  -j, --json              Output JSON instead of a UI.
+  -s, --store=<value>     Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
+                          (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
+  -t, --theme=<value>     (required) Theme ID or name of the remote theme.
+      --no-color          Disable color output.
+      --password=<value>  Password generated from the Theme Access app.
+      --verbose           Increase the verbosity of the logs.
 
 DESCRIPTION
   Get details of theme
 ```
 
-_See code: [dist/commands/theme/get.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/theme/get.ts)_
+_See code: [src/commands/theme/get.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/get.ts)_
 
 ## `shopkeeper theme settings download`
 
@@ -301,14 +301,14 @@ FLAGS
   -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
                              (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
   -t, --theme=<value>        Theme ID or name of the remote theme.
-  --no-color                 Disable color output.
-  --password=<value>         Password generated from the Theme Access app.
-  --path=<value>             [default: /Users/jeff/Beyond/shopkeeper] The path to your theme directory.
-  --verbose                  Increase the verbosity of the logs.
+      --no-color             Disable color output.
+      --password=<value>     Password generated from the Theme Access app.
+      --path=<value>         The path to your theme directory.
+      --verbose              Increase the verbosity of the logs.
 
 DESCRIPTION
   Download settings from live theme.
 ```
 
-_See code: [dist/commands/theme/settings/download.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/dist/commands/theme/settings/download.ts)_
+_See code: [src/commands/theme/settings/download.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/settings/download.ts)_
 <!-- commandsstop -->

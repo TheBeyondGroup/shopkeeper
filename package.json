@@ -37,7 +37,7 @@
     "bin": "shopkeeper",
     "dirname": "shopkeeper",
     "commands": "./dist/commands",
-    "plugins": ["@oclif/plugin-help", "@oclif/plugin-plugins"],
+    "plugins": ["@oclif/plugin-help"],
     "repositoryPrefix": "<%- repo %>/tree/main/src/<%- commandPath %>",
     "topicSeparator": " "
   },

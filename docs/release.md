@@ -9,7 +9,7 @@ Ensure `GITHUB_TOKEN` is set on the environment.
 Update version number in `package.json` and run:
 
 ```console
-yarn prepack
+pnpm prepack
 ```
 This will update `oclif.manifest.json` which holds the version number used
 displayed when `--version` is run.
@@ -17,7 +17,7 @@ displayed when `--version` is run.
 Open a PR and commit these changes. Merge the PR.
 
 ```console
-yarn publish
+pnpm publish
 ```
 
 When prompted provide the same version number as above.

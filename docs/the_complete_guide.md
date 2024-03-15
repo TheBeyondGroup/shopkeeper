@@ -53,7 +53,7 @@ Each folder in the bucket refers to the corresponding folders in the theme
 directory structure where a `.json` file might be found.
 
 To learn the tool, let's build a sample project. We create a directory called
-`client-theme`, we can bootstrap a theme project using
+`client-theme`. We can bootstrap a theme project using
 [Dawn](https://github.com/shopify/dawn):
 
 ```console
@@ -114,7 +114,7 @@ This copies the `.env` from `.shopkeeper/production` into our project
 directory, which `direnv` reloads. We pass the `--nodelete` command so we don't
 clobber the settings currently in the repo. `bucket switch` also copies the
 bucket's `.env` to the root of the project. With `direnv` installed, our
-environment is updated to have our store's URL and password. Now, we can pull
+environment is updated to set our store's URL and password. Now, we can pull
 down the latest settings from our live theme:
 
 ```console

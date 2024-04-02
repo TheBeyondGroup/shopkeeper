@@ -25,8 +25,9 @@ Or if your theme has a `package.json`:
 npm add --save-dev @thebeyondgroup/shopkeeper
 ```
 > :rotating_light: It is not currently possible to use Shopkeeper as a plugin
-> to the homebrew installation of the Shopify CLI. To use it, you need to
-> install it as a global npm package and use the `shopkeeper` executable.
+> to the homebrew installation of the Shopify CLI. To use it alongside this
+> version of the CLI, you need to install it as a global npm package and use
+> the `shopkeeper` executable.
 
 ### tl;dr
 
@@ -48,8 +49,8 @@ To deploy _directly_ to the live theme after pulling down the live theme's setti
 shopkeeper theme deploy --strategy basic
 ```
 
-For a more complete introduction and walkthrough of how to use Shopkeeper, see
-[guide](/docs/the_complete_guide.md).
+Read [The Complete Guide](/docs/the_complete_guide.md) for an introduction and
+walkthrough of how to use Shopkeeper.
 
 ## Commands
 
@@ -83,7 +84,7 @@ It uses a `.shopkeeper` folder at the root of your project to store buckets of s
 >
 > Therefore, we call our groups of settings buckets. :bucket:
 
-In multi-store, multi-region setups, you might have a directory for
+In multi-store, multi-region setups, you might have a bucket for
 each region. Say `canada`, `united-states`, or `united-kingdom`. Or you might
 use a bucket to contains the settings for an A/B test.
 
@@ -124,7 +125,7 @@ installation of [Dawn](https://github.com/shopify/dawn):
 └── .current-bucket
 ```
 
-Each folder contains theme settings stored in their corresponding `config`,
+Each bucket contains theme settings stored in their corresponding `config`,
 `sections`, and `templates` folders. It also contains a `.env` file that's
 copied to the project root as `.env ` when the bucket is switched.
 

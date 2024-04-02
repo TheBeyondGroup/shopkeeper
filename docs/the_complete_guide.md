@@ -10,20 +10,20 @@ expects a single usage of a theme to be represented by a single repo. It will
 automatically open PRs as customizations are made and there is no way to
 separate a theme's data from its files. 
 
-We want to use a single theme and repo for all three expansion stores to
-reduce development effort. We only want a store's settings to differ. We also
-want a development workflow that parallels something you might use when doing
-custom full-stack web development. We want to open PRs for changes, have
-preview environments created and updated automatically with each commit pushed,
-and for preview environments to be cleaned up once PRs are merged.
+We want to use a single theme and repo for all three expansion stores to reduce
+development effort. We only want a store's settings to differ. We also want a
+development workflow that parallels something you might use when doing custom
+full-stack web development. We want to open PRs for changes, have preview
+environments created and updated automatically with each commit pushed, and for
+preview environments to be cleaned up once PRs are merged.
 
 The [Shopify CLI](https://shopify.dev/docs/themes/tools/cli/) provides a
 wonderful set of primitive commands to interact with a single store and a
 single theme. With this foundation, we can build a workflow and more
 sophisticated commands to solve the problem we have just described.
 
-We decided to use GitHub Actions for CI/CD and to build Shopkeeper to encapsulate
-the common operations the workflow above would require.
+We decided to use GitHub Actions for CI/CD and to build Shopkeeper to
+encapsulate the common operations the workflow above would require.
 
 The first step to build this workflow is to establish a way to manage theme
 settings. Theme settings are important because they are the data that defines
@@ -191,10 +191,10 @@ Shopkeeper supports multiple deployment strategies:
 
 By default, Shopkeeper assumes you want to use a [blue/green deployment
 strategy](https://en.wikipedia.org/wiki/Blue–green_deployment). A blue/green
-deployment strategy in the context of Shopify theme development
-means alternating between a blue and a green theme. One theme is live and the
-other we refer to as on-deck. For example, using this approach, if the blue
-:large_blue_circle: theme is live, the green :green_circle: theme is on-deck.
+deployment strategy in the context of Shopify theme development means
+alternating between a blue and a green theme. One theme is live and the other
+we refer to as on-deck. For example, using this approach, if the blue :large_blue_circle: 
+theme is live, the green :green_circle: theme is on-deck.
 When updates are to be made to a storefront, the on-deck receives the changes
 and when it is ready, it is published.
 
@@ -474,16 +474,16 @@ jobs:
            **Preview:** [Storefront](https://${{ vars.SHOPIFY_FLAG_STORE }}?preview_theme_id=${{ env.THEME_ID }}) | [Admin](https://${{ vars.SHOPIFY_FLAG_STORE }}/admin/themes/${{ env.THEME_ID }}/editor)
           delete_prev_regex_msg: "Preview:" # OPTIONAL
 ```
-To generate a preview theme, we listen to pushes on any branch other than `main`
-and ones starting with `github-action/`. Branches starting with `github-action/`
-are used for settings commits. We restore the theme settings from our
-`production` bucket, build the theme, and push it to Shopify.
+To generate a preview theme, we listen to pushes on any branch other than
+`main` and ones starting with `github-action/`. Branches starting with
+`github-action/` are used for settings commits. We restore the theme settings
+from our `production` bucket, build the theme, and push it to Shopify.
 
-> :warning: We use a special `theme create` command that's provided by Shopkeeper that ensures theme
-> creation is idempotent. You can't guarantee the order your workflows will run,
-> so we need to make sure that an update is created no matter if it already
-> exists.`theme push --unpublished` is not idempotent and will add many themes of
-> the same name, so it cannot be used.
+> :warning: We use a special `theme create` command that's provided by
+> Shopkeeper that ensures theme creation is idempotent. You can't guarantee the
+> order your workflows will run, so we need to make sure that an update is
+> created no matter if it already exists.`theme push --unpublished` is not
+> idempotent and will add many themes of the same name, so it cannot be used.
 
 When a PR is opened, we generate a comment on the PR with a link to the preview
 theme on Shopify. 

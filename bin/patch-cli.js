@@ -11,7 +11,8 @@ if (process.env["$npm_config_production"]) {
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const cliPackageJsonPath = await findPathUp("node_modules/@shopify/cli/package.json", { type: "file", cwd: __dirname })
 const cliPackageJson = JSON.parse(await fs.readFile(cliPackageJsonPath))
-if (cliPackageJson.oclif.plugins.includes("@thebeyondgroup/shopkeeper")) {
+const oclifPlugins = cliPackageJson?.oclif?.plugins ?? [];
+if (oclifPlugins.includes("@thebeyondgroup/shopkeeper")) {
   process.exit(0);
 }
 
@@ -20,7 +21,7 @@ await fs.writeFile(cliPackageJsonPath, JSON.stringify({
   oclif: {
     ...cliPackageJson.oclif,
     plugins: [
-      ...cliPackageJson.oclif.plugins,
+      ...oclifPlugins,
       "@thebeyondgroup/shopkeeper"
     ]
   }

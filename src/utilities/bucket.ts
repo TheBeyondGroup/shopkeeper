@@ -1,4 +1,4 @@
-import { AbortError } from '@shopify/cli-kit/node/error'
+import {AbortError} from '@shopify/cli-kit/node/error'
 import {
   copyFile,
   fileExists,
@@ -10,10 +10,10 @@ import {
   renameFile,
   writeFile,
 } from '@shopify/cli-kit/node/fs'
-import { outputContent, outputToken } from '@shopify/cli-kit/node/output'
-import { basename, cwd, joinPath, resolvePath } from '@shopify/cli-kit/node/path'
-import { renderSelectPrompt } from '@shopify/cli-kit/node/ui'
-import { CURRENT_BUCKET_FILE, LEGACY_CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY } from './constants.js'
+import {outputContent, outputToken} from '@shopify/cli-kit/node/output'
+import {basename, cwd, joinPath, resolvePath} from '@shopify/cli-kit/node/path'
+import {renderSelectPrompt} from '@shopify/cli-kit/node/ui'
+import {CURRENT_BUCKET_FILE, LEGACY_CURRENT_BUCKET_FILE, SHOPKEEPER_DIRECTORY} from './constants.js'
 
 export type FileMove = {
   source: string
@@ -57,7 +57,7 @@ export async function getBucketByPrompt(shopkeeperRoot: string) {
   return await renderSelectPrompt({
     message: 'Select a bucket',
     choices: buckets.map((bucket) => {
-      return { label: bucket, value: bucket }
+      return {label: bucket, value: bucket}
     }),
   })
 }
@@ -75,7 +75,7 @@ export async function ensureBucketExists(shopkeeperRoot: string, bucket: string)
 }
 
 export async function getBuckets(shopkeeperRoot: string): Promise<string[]> {
-  const buckets = await glob(`${shopkeeperRoot}/*`, { onlyDirectories: true, deep: 1 })
+  const buckets = await glob(`${shopkeeperRoot}/*`, {onlyDirectories: true, deep: 1})
   return buckets.map((path) => basename(path))
 }
 
@@ -90,7 +90,7 @@ export async function getThemeSettingsFilePaths(themeRoot: string): Promise<stri
 
 export async function getSettingsFilePaths(cwd: string): Promise<string[]> {
   const settingsPatterns = getSettingsPatterns()
-  const settingsPaths = await glob(settingsPatterns, { cwd: cwd })
+  const settingsPaths = await glob(settingsPatterns, {cwd: cwd})
   return settingsPaths
 }
 
@@ -99,7 +99,7 @@ export async function getBucketPath(shopkeeperRoot: string, bucket: string): Pro
 }
 
 export async function getShopkeeperPath(currentDirectory: string = cwd()): Promise<string> {
-  const shopkeeperRoot = await findPathUp(SHOPKEEPER_DIRECTORY, { type: 'directory', cwd: currentDirectory })
+  const shopkeeperRoot = await findPathUp(SHOPKEEPER_DIRECTORY, {type: 'directory', cwd: currentDirectory})
   if (!shopkeeperRoot) {
     throw new AbortError(
       outputContent`Cannot find ${SHOPKEEPER_DIRECTORY} directory when searching up from ${outputToken.path(cwd())}.`,
@@ -148,7 +148,7 @@ export const CLI_SETTINGS_FLAGS = [
   'templates/metaobject/*.json',
 ]
 
-export function cli2settingFlags() {
+export function cliSettingFlags() {
   const patternFlags = CLI_SETTINGS_FLAGS.flatMap((pattern) => {
     return ['--only', `${pattern}`]
   })

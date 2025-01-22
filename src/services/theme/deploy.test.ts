@@ -1,27 +1,39 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { basicDeploy, blueGreenDeploy, deploy, getLiveTheme, getOnDeckThemeId, gitHeadHash } from './deploy.js'
-import { findPathUp } from "@shopify/cli-kit/node/fs";
-import { getLatestGitCommit } from "@shopify/cli-kit/node/git";
-import { BLUE_GREEN_STRATEGY } from '../../utilities/constants.js';
-import { findThemes } from "@shopify/theme/dist/cli/utilities/theme-selector.js";
-import { Theme } from '@shopify/cli-kit/node/themes/types';
-import { renderText } from '@shopify/cli-kit/node/ui'
-import { updateTheme } from "@shopify/cli-kit/node/themes/api";
-import { pullLiveThemeSettings, push, pushToLive } from "../../utilities/theme.js";
+import {beforeEach, describe, expect, test, vi} from 'vitest'
+import {
+  basicDeploy,
+  blueGreenDeploy,
+  deploy,
+  DeployFlags,
+  getLiveTheme,
+  getOnDeckThemeId,
+  gitHeadHash,
+} from './deploy.js'
+import {findPathUp} from '@shopify/cli-kit/node/fs'
+import {getLatestGitCommit} from '@shopify/cli-kit/node/git'
+import {BLUE_GREEN_STRATEGY} from '../../utilities/constants.js'
+import {Theme} from '@shopify/cli-kit/node/themes/types'
+import {renderText} from '@shopify/cli-kit/node/ui'
+import {themeUpdate} from '@shopify/cli-kit/node/themes/api'
+import {deployToLive, deployTheme, pullLiveThemeSettings} from '../../utilities/theme.js'
+import {findThemes} from '../../utilities/shopify/theme-selector.js'
+import {ensureAuthenticatedThemes} from '@shopify/cli-kit/node/session'
+import {getThemeStore} from '../../utilities/shopify/services/local-storage.js'
 
-vi.mock("@shopify/cli-kit/node/fs")
-vi.mock("@shopify/cli-kit/node/git")
+vi.mock('@shopify/cli-kit/node/fs')
+vi.mock('@shopify/cli-kit/node/git')
 vi.mock('@shopify/cli-kit/node/ui')
 vi.mock('@shopify/cli-kit/node/themes/api')
-vi.mock('@shopify/theme/dist/cli/utilities/theme-selector.js')
+vi.mock('@shopify/cli-kit/node/session')
+vi.mock('../../utilities/shopify/theme-selector.js')
 vi.mock('../../utilities/theme.js')
+vi.mock('../../utilities/shopify/services/local-storage.js')
 
 describe('deploy', () => {
-  const adminSession = { token: 'ABC', storeFqdn: 'example.myshopify.com' }
+  const adminSession = {token: 'ABC', storeFqdn: 'example.myshopify.com'}
   const path = '/my-theme'
 
   function theme(id: number, role: string) {
-    return { id, role, name: `theme (${id})` } as Theme
+    return {id, role, name: `theme (${id})`} as Theme
   }
 
   beforeEach(async () => {
@@ -36,28 +48,37 @@ describe('deploy', () => {
         const blue = 2
         const liveTheme = theme(blue, 'main')
         const themes = [theme(green, 'unpublished'), liveTheme]
+        vi.mocked(getThemeStore).mockReturnValue('')
+        vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
         vi.mocked(findThemes).mockResolvedValue([liveTheme])
-        vi.mocked(updateTheme).mockResolvedValue(themes[1])
-        vi.mocked(findPathUp).mockResolvedValue("path")
+        vi.mocked(themeUpdate).mockResolvedValue(themes[1])
+        vi.mocked(findPathUp).mockResolvedValue('path')
         vi.mocked(getLatestGitCommit).mockResolvedValue({
-          hash: "BABCD1234AB",
+          hash: 'BABCD1234AB',
           date: '',
-          message: "",
+          message: '',
           refs: '',
           body: '',
           author_name: '',
-          author_email: ''
+          author_email: '',
         })
+        const flags: DeployFlags = {
+          store: 'test',
+          green: green,
+          blue: blue,
+          strategy: BLUE_GREEN_STRATEGY,
+          publish: false,
+        }
 
         // When
-        await deploy(adminSession, path, true, [], BLUE_GREEN_STRATEGY, blue, green)
+        await deploy(flags)
 
         // Then
         expect(renderText).toHaveBeenCalledTimes(2)
-        expect(renderText).toHaveBeenCalledWith({ text: "Pulling theme settings" })
-        expect(pullLiveThemeSettings).toBeCalledWith(adminSession, path, [])
-        expect(push).toBeCalledWith(adminSession, path, true, [], green)
-        expect(renderText).toHaveBeenCalledWith({ text: "Green renamed to [BABCD123] Production - Green" })
+        expect(renderText).toHaveBeenCalledWith({text: 'Pulling theme settings'})
+        expect(pullLiveThemeSettings).toBeCalledWith(flags)
+        expect(deployTheme).toBeCalledWith(green, flags)
+        expect(renderText).toHaveBeenCalledWith({text: 'Green renamed to [BABCD123] Production - Green'})
       })
     })
 
@@ -65,28 +86,34 @@ describe('deploy', () => {
       test('makes basic deploy', async () => {
         // Given
         const liveTheme = theme(1, 'main')
+        vi.mocked(getThemeStore).mockReturnValue('mystore')
+        vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
         vi.mocked(findThemes).mockResolvedValue([liveTheme])
-        vi.mocked(updateTheme).mockResolvedValue(liveTheme)
-        vi.mocked(findPathUp).mockResolvedValue("path")
+        vi.mocked(themeUpdate).mockResolvedValue(liveTheme)
+        vi.mocked(findPathUp).mockResolvedValue('path')
         vi.mocked(getLatestGitCommit).mockResolvedValue({
-          hash: "AABCD1234AB",
+          hash: 'AABCD1234AB',
           date: '',
-          message: "",
+          message: '',
           refs: '',
           body: '',
           author_name: '',
-          author_email: ''
+          author_email: '',
         })
+        const flags: DeployFlags = {
+          strategy: '',
+          publish: false,
+        }
 
         // When
-        await deploy(adminSession, path, true, [], 'ANYTHING', 0, 0)
+        await deploy(flags)
 
         // Then
         expect(renderText).toHaveBeenCalledTimes(2)
-        expect(renderText).toHaveBeenCalledWith({ text: "Pulling theme settings" })
-        expect(pullLiveThemeSettings).toBeCalledWith(adminSession, path, [])
-        expect(pushToLive).toBeCalledWith(adminSession, path, [])
-        expect(renderText).toHaveBeenCalledWith({ text: "Live theme renamed to [AABCD123] Production" })
+        expect(renderText).toHaveBeenCalledWith({text: 'Pulling theme settings'})
+        expect(pullLiveThemeSettings).toBeCalledWith(flags)
+        expect(deployToLive).toBeCalledWith(flags)
+        expect(renderText).toHaveBeenCalledWith({text: 'Live theme renamed to [AABCD123] Production'})
       })
     })
   })
@@ -98,28 +125,36 @@ describe('deploy', () => {
       const blue = 2
       const liveTheme = theme(blue, 'main')
       const themes = [theme(green, 'unpublished'), liveTheme]
+      vi.mocked(getThemeStore).mockReturnValue('mystore')
+      vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
       vi.mocked(findThemes).mockResolvedValue([liveTheme])
-      vi.mocked(updateTheme).mockResolvedValue(themes[1])
-      vi.mocked(findPathUp).mockResolvedValue("path")
+      vi.mocked(themeUpdate).mockResolvedValue(themes[1])
+      vi.mocked(findPathUp).mockResolvedValue('path')
       vi.mocked(getLatestGitCommit).mockResolvedValue({
-        hash: "BABCD1234AB",
+        hash: 'BABCD1234AB',
         date: '',
-        message: "",
+        message: '',
         refs: '',
         body: '',
         author_name: '',
-        author_email: ''
+        author_email: '',
       })
+      const flags: DeployFlags = {
+        green: green,
+        blue: blue,
+        strategy: BLUE_GREEN_STRATEGY,
+        publish: false,
+      }
 
       // When
-      await blueGreenDeploy(adminSession, path, true, [], blue, green)
+      await blueGreenDeploy(flags)
 
       // Then
       expect(renderText).toHaveBeenCalledTimes(2)
-      expect(renderText).toHaveBeenCalledWith({ text: "Pulling theme settings" })
-      expect(pullLiveThemeSettings).toBeCalledWith(adminSession, path, [])
-      expect(push).toBeCalledWith(adminSession, path, true, [], green)
-      expect(renderText).toHaveBeenCalledWith({ text: "Green renamed to [BABCD123] Production - Green" })
+      expect(renderText).toHaveBeenCalledWith({text: 'Pulling theme settings'})
+      expect(pullLiveThemeSettings).toBeCalledWith(flags)
+      expect(deployTheme).toBeCalledWith(green, flags)
+      expect(renderText).toHaveBeenCalledWith({text: 'Green renamed to [BABCD123] Production - Green'})
     })
   })
 
@@ -129,28 +164,34 @@ describe('deploy', () => {
       const ondeckThemeId = 1
       const publishedThemeId = 2
       const themes = [theme(ondeckThemeId, 'unpublished'), theme(publishedThemeId, 'main')]
+      vi.mocked(getThemeStore).mockReturnValue('mystore')
+      vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
       vi.mocked(findThemes).mockResolvedValue(themes)
-      vi.mocked(updateTheme).mockResolvedValue(themes[0])
-      vi.mocked(findPathUp).mockResolvedValue("path")
+      vi.mocked(themeUpdate).mockResolvedValue(themes[0])
+      vi.mocked(findPathUp).mockResolvedValue('path')
       vi.mocked(getLatestGitCommit).mockResolvedValue({
-        hash: "AABCD1234AB",
+        hash: 'AABCD1234AB',
         date: '',
-        message: "",
+        message: '',
         refs: '',
         body: '',
         author_name: '',
-        author_email: ''
+        author_email: '',
       })
+      const flags: DeployFlags = {
+        strategy: '',
+        publish: false,
+      }
 
       // When
-      await basicDeploy(adminSession, path, [])
+      await basicDeploy(flags)
 
       // Then
       expect(renderText).toHaveBeenCalledTimes(2)
-      expect(renderText).toHaveBeenCalledWith({ text: "Pulling theme settings" })
-      expect(pullLiveThemeSettings).toBeCalledWith(adminSession, path, [])
-      expect(pushToLive).toBeCalledWith(adminSession, path, [])
-      expect(renderText).toHaveBeenCalledWith({ text: "Live theme renamed to [AABCD123] Production" })
+      expect(renderText).toHaveBeenCalledWith({text: 'Pulling theme settings'})
+      expect(pullLiveThemeSettings).toBeCalledWith(flags)
+      expect(deployToLive).toBeCalledWith(flags)
+      expect(renderText).toHaveBeenCalledWith({text: 'Live theme renamed to [AABCD123] Production'})
     })
   })
 
@@ -174,7 +215,9 @@ describe('deploy', () => {
         vi.mocked(findThemes).mockResolvedValue([])
 
         // When
-        const errorFunc = async () => { await getLiveTheme(adminSession) }
+        const errorFunc = async () => {
+          await getLiveTheme(adminSession)
+        }
 
         // Then
         expect(errorFunc).rejects.toThrowError(/Something very bad has happened. The store doesn't have a live theme./)
@@ -195,7 +238,8 @@ describe('deploy', () => {
 
         // Then
         expect(onDeckTheme).toEqual({
-          id: blueTheme, name: "Blue"
+          id: blueTheme,
+          name: 'Blue',
         })
       })
     })
@@ -211,9 +255,9 @@ describe('deploy', () => {
 
         // Then
         expect(onDeckTheme).toEqual({
-          id: greenTheme, name: "Green"
+          id: greenTheme,
+          name: 'Green',
         })
-
       })
     })
   })
@@ -221,22 +265,22 @@ describe('deploy', () => {
   describe('gitHeadHash', () => {
     test('returns the first 8 chars', async () => {
       // Given
-      vi.mocked(findPathUp).mockResolvedValue("path")
+      vi.mocked(findPathUp).mockResolvedValue('path')
       vi.mocked(getLatestGitCommit).mockResolvedValue({
-        hash: "ABCDEFGHIJKLMNOP",
+        hash: 'ABCDEFGHIJKLMNOP',
         date: '',
-        message: "",
+        message: '',
         refs: '',
         body: '',
         author_name: '',
-        author_email: ''
+        author_email: '',
       })
 
       // When
       const hash = await gitHeadHash()
 
       // Then
-      expect(hash).toEqual("ABCDEFGH")
+      expect(hash).toEqual('ABCDEFGH')
     })
   })
 })

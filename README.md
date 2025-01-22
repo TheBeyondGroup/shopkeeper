@@ -24,10 +24,12 @@ Or if your theme has a `package.json`:
 ```sh-session
 npm add --save-dev @thebeyondgroup/shopkeeper
 ```
-> :rotating_light: It is not currently possible to use Shopkeeper as a plugin
-> to the homebrew installation of the Shopify CLI. To use it alongside this
-> version of the CLI, you need to install it as a global npm package and use
-> the `shopkeeper` executable.
+
+To install Shopkeeper as a plugin to the Shopify CLI, run:
+
+```sh-session
+shopify plugins install @thebeyondgroup/shopkeeper
+```
 
 ### tl;dr
 
@@ -64,8 +66,11 @@ If you can see the bucket commands listed, Shopkeeper is installed correctly.
 
 Use `npx` to run the version local to your project's `node_modules`.
 
-If the commands are not showing up, reinstall the package. This triggers a postinstall hook
-that registers Shopkeeper with the Shopify CLI.
+If the commands are not showing up, reinstall the plugin.
+
+```sh-session
+shopify plugins reset
+```
 
 ## Manage Settings
 

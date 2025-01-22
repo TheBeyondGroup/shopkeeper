@@ -1,14 +1,13 @@
-import { Flags } from '@oclif/core';
-import { globalFlags } from "@shopify/cli-kit/node/cli";
-import { ensureAuthenticatedThemes } from "@shopify/cli-kit/node/session";
-import { themeFlags } from "@shopify/theme/dist/cli/flags.js";
-import { ensureThemeStore } from "@shopify/theme/dist/cli/utilities/theme-store.js";
-import ThemeCommand from '@shopify/theme/dist/cli/utilities/theme-command.js';
-import { execCLI2 } from '@shopify/cli-kit/node/ruby';
-import { getThemesByIdentifier } from '../../utilities/theme.js';
+import {Flags} from '@oclif/core'
+import {globalFlags} from '@shopify/cli-kit/node/cli'
+import {getThemesByIdentifier} from '../../utilities/theme.js'
+import {themeFlags} from '../../utilities/shopify/flags.js'
+import ThemeCommand from '../../utilities/shopify/theme-command.js'
+import {push} from '@shopify/cli'
+import {PushFlags} from '../../utilities/shopify/services/push.js'
 
 export default class Create extends ThemeCommand {
-  static summary = "Create a theme with a name or ID. Update theme if one with name already exists"
+  static summary = 'Create a theme with a name or ID. Update theme if one with name already exists'
   static description = `Create a theme with theme name or ID.
 In most cases, you should use theme push.
 
@@ -20,7 +19,7 @@ theme push --unpublished --theme yellow will create a new theme named yellow eac
 time the command is run.
 
 As a result this command exists.
-`;
+`
 
   static flags = {
     ...globalFlags,
@@ -41,28 +40,19 @@ As a result this command exists.
       description: 'Output JSON instead of a UI.',
       env: 'SHOPIFY_FLAG_JSON',
     }),
-  };
-
-  static cli2Flags = [
-    'theme',
-    'nodelete',
-    'json',
-    'unpublished'
-  ]
+  }
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(Create)
-    const store = ensureThemeStore(flags)
-    const adminSession = await ensureAuthenticatedThemes(store, flags.password)
+    const {flags} = await this.parse(Create)
 
-    const matchingThemes = await getThemesByIdentifier(adminSession, flags.theme!)
+    const pushFlags: PushFlags = {
+      ...flags,
+    }
+    const matchingThemes = await getThemesByIdentifier(flags.store, flags.password, flags.theme)
     if (!matchingThemes.length) {
-      flags["unpublished"] = true
+      pushFlags['unpublished'] = true
     }
 
-    const flagsToPass = this.passThroughFlags(flags, { allowedFlags: Create.cli2Flags })
-    const command = ['theme', 'push', flags.path, ...flagsToPass]
-
-    await execCLI2(command, { store, adminToken: adminSession.token })
+    await push(pushFlags)
   }
 }

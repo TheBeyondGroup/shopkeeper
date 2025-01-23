@@ -4,3 +4,20 @@ dist
 .env
 .DS_Store
 tsconfig.tsbuildinfo
+
+
+# Shopkeeper #
+##########
+.shopkeeper/**/**/.env
+.shopkeeper/.current-bucket
+.env
+
+# Theme #
+##########
+theme/assets
+theme/config/settings_data.json
+theme/templates/**/*.json
+theme/sections/*.json
+
+.shopkeeper
+shopify

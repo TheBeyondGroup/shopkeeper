@@ -1,5 +1,442 @@
 {
   "commands": {
+    "bucket:create": {
+      "aliases": [],
+      "args": {},
+      "description": "Create a bucket in .shopkeeper",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "bucket": {
+          "char": "b",
+          "env": "SKR_FLAG_BUCKET",
+          "name": "bucket",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": true,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:create",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "create.js"
+      ]
+    },
+    "bucket:current": {
+      "aliases": [],
+      "args": {},
+      "description": "Output the current bucket",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:current",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "current.js"
+      ]
+    },
+    "bucket:delete": {
+      "aliases": [],
+      "args": {},
+      "description": "Delete a bucket",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "bucket": {
+          "char": "b",
+          "env": "SKR_FLAG_BUCKET",
+          "name": "bucket",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": true,
+          "type": "option"
+        },
+        "force": {
+          "char": "f",
+          "description": "Skip confirmation.",
+          "env": "SHOPIFY_FLAG_FORCE",
+          "name": "force",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:delete",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "delete.js"
+      ]
+    },
+    "bucket:init": {
+      "aliases": [],
+      "args": {},
+      "description": "Initialize .shopkeeper directory in the current directory",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "bucket": {
+          "char": "b",
+          "env": "SKR_FLAG_BUCKET",
+          "name": "bucket",
+          "hasDynamicHelp": false,
+          "multiple": true,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:init",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "init.js"
+      ]
+    },
+    "bucket:list": {
+      "aliases": [],
+      "args": {},
+      "description": "List buckets",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:list",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "list.js"
+      ]
+    },
+    "bucket:restore": {
+      "aliases": [],
+      "args": {},
+      "description": "Restores the theme settings from the specified bucket",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "bucket": {
+          "description": "The bucket you want to restore your settings from.",
+          "name": "bucket",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the restore command without removing the theme's JSON settings.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:restore",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "restore.js"
+      ]
+    },
+    "bucket:save": {
+      "aliases": [],
+      "args": {},
+      "description": "Saves the current theme settings to the specified bucket",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "bucket": {
+          "description": "The bucket where you want to save your settings.",
+          "name": "bucket",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the save command without deleting the bucket's contents.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:save",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "save.js"
+      ]
+    },
+    "bucket:switch": {
+      "aliases": [],
+      "args": {},
+      "description": "Switches the current bucket by copying settings and .env",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "bucket": {
+          "description": "The bucket to switch to",
+          "name": "bucket",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the restore command without removing the theme's JSON settings.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "bucket:switch",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "bucket",
+        "switch.js"
+      ]
+    },
     "theme:create": {
       "aliases": [],
       "args": {},
@@ -14,7 +451,7 @@
           "type": "boolean"
         },
         "verbose": {
-          "description": "Increase the verbosity of the logs.",
+          "description": "Increase the verbosity of the output.",
           "env": "SHOPIFY_FLAG_VERBOSE",
           "hidden": false,
           "name": "verbose",
@@ -40,7 +477,7 @@
         },
         "store": {
           "char": "s",
-          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
           "env": "SHOPIFY_FLAG_STORE",
           "name": "store",
           "hasDynamicHelp": false,
@@ -91,12 +528,6 @@
       "pluginType": "core",
       "strict": true,
       "summary": "Create a theme with a name or ID. Update theme if one with name already exists",
-      "cli2Flags": [
-        "theme",
-        "nodelete",
-        "json",
-        "unpublished"
-      ],
       "isESM": true,
       "relativePath": [
         "dist",
@@ -119,7 +550,7 @@
           "type": "boolean"
         },
         "verbose": {
-          "description": "Increase the verbosity of the logs.",
+          "description": "Increase the verbosity of the output.",
           "env": "SHOPIFY_FLAG_VERBOSE",
           "hidden": false,
           "name": "verbose",
@@ -145,7 +576,7 @@
         },
         "store": {
           "char": "s",
-          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
           "env": "SHOPIFY_FLAG_STORE",
           "name": "store",
           "hasDynamicHelp": false,
@@ -226,9 +657,6 @@
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "strict": true,
-      "cli2Flags": [
-        "nodelete"
-      ],
       "isESM": true,
       "relativePath": [
         "dist",
@@ -251,7 +679,7 @@
           "type": "boolean"
         },
         "verbose": {
-          "description": "Increase the verbosity of the logs.",
+          "description": "Increase the verbosity of the output.",
           "env": "SHOPIFY_FLAG_VERBOSE",
           "hidden": false,
           "name": "verbose",
@@ -260,7 +688,7 @@
         },
         "store": {
           "char": "s",
-          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
           "env": "SHOPIFY_FLAG_STORE",
           "name": "store",
           "hasDynamicHelp": false,
@@ -271,6 +699,15 @@
           "description": "Password generated from the Theme Access app.",
           "env": "SHOPIFY_CLI_THEME_TOKEN",
           "name": "password",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
@@ -301,441 +738,13 @@
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "strict": true,
+      "enableJsonFlag": false,
       "isESM": true,
       "relativePath": [
         "dist",
         "commands",
         "theme",
         "get.js"
-      ]
-    },
-    "bucket:create": {
-      "aliases": [],
-      "args": {},
-      "description": "Create a bucket in .shopkeeper",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "bucket": {
-          "char": "b",
-          "env": "SKR_FLAG_BUCKET",
-          "name": "bucket",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": true,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:create",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "create.js"
-      ]
-    },
-    "bucket:current": {
-      "aliases": [],
-      "args": {},
-      "description": "Output the current bucket",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:current",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "current.js"
-      ]
-    },
-    "bucket:delete": {
-      "aliases": [],
-      "args": {},
-      "description": "Delete a bucket",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "bucket": {
-          "char": "b",
-          "env": "SKR_FLAG_BUCKET",
-          "name": "bucket",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": true,
-          "type": "option"
-        },
-        "force": {
-          "char": "f",
-          "description": "Skip confirmation.",
-          "env": "SHOPIFY_FLAG_FORCE",
-          "name": "force",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:delete",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "delete.js"
-      ]
-    },
-    "bucket:init": {
-      "aliases": [],
-      "args": {},
-      "description": "Initialize .shopkeeper directory in the current directory",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "bucket": {
-          "char": "b",
-          "env": "SKR_FLAG_BUCKET",
-          "name": "bucket",
-          "hasDynamicHelp": false,
-          "multiple": true,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:init",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "init.js"
-      ]
-    },
-    "bucket:list": {
-      "aliases": [],
-      "args": {},
-      "description": "List buckets",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:list",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "list.js"
-      ]
-    },
-    "bucket:restore": {
-      "aliases": [],
-      "args": {},
-      "description": "Restores the theme settings from the specified bucket",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "path": {
-          "description": "The path to your theme directory.",
-          "env": "SHOPIFY_FLAG_PATH",
-          "name": "path",
-          "noCacheDefault": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "bucket": {
-          "description": "The bucket you want to restore your settings from.",
-          "name": "bucket",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "nodelete": {
-          "char": "n",
-          "description": "Runs the restore command without removing the theme's JSON settings.",
-          "env": "SHOPIFY_FLAG_NODELETE",
-          "name": "nodelete",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:restore",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "restore.js"
-      ]
-    },
-    "bucket:save": {
-      "aliases": [],
-      "args": {},
-      "description": "Saves the current theme settings to the specified bucket",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "path": {
-          "description": "The path to your theme directory.",
-          "env": "SHOPIFY_FLAG_PATH",
-          "name": "path",
-          "noCacheDefault": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "bucket": {
-          "description": "The bucket where you want to save your settings.",
-          "name": "bucket",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "nodelete": {
-          "char": "n",
-          "description": "Runs the save command without deleting the bucket's contents.",
-          "env": "SHOPIFY_FLAG_NODELETE",
-          "name": "nodelete",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:save",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "save.js"
-      ]
-    },
-    "bucket:switch": {
-      "aliases": [],
-      "args": {},
-      "description": "Switches the current bucket by copying settings and .env",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the logs.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "path": {
-          "description": "The path to your theme directory.",
-          "env": "SHOPIFY_FLAG_PATH",
-          "name": "path",
-          "noCacheDefault": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "bucket": {
-          "description": "The bucket to switch to",
-          "name": "bucket",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "nodelete": {
-          "char": "n",
-          "description": "Runs the restore command without removing the theme's JSON settings.",
-          "env": "SHOPIFY_FLAG_NODELETE",
-          "name": "nodelete",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "bucket:switch",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "bucket",
-        "switch.js"
       ]
     },
     "theme:settings:download": {
@@ -752,7 +761,7 @@
           "type": "boolean"
         },
         "verbose": {
-          "description": "Increase the verbosity of the logs.",
+          "description": "Increase the verbosity of the output.",
           "env": "SHOPIFY_FLAG_VERBOSE",
           "hidden": false,
           "name": "verbose",
@@ -778,7 +787,7 @@
         },
         "store": {
           "char": "s",
-          "description": "Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
           "env": "SHOPIFY_FLAG_STORE",
           "name": "store",
           "hasDynamicHelp": false,
@@ -793,6 +802,22 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
+        },
+        "development": {
+          "char": "d",
+          "description": "Pull settings files from your remote development theme.",
+          "env": "SHOPIFY_FLAG_DEVELOPMENT",
+          "name": "development",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "live": {
+          "char": "l",
+          "description": "Pull settings files from your remote live theme.",
+          "env": "SHOPIFY_FLAG_LIVE",
+          "name": "live",
+          "allowNo": false,
+          "type": "boolean"
         },
         "theme": {
           "char": "t",
@@ -819,11 +844,7 @@
       "pluginName": "@thebeyondgroup/shopkeeper",
       "pluginType": "core",
       "strict": true,
-      "cli2Flags": [
-        "theme",
-        "live",
-        "nodelete"
-      ],
+      "enableJsonFlag": false,
       "isESM": true,
       "relativePath": [
         "dist",
@@ -834,5 +855,5 @@
       ]
     }
   },
-  "version": "1.0.2"
+  "version": "1.1.0"
 }

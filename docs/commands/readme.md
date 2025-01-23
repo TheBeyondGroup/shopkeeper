@@ -25,7 +25,7 @@ USAGE
 FLAGS
   -b, --bucket=<value>...  (required)
       --no-color           Disable color output.
-      --verbose            Increase the verbosity of the logs.
+      --verbose            Increase the verbosity of the output.
 
 DESCRIPTION
   Create a bucket in .shopkeeper
@@ -43,7 +43,7 @@ USAGE
 
 FLAGS
   --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  --verbose   Increase the verbosity of the output.
 
 DESCRIPTION
   Output the current bucket
@@ -63,7 +63,7 @@ FLAGS
   -b, --bucket=<value>...  (required)
   -f, --force              Skip confirmation.
       --no-color           Disable color output.
-      --verbose            Increase the verbosity of the logs.
+      --verbose            Increase the verbosity of the output.
 
 DESCRIPTION
   Delete a bucket
@@ -82,7 +82,7 @@ USAGE
 FLAGS
   -b, --bucket=<value>...
       --no-color           Disable color output.
-      --verbose            Increase the verbosity of the logs.
+      --verbose            Increase the verbosity of the output.
 
 DESCRIPTION
   Initialize .shopkeeper directory in the current directory
@@ -100,7 +100,7 @@ USAGE
 
 FLAGS
   --no-color  Disable color output.
-  --verbose   Increase the verbosity of the logs.
+  --verbose   Increase the verbosity of the output.
 
 DESCRIPTION
   List buckets
@@ -122,7 +122,7 @@ FLAGS
       --bucket=<value>       The bucket you want to restore your settings from.
       --no-color             Disable color output.
       --path=<value>         The path to your theme directory.
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Restores the theme settings from the specified bucket
@@ -144,7 +144,7 @@ FLAGS
       --bucket=<value>       The bucket where you want to save your settings.
       --no-color             Disable color output.
       --path=<value>         The path to your theme directory.
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Saves the current theme settings to the specified bucket
@@ -166,7 +166,7 @@ FLAGS
       --bucket=<value>       The bucket to switch to
       --no-color             Disable color output.
       --path=<value>         The path to your theme directory.
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Switches the current bucket by copying settings and .env
@@ -180,10 +180,10 @@ Display help for shopkeeper.
 
 ```
 USAGE
-  $ shopkeeper help [COMMANDS] [-n]
+  $ shopkeeper help [COMMANDS...] [-n]
 
 ARGUMENTS
-  COMMANDS  Command to show help for.
+  COMMANDS...  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -207,13 +207,13 @@ FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -j, --json                 Output JSON instead of a UI.
   -n, --nodelete             Runs the push command without deleting local files.
-  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
+  -s, --store=<value>        Store URL. It can be the store prefix (example) or the full myshopify.com URL
+                             (example.myshopify.com, https://example.myshopify.com).
   -t, --theme=<value>        (required) Theme ID or name of the remote theme.
       --no-color             Disable color output.
       --password=<value>     Password generated from the Theme Access app.
       --path=<value>         The path to your theme directory.
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Create a theme with a name or ID. Update theme if one with name already exists
@@ -245,8 +245,8 @@ USAGE
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
   -n, --nodelete             Runs the push command without deleting local files.
-  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
+  -s, --store=<value>        Store URL. It can be the store prefix (example) or the full myshopify.com URL
+                             (example.myshopify.com, https://example.myshopify.com).
       --blue=<value>         Blue theme ID
       --green=<value>        Green theme ID
       --no-color             Disable color output.
@@ -255,7 +255,7 @@ FLAGS
       --publish              Publishes the on-deck theme after deploying
       --strategy=<option>    [default: blue-green] Strategy to use for deployment
                              <options: blue-green|basic>
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Deploy theme source to store
@@ -269,16 +269,17 @@ Get details of theme
 
 ```
 USAGE
-  $ shopkeeper theme get -t <value> [--no-color] [--verbose] [-s <value>] [--password <value>] [-j]
+  $ shopkeeper theme get -t <value> [--no-color] [--verbose] [-s <value>] [--password <value>] [-e <value>] [-j]
 
 FLAGS
-  -j, --json              Output JSON instead of a UI.
-  -s, --store=<value>     Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                          (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
-  -t, --theme=<value>     (required) Theme ID or name of the remote theme.
-      --no-color          Disable color output.
-      --password=<value>  Password generated from the Theme Access app.
-      --verbose           Increase the verbosity of the logs.
+  -e, --environment=<value>  The environment to apply to the current command.
+  -j, --json                 Output JSON instead of a UI.
+  -s, --store=<value>        Store URL. It can be the store prefix (example) or the full myshopify.com URL
+                             (example.myshopify.com, https://example.myshopify.com).
+  -t, --theme=<value>        (required) Theme ID or name of the remote theme.
+      --no-color             Disable color output.
+      --password=<value>     Password generated from the Theme Access app.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Get details of theme
@@ -293,18 +294,20 @@ Download settings from live theme.
 ```
 USAGE
   $ shopkeeper theme settings download [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
-    <value>] [-t <value>] [-n]
+    <value>] [-d] [-l] [-t <value>] [-n]
 
 FLAGS
+  -d, --development          Pull settings files from your remote development theme.
   -e, --environment=<value>  The environment to apply to the current command.
+  -l, --live                 Pull settings files from your remote live theme.
   -n, --nodelete             Runs the pull command without deleting local files.
-  -s, --store=<value>        Store URL. It can be the store prefix (johns-apparel) or the full myshopify.com URL
-                             (johns-apparel.myshopify.com, https://johns-apparel.myshopify.com).
+  -s, --store=<value>        Store URL. It can be the store prefix (example) or the full myshopify.com URL
+                             (example.myshopify.com, https://example.myshopify.com).
   -t, --theme=<value>        Theme ID or name of the remote theme.
       --no-color             Disable color output.
       --password=<value>     Password generated from the Theme Access app.
       --path=<value>         The path to your theme directory.
-      --verbose              Increase the verbosity of the logs.
+      --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
   Download settings from live theme.

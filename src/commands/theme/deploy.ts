@@ -1,14 +1,12 @@
-import { Flags } from '@oclif/core';
-import { globalFlags } from '@shopify/cli-kit/node/cli';
-import { ensureAuthenticatedThemes } from '@shopify/cli-kit/node/session';
-import { themeFlags } from '@shopify/theme/dist/cli/flags.js';
-import { ensureThemeStore } from '@shopify/theme/dist/cli/utilities/theme-store.js';
-import ThemeCommand from '@shopify/theme/dist/cli/utilities/theme-command.js';
-import { deploy } from '../../services/theme/deploy.js';
-import { BLUE_GREEN_STRATEGY, DEPLOYMENT_STRATEGIES } from '../../utilities/constants.js';
+import {Flags} from '@oclif/core'
+import {globalFlags} from '@shopify/cli-kit/node/cli'
+import {deploy, DeployFlags} from '../../services/theme/deploy.js'
+import {BLUE_GREEN_STRATEGY, DEPLOYMENT_STRATEGIES} from '../../utilities/constants.js'
+import {themeFlags} from '../../utilities/shopify/flags.js'
+import ThemeCommand from '../../utilities/shopify/theme-command.js'
 
 export default class Deploy extends ThemeCommand {
-  static description = "Deploy theme source to store";
+  static description = 'Deploy theme source to store'
 
   static flags = {
     ...globalFlags,
@@ -25,11 +23,11 @@ export default class Deploy extends ThemeCommand {
     }),
     green: Flags.integer({
       description: 'Green theme ID',
-      env: 'SKR_FLAG_GREEN_THEME_ID'
+      env: 'SKR_FLAG_GREEN_THEME_ID',
     }),
     blue: Flags.integer({
       description: 'Blue theme ID',
-      env: 'SKR_FLAG_BLUE_THEME_ID'
+      env: 'SKR_FLAG_BLUE_THEME_ID',
     }),
     strategy: Flags.string({
       description: 'Strategy to use for deployment',
@@ -38,23 +36,31 @@ export default class Deploy extends ThemeCommand {
       env: 'SKR_FLAG_STRATEGY',
       relationships: [
         {
-          type: 'all', flags: [
-            { name: 'blue', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY },
-            { name: 'green', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY }
-          ]
-        }
-      ]
-    })
-  };
-
-  static cli2Flags = ['nodelete']
+          type: 'all',
+          flags: [
+            {name: 'blue', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY},
+            {name: 'green', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY},
+          ],
+        },
+      ],
+    }),
+  }
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(Deploy)
-    const store = ensureThemeStore(flags)
-    const adminSession = await ensureAuthenticatedThemes(store, flags.password)
-    const passThroughFlags = this.passThroughFlags(flags, { allowedFlags: Deploy.cli2Flags })
+    const {flags} = await this.parse(Deploy)
 
-    await deploy(adminSession, flags.path, flags.publish, passThroughFlags, flags.strategy!, flags.blue || 0, flags.green || 0)
+    const deployFlags: DeployFlags = {
+      verbose: flags.verbose,
+      noColor: flags['no-color'],
+      path: flags.path,
+      password: flags.password,
+      store: flags.store,
+      nodelete: flags.nodelete,
+      publish: flags.publish,
+      strategy: flags.strategy,
+      green: flags.green,
+      blue: flags.blue,
+    }
+    await deploy(deployFlags)
   }
 }

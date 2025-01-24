@@ -1,9 +1,9 @@
-import { fileExists, inTemporaryDirectory, mkdir, readFile } from '@shopify/cli-kit/node/fs'
-import { joinPath } from '@shopify/cli-kit/node/path'
-import { describe, expect, test, vi } from 'vitest'
+import {fileExists, inTemporaryDirectory, mkdir, readFile} from '@shopify/cli-kit/node/fs'
+import {joinPath} from '@shopify/cli-kit/node/path'
+import {describe, expect, test, vi} from 'vitest'
 import {
   DEFAULT_ENV_FILE,
-  cli2settingFlags,
+  cliSettingFlags,
   createBuckets,
   ensureBucketExists,
   getBucketByPrompt,
@@ -17,7 +17,7 @@ import {
   getShopkeeperPath,
   getThemeSettingsFilePaths,
 } from './bucket.js'
-import { renderSelectPrompt } from '@shopify/cli-kit/node/ui'
+import {renderSelectPrompt} from '@shopify/cli-kit/node/ui'
 
 vi.mock('@shopify/cli-kit/node/ui')
 
@@ -72,7 +72,7 @@ describe('bucket utilities', () => {
       // Then
       expect(renderSelectPrompt).toHaveBeenCalledWith({
         message: 'Select a bucket',
-        choices: [{ label: 'production', value: 'production' }],
+        choices: [{label: 'production', value: 'production'}],
       })
     })
   })
@@ -242,7 +242,7 @@ describe('bucket utilities', () => {
   describe('cliSettingsFlags', () => {
     test('returns cli2 flags for settigns files', () => {
       // Given When
-      const settingsFolders = cli2settingFlags()
+      const settingsFolders = cliSettingFlags()
 
       // Then
       expect(settingsFolders).toEqual([

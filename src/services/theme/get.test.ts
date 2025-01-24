@@ -1,18 +1,18 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { fetchStoreThemes } from "@shopify/theme/dist/cli/utilities/theme-selector/fetch.js";
-import { get } from './get.js';
-import { Theme } from '@shopify/cli-kit/node/themes/types';
+import {beforeEach, describe, expect, test, vi} from 'vitest'
+import {get} from './get.js'
+import {Theme} from '@shopify/cli-kit/node/themes/types'
+import {fetchStoreThemes} from '@shopify/cli'
 
-vi.mock("@shopify/theme/dist/cli/utilities/theme-selector/fetch.js")
+vi.mock('@shopify/cli')
 
 describe('get', () => {
-  const adminSession = { token: 'ABC', storeFqdn: 'example.myshopify.com' }
+  const adminSession = {token: 'ABC', storeFqdn: 'example.myshopify.com'}
 
   function theme(id: number, role: string) {
-    return { id, role, name: `theme (${id})` } as Theme
+    return {id, role, name: `theme (${id})`} as Theme
   }
 
-  describe("when theme is found", () => {
+  describe('when theme is found', () => {
     test('returns an array with the theme', async () => {
       // Given
       const expectedTheme = theme(1, 'unpublished')
@@ -27,7 +27,7 @@ describe('get', () => {
       expect(actualThemes).toEqual([expectedTheme])
     })
   })
-  describe("when theme is not found", async () => {
+  describe('when theme is not found', async () => {
     test('throws error', () => {
       // Given
       const expectedTheme = theme(1, 'unpublished')

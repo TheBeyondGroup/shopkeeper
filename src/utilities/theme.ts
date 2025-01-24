@@ -1,34 +1,53 @@
-import { execCLI2 } from "@shopify/cli-kit/node/ruby"
-import { AdminSession } from "@shopify/cli-kit/node/session"
-import { Theme } from "@shopify/cli-kit/node/themes/types.js"
-import { fetchStoreThemes } from "@shopify/theme/dist/cli/utilities/theme-selector/fetch.js"
-import { Filter } from "@shopify/theme/dist/cli/utilities/theme-selector/filter.js"
-import { cli2settingFlags } from "./bucket.js"
+import {AdminSession} from '@shopify/cli-kit/node/session'
+import {Theme} from '@shopify/cli-kit/node/themes/types.js'
+import {fetchStoreThemes, pull, push} from '@shopify/cli'
+import {PullFlags} from './shopify/services/pull.js'
+import {CLI_SETTINGS_FLAGS} from './bucket.js'
+import {Filter} from './shopify/theme-selector/filter.js'
+import {PushFlags} from './shopify/services/push.js'
 
-export async function pullLiveThemeSettings(adminSession: AdminSession, path: string, themeFlags: string[]): Promise<void> {
-  const settingFilterFlags = cli2settingFlags()
-  const command = ['theme', 'pull', path, ...themeFlags, ...settingFilterFlags]
-  await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })
-}
-
-export async function push(adminSession: AdminSession, path: string, publish: boolean, themeFlags: string[], themeId: number) {
-  const themeFlag = ['--theme', themeId.toString()]
-  if (publish) {
-    themeFlag.push('--publish')
+export async function pullLiveThemeSettings(flags: PullFlags): Promise<void> {
+  const pullFlags: PullFlags = {
+    ...flags,
+    only: CLI_SETTINGS_FLAGS,
+    live: true,
   }
-  const command = ['theme', 'push', path, ...themeFlags, ...themeFlag]
-  await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })
+
+  await pull(pullFlags)
 }
 
-export async function pushToLive(adminSession: AdminSession, path: string, themeFlags: string[]) {
-  const themeFlag = ['--live', '--allow-live']
-  const command = ['theme', 'push', path, ...themeFlags, ...themeFlag]
-  await execCLI2(command, { store: adminSession.storeFqdn, adminToken: adminSession.token })
+export async function pullThemeSettings(flags: PullFlags): Promise<void> {
+  const pullFlags: PullFlags = {
+    ...flags,
+    only: CLI_SETTINGS_FLAGS,
+  }
+  await pull(pullFlags)
 }
 
-export async function getThemesByIdentifier(adminSession: AdminSession, theme: string): Promise<Theme[]> {
-  let storeThemes = await fetchStoreThemes(adminSession)
-  const filter = new Filter({ theme: theme })
+export async function deployTheme(theme: number, flags: PushFlags) {
+  const pushFlags: PushFlags = {
+    ...flags,
+    theme: theme.toString(),
+  }
+  await push(pushFlags)
+}
+
+export async function deployToLive(flags: PushFlags) {
+  const pushFlags: PushFlags = {
+    ...flags,
+    live: true,
+    allowLive: true,
+  }
+  await push(pushFlags)
+}
+
+export async function getThemesByIdentifier(
+  store: string | undefined,
+  password: string | undefined,
+  theme: string | undefined,
+): Promise<Theme[]> {
+  let storeThemes = await fetchStoreThemes(store, password)
+  const filter = new Filter({theme: theme})
 
   if (filter.any()) {
     storeThemes = filterByTheme(storeThemes, filter)
@@ -48,8 +67,6 @@ function filterByTheme(themes: Theme[], filter: Filter): Theme[] {
   })
 }
 
-
 function filterArray(themes: Theme[], predicate: (theme: Theme) => boolean): Theme[] {
   return themes.filter(predicate)
 }
-

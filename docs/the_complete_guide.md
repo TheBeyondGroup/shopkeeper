@@ -61,6 +61,7 @@ mkdir client-theme
 cd client-theme
 npm init
 npm install --save-dev @thebeyondgroup/shopkeeper
+npx shopify plugins install @thebeyondgroup/shopkeeper
 npx shopify theme init --path theme
 cd theme
 rm -rf .git # theme init clones the Dawn repo. We'll create our git repo at our project root
@@ -304,14 +305,10 @@ jobs:
         with:
           node-version: "19"
           cache: "yarn"
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2
-          bundler: 'latest'
       - name: Install packages
         run: yarn install
       - name: Select theme settings
-        run: npx shopify bucket restore --bucket production
+        run: npx shopkeeper bucket restore --bucket production
       - name: Build assets
         run: yarn build:prod
       - name: Deploy to on deck theme
@@ -320,7 +317,7 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           retry_on: error
-          command: npx shopify theme deploy
+          command: npx shopkeeper theme deploy
 ```
 
 When a PR is merged to `main`, a commit is added and this workflow is
@@ -360,9 +357,9 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Download published theme settings
-        run: npx shopify theme settings download
+        run: npx shopkeeper theme settings download
       - name: Store the settings
-        run: npx shopify bucket save --bucket production
+        run: npx shopkeeper bucket save --bucket production
       - name: Set up up git user
         run: |
           # Setup username and email
@@ -436,10 +433,6 @@ jobs:
         with:
           node-version: "19"
           cache: "yarn"
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2
-          bundler: 'latest'
       - uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: pr_status
         with:
@@ -452,7 +445,7 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Select theme settings
-        run: npx shopify bucket restore --bucket production
+        run: npx shopkeeper bucket restore --bucket production
       - name: Build assets
         run: yarn build:prod
       - name: Create theme
@@ -461,9 +454,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           retry_on: error
-          command: npx shopify theme create --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }}
+          command: npx shopkeeper theme create --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }}
       - name: Get theme ID
-        run: echo "THEME_ID=$(npx shopify theme get --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }})" >> $GITHUB_ENV
+        run: echo "THEME_ID=$(npx shopkeeper theme get --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }})" >> $GITHUB_ENV
       - name: Add preview link to PR
         if: steps.pr_status.outputs.pr_found == 'true'
         uses: unsplash/comment-on-pr@master
@@ -515,14 +508,10 @@ jobs:
         with:
           node-version: "19"
           cache: "yarn"
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2
-          bundler: 'latest'
       - name: Install packages
         run: yarn install
       - name: Delete theme
-        run: npx shopify theme delete --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }} --force
+        run: npx shopkeeper theme delete --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }} --force
 ```
 Latest but not least, we clean up after ourselves. When a PR is closed, we
 delete the theme corresponding to its branch.

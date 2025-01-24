@@ -70,6 +70,7 @@ If the commands are not showing up, reinstall the plugin.
 
 ```sh-session
 shopify plugins reset
+shopify plugins install @thebeyondgroup/shopkeeper
 ```
 
 ## Manage Settings

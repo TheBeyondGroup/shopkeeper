@@ -4,7 +4,7 @@ import BaseCommand from '@shopify/cli-kit/node/base-command'
 import {themeFlags} from '../../../utilities/shopify/flags.js'
 import {pullThemeSettings} from '../../../utilities/theme.js'
 
-export default class Download extends BaseCommand {
+export default class Pull extends BaseCommand {
   static description = 'Download settings from live theme.'
 
   static flags = {
@@ -33,7 +33,7 @@ export default class Download extends BaseCommand {
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Download)
+    const {flags} = await this.parse(Pull)
 
     const pullflags = {
       verbose: flags.verbose,

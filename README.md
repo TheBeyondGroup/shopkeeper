@@ -184,8 +184,13 @@ this pattern:
 | `SKR_FLAG_BLUE_THEME_ID`| blue theme ID, cannot be name as name will be update   |
 | `SKR_FLAG_GREEN_THEME_ID`| green theme ID, cannot be name as name will be update   |
 
-Using a tool like [direnv](https://direnv.net), you can have your environment variables automatically
+Using a tool like [mise](https://mise.jdx.dev/environments/), you can have your environment variables automatically
 updated when you switch buckets.
+
+Setting the following in your shell is a great way to reduce the config needed in your repo.
+```
+MISE_ENV_FILE=.env 
+ ```
 
 ## Contribute
 If you'd like to contribute to the project, check out the [contributors docs](docs/contribute.md) to get started.

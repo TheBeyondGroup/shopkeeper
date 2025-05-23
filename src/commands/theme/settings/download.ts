@@ -1,8 +1,8 @@
-import {Flags} from '@oclif/core'
-import {globalFlags} from '@shopify/cli-kit/node/cli'
+import { Flags } from '@oclif/core'
+import { globalFlags } from '@shopify/cli-kit/node/cli'
 import BaseCommand from '@shopify/cli-kit/node/base-command'
-import {themeFlags} from '../../../utilities/shopify/flags.js'
-import {pullThemeSettings} from '../../../utilities/theme.js'
+import { themeFlags } from '../../../utilities/shopify/flags.js'
+import { downloadThemeSettings, DownloadFlags } from '../../../utilities/theme.js'
 
 export default class Download extends BaseCommand {
   static description = 'Download settings from live theme.'
@@ -33,20 +33,7 @@ export default class Download extends BaseCommand {
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Download)
-
-    const pullflags = {
-      verbose: flags.verbose,
-      noColor: flags['no-color'],
-      path: flags.path,
-      password: flags.password,
-      store: flags.store,
-      theme: flags.theme,
-      development: flags.development,
-      live: flags.live ?? true,
-      nodelete: flags.nodelete,
-    }
-
-    await pullThemeSettings(pullflags)
+    const { flags } = await this.parse(Download)
+    await downloadThemeSettings(flags as DownloadFlags)
   }
 }

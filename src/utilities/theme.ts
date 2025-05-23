@@ -1,10 +1,21 @@
-import {AdminSession} from '@shopify/cli-kit/node/session'
-import {Theme} from '@shopify/cli-kit/node/themes/types.js'
-import {fetchStoreThemes, pull, push} from '@shopify/cli'
-import {PullFlags} from './shopify/services/pull.js'
-import {CLI_SETTINGS_FLAGS} from './bucket.js'
-import {Filter} from './shopify/theme-selector/filter.js'
-import {PushFlags} from './shopify/services/push.js'
+import { Theme } from '@shopify/cli-kit/node/themes/types.js'
+import { fetchStoreThemes, pull, push } from '@shopify/cli'
+import { PullFlags } from './shopify/services/pull.js'
+import { CLI_SETTINGS_FLAGS } from './bucket.js'
+import { Filter } from './shopify/theme-selector/filter.js'
+import { PushFlags } from './shopify/services/push.js'
+
+export interface DownloadFlags {
+  verbose?: boolean
+  'no-color'?: boolean
+  path?: string
+  password?: string
+  store?: string
+  theme?: string
+  development?: boolean
+  live?: boolean
+  nodelete?: boolean
+}
 
 export async function pullLiveThemeSettings(flags: PullFlags): Promise<void> {
   const pullFlags: PullFlags = {
@@ -21,6 +32,23 @@ export async function pullThemeSettings(flags: PullFlags): Promise<void> {
     ...flags,
     only: CLI_SETTINGS_FLAGS,
   }
+  await pull(pullFlags)
+}
+
+export async function downloadThemeSettings(flags: DownloadFlags): Promise<void> {
+  const pullFlags: PullFlags = {
+    verbose: flags.verbose,
+    noColor: flags['no-color'],
+    path: flags.path,
+    password: flags.password,
+    store: flags.store,
+    theme: flags.theme,
+    development: flags.development,
+    live: flags.live || !(flags.theme || flags.development),
+    nodelete: flags.nodelete,
+    only: CLI_SETTINGS_FLAGS,
+  }
+
   await pull(pullFlags)
 }
 
@@ -47,7 +75,7 @@ export async function getThemesByIdentifier(
   theme: string | undefined,
 ): Promise<Theme[]> {
   let storeThemes = await fetchStoreThemes(store, password)
-  const filter = new Filter({theme: theme})
+  const filter = new Filter({ theme: theme })
 
   if (filter.any()) {
     storeThemes = filterByTheme(storeThemes, filter)

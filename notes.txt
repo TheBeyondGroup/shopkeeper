@@ -1,0 +1,14 @@
+# Extras
+
+It would seem the solution to have primitives that enable you to build the workflow you want.
+
+Let's define a few operations to keep our terms clear:
+
+Operations:
+* PULL - to download files from Shopify
+* PUSH - to upload files to Shopify
+
+Operation types:
+  * REPLACE - when PUSH OR PULL is run without the `--nodelete` flag. The files from the source replace the ones at the destination.
+  * ADD - when PUSH OR PULL is run with the `--nodelete` flag. The files present at the source are copied to the destination, files at the destination not found at the source are preserved.
+  * MERGE(UNION) - when PULL is run and the objects found at the source are deep merged with the ones at the destination.

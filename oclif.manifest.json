@@ -1,5 +1,315 @@
 {
   "commands": {
+    "theme:create": {
+      "aliases": [],
+      "args": {},
+      "description": "Create a theme with theme name or ID.\nIn most cases, you should use theme push.\n\nThis command exists for the case when you want create a theme by name that may\nor may not exist. It will ensure that if one with the same name already exists,\nit is updated.\n\ntheme push --unpublished --theme yellow will create a new theme named yellow each\ntime the command is run.\n\nAs a result this command exists.\n",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "password": {
+          "description": "Password generated from the Theme Access app.",
+          "env": "SHOPIFY_CLI_THEME_TOKEN",
+          "name": "password",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "store": {
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
+          "env": "SHOPIFY_FLAG_STORE",
+          "name": "store",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "theme": {
+          "char": "t",
+          "description": "Theme ID or name of the remote theme.",
+          "env": "SHOPIFY_FLAG_THEME_ID",
+          "name": "theme",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the push command without deleting local files.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "json": {
+          "char": "j",
+          "description": "Output JSON instead of a UI.",
+          "env": "SHOPIFY_FLAG_JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "theme:create",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Create a theme with a name or ID. Update theme if one with name already exists",
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "theme",
+        "create.js"
+      ]
+    },
+    "theme:deploy": {
+      "aliases": [],
+      "args": {},
+      "description": "Deploy theme source to store",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "password": {
+          "description": "Password generated from the Theme Access app.",
+          "env": "SHOPIFY_CLI_THEME_TOKEN",
+          "name": "password",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "store": {
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
+          "env": "SHOPIFY_FLAG_STORE",
+          "name": "store",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the push command without deleting local files.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "publish": {
+          "description": "Publishes the on-deck theme after deploying",
+          "env": "SKR_FLAG_PUBLISH",
+          "name": "publish",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "green": {
+          "description": "Green theme ID",
+          "env": "SKR_FLAG_GREEN_THEME_ID",
+          "name": "green",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "blue": {
+          "description": "Blue theme ID",
+          "env": "SKR_FLAG_BLUE_THEME_ID",
+          "name": "blue",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "strategy": {
+          "description": "Strategy to use for deployment",
+          "env": "SKR_FLAG_STRATEGY",
+          "name": "strategy",
+          "relationships": [
+            {
+              "type": "all",
+              "flags": [
+                {
+                  "name": "blue"
+                },
+                {
+                  "name": "green"
+                }
+              ]
+            }
+          ],
+          "default": "blue-green",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "blue-green",
+            "basic"
+          ],
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "theme:deploy",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "theme",
+        "deploy.js"
+      ]
+    },
+    "theme:get": {
+      "aliases": [],
+      "args": {},
+      "description": "Get details of theme",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "store": {
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
+          "env": "SHOPIFY_FLAG_STORE",
+          "name": "store",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "password": {
+          "description": "Password generated from the Theme Access app.",
+          "env": "SHOPIFY_CLI_THEME_TOKEN",
+          "name": "password",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "theme": {
+          "char": "t",
+          "description": "Theme ID or name of the remote theme.",
+          "env": "SHOPIFY_FLAG_THEME_ID",
+          "name": "theme",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "json": {
+          "char": "j",
+          "description": "Output JSON instead of a UI.",
+          "env": "SHOPIFY_FLAG_JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "theme:get",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "theme",
+        "get.js"
+      ]
+    },
     "bucket:create": {
       "aliases": [],
       "args": {},
@@ -437,316 +747,6 @@
         "switch.js"
       ]
     },
-    "theme:create": {
-      "aliases": [],
-      "args": {},
-      "description": "Create a theme with theme name or ID.\nIn most cases, you should use theme push.\n\nThis command exists for the case when you want create a theme by name that may\nor may not exist. It will ensure that if one with the same name already exists,\nit is updated.\n\ntheme push --unpublished --theme yellow will create a new theme named yellow each\ntime the command is run.\n\nAs a result this command exists.\n",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the output.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "path": {
-          "description": "The path to your theme directory.",
-          "env": "SHOPIFY_FLAG_PATH",
-          "name": "path",
-          "noCacheDefault": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "password": {
-          "description": "Password generated from the Theme Access app.",
-          "env": "SHOPIFY_CLI_THEME_TOKEN",
-          "name": "password",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "store": {
-          "char": "s",
-          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
-          "env": "SHOPIFY_FLAG_STORE",
-          "name": "store",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "theme": {
-          "char": "t",
-          "description": "Theme ID or name of the remote theme.",
-          "env": "SHOPIFY_FLAG_THEME_ID",
-          "name": "theme",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "nodelete": {
-          "char": "n",
-          "description": "Runs the push command without deleting local files.",
-          "env": "SHOPIFY_FLAG_NODELETE",
-          "name": "nodelete",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "json": {
-          "char": "j",
-          "description": "Output JSON instead of a UI.",
-          "env": "SHOPIFY_FLAG_JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "theme:create",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Create a theme with a name or ID. Update theme if one with name already exists",
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "theme",
-        "create.js"
-      ]
-    },
-    "theme:deploy": {
-      "aliases": [],
-      "args": {},
-      "description": "Deploy theme source to store",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the output.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "path": {
-          "description": "The path to your theme directory.",
-          "env": "SHOPIFY_FLAG_PATH",
-          "name": "path",
-          "noCacheDefault": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "password": {
-          "description": "Password generated from the Theme Access app.",
-          "env": "SHOPIFY_CLI_THEME_TOKEN",
-          "name": "password",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "store": {
-          "char": "s",
-          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
-          "env": "SHOPIFY_FLAG_STORE",
-          "name": "store",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "nodelete": {
-          "char": "n",
-          "description": "Runs the push command without deleting local files.",
-          "env": "SHOPIFY_FLAG_NODELETE",
-          "name": "nodelete",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "publish": {
-          "description": "Publishes the on-deck theme after deploying",
-          "env": "SKR_FLAG_PUBLISH",
-          "name": "publish",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "green": {
-          "description": "Green theme ID",
-          "env": "SKR_FLAG_GREEN_THEME_ID",
-          "name": "green",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "blue": {
-          "description": "Blue theme ID",
-          "env": "SKR_FLAG_BLUE_THEME_ID",
-          "name": "blue",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "strategy": {
-          "description": "Strategy to use for deployment",
-          "env": "SKR_FLAG_STRATEGY",
-          "name": "strategy",
-          "relationships": [
-            {
-              "type": "all",
-              "flags": [
-                {
-                  "name": "blue"
-                },
-                {
-                  "name": "green"
-                }
-              ]
-            }
-          ],
-          "default": "blue-green",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "options": [
-            "blue-green",
-            "basic"
-          ],
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "theme:deploy",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "theme",
-        "deploy.js"
-      ]
-    },
-    "theme:get": {
-      "aliases": [],
-      "args": {},
-      "description": "Get details of theme",
-      "flags": {
-        "no-color": {
-          "description": "Disable color output.",
-          "env": "SHOPIFY_FLAG_NO_COLOR",
-          "hidden": false,
-          "name": "no-color",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "description": "Increase the verbosity of the output.",
-          "env": "SHOPIFY_FLAG_VERBOSE",
-          "hidden": false,
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "store": {
-          "char": "s",
-          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
-          "env": "SHOPIFY_FLAG_STORE",
-          "name": "store",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "password": {
-          "description": "Password generated from the Theme Access app.",
-          "env": "SHOPIFY_CLI_THEME_TOKEN",
-          "name": "password",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "environment": {
-          "char": "e",
-          "description": "The environment to apply to the current command.",
-          "env": "SHOPIFY_FLAG_ENVIRONMENT",
-          "name": "environment",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "theme": {
-          "char": "t",
-          "description": "Theme ID or name of the remote theme.",
-          "env": "SHOPIFY_FLAG_THEME_ID",
-          "name": "theme",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "json": {
-          "char": "j",
-          "description": "Output JSON instead of a UI.",
-          "env": "SHOPIFY_FLAG_JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "theme:get",
-      "pluginAlias": "@thebeyondgroup/shopkeeper",
-      "pluginName": "@thebeyondgroup/shopkeeper",
-      "pluginType": "core",
-      "strict": true,
-      "enableJsonFlag": false,
-      "isESM": true,
-      "relativePath": [
-        "dist",
-        "commands",
-        "theme",
-        "get.js"
-      ]
-    },
     "theme:settings:download": {
       "aliases": [],
       "args": {},
@@ -855,5 +855,5 @@
       ]
     }
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }

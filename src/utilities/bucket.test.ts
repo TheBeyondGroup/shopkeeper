@@ -1,6 +1,6 @@
-import {fileExists, inTemporaryDirectory, mkdir, readFile} from '@shopify/cli-kit/node/fs'
-import {joinPath} from '@shopify/cli-kit/node/path'
-import {describe, expect, test, vi} from 'vitest'
+import { fileExists, inTemporaryDirectory, mkdir, readFile } from '@shopify/cli-kit/node/fs'
+import { joinPath } from '@shopify/cli-kit/node/path'
+import { describe, expect, test, vi } from 'vitest'
 import {
   DEFAULT_ENV_FILE,
   cliSettingFlags,
@@ -17,7 +17,7 @@ import {
   getShopkeeperPath,
   getThemeSettingsFilePaths,
 } from './bucket.js'
-import {renderSelectPrompt} from '@shopify/cli-kit/node/ui'
+import { renderSelectPrompt } from '@shopify/cli-kit/node/ui'
 
 vi.mock('@shopify/cli-kit/node/ui')
 
@@ -59,7 +59,7 @@ describe('bucket utilities', () => {
       const errorFunc = async () => await getBucketByPrompt(shopkeeperRoot)
 
       // Then
-      expect(errorFunc).rejects.toThrowError(/No buckets can be found/)
+      await expect(errorFunc).rejects.toThrowError(/No buckets can be found/)
     })
 
     test('renders a select prompt', async () => {
@@ -72,7 +72,7 @@ describe('bucket utilities', () => {
       // Then
       expect(renderSelectPrompt).toHaveBeenCalledWith({
         message: 'Select a bucket',
-        choices: [{label: 'production', value: 'production'}],
+        choices: [{ label: 'production', value: 'production' }],
       })
     })
   })
@@ -93,7 +93,7 @@ describe('bucket utilities', () => {
       const shopkeeperRoot = joinPath(__dirname, 'fixtures', '.shopkeeper')
 
       // When/Then
-      expect(() => ensureBucketExists(shopkeeperRoot, bucketName)).rejects.toThrowError()
+      await expect(() => ensureBucketExists(shopkeeperRoot, bucketName)).rejects.toThrowError()
     })
   })
 
@@ -211,7 +211,7 @@ describe('bucket utilities', () => {
       const errorFunc = async () => await getShopkeeperPath(fixturesPath)
 
       // Then
-      expect(errorFunc).rejects.toThrowError(/Cannot find/)
+      await expect(errorFunc).rejects.toThrowError(/Cannot find/)
     })
   })
 

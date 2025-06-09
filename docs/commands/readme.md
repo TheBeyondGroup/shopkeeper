@@ -235,12 +235,13 @@ _See code: [src/commands/theme/create.ts](https://github.com/TheBeyondGroup/shop
 
 ## `shopkeeper theme deploy`
 
-Deploy theme source to store
+Deploy theme source to store using various deployment strategies
 
 ```
 USAGE
   $ shopkeeper theme deploy [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
-    <value>] [-n] [--publish] [--green <value>] [--blue <value>] [--strategy blue-green|basic]
+    <value>] [-n] [--publish] [--green <value>] [--blue <value>] [--strategy blue-green|basic|history] [--theme-count
+    <value>]
 
 FLAGS
   -e, --environment=<value>  The environment to apply to the current command.
@@ -254,11 +255,12 @@ FLAGS
       --path=<value>         The path to your theme directory.
       --publish              Publishes the on-deck theme after deploying
       --strategy=<option>    [default: blue-green] Strategy to use for deployment
-                             <options: blue-green|basic>
+                             <options: blue-green|basic|history>
+      --theme-count=<value>  Number of history themes to retain when using history deployment strategy (default: 10)
       --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
-  Deploy theme source to store
+  Deploy theme source to store using various deployment strategies
 ```
 
 _See code: [src/commands/theme/deploy.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/deploy.ts)_

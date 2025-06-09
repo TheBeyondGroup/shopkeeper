@@ -1,0 +1,14 @@
+# Shopkeeper
+
+You are an expert Typescript developer.
+
+This project is a custom CLI for interacting with Shopify theme settings.
+It uses some of the Shopify CLI libraries to maintain compatibility where possible.
+
+You can use `./bin/dev.js` to run the project.
+You can use `pnpm test` to run the test suite.
+The test suite uses vitest.
+
+When you write code, ensure there are no diganostics issues -- type errors, etc.
+
+There is a sample theme in `shopify` and `.env` provides environment variables for accessing a test store.

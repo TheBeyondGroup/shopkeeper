@@ -838,6 +838,7 @@
         }
       },
       "hasDynamicHelp": false,
+      "hidden": true,
       "hiddenAliases": [],
       "id": "theme:settings:download",
       "pluginAlias": "@thebeyondgroup/shopkeeper",
@@ -852,6 +853,113 @@
         "theme",
         "settings",
         "download.js"
+      ]
+    },
+    "theme:settings:pull": {
+      "aliases": [],
+      "args": {},
+      "description": "Pull settings from live theme.",
+      "flags": {
+        "no-color": {
+          "description": "Disable color output.",
+          "env": "SHOPIFY_FLAG_NO_COLOR",
+          "hidden": false,
+          "name": "no-color",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Increase the verbosity of the output.",
+          "env": "SHOPIFY_FLAG_VERBOSE",
+          "hidden": false,
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "path": {
+          "description": "The path to your theme directory.",
+          "env": "SHOPIFY_FLAG_PATH",
+          "name": "path",
+          "noCacheDefault": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "password": {
+          "description": "Password generated from the Theme Access app.",
+          "env": "SHOPIFY_CLI_THEME_TOKEN",
+          "name": "password",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "store": {
+          "char": "s",
+          "description": "Store URL. It can be the store prefix (example) or the full myshopify.com URL (example.myshopify.com, https://example.myshopify.com).",
+          "env": "SHOPIFY_FLAG_STORE",
+          "name": "store",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "environment": {
+          "char": "e",
+          "description": "The environment to apply to the current command.",
+          "env": "SHOPIFY_FLAG_ENVIRONMENT",
+          "name": "environment",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "development": {
+          "char": "d",
+          "description": "Pull settings files from your remote development theme.",
+          "env": "SHOPIFY_FLAG_DEVELOPMENT",
+          "name": "development",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "live": {
+          "char": "l",
+          "description": "Pull settings files from your remote live theme.",
+          "env": "SHOPIFY_FLAG_LIVE",
+          "name": "live",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "theme": {
+          "char": "t",
+          "description": "Theme ID or name of the remote theme.",
+          "env": "SHOPIFY_FLAG_THEME_ID",
+          "name": "theme",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "nodelete": {
+          "char": "n",
+          "description": "Runs the pull command without deleting local files.",
+          "env": "SHOPIFY_FLAG_NODELETE",
+          "name": "nodelete",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "theme:settings:pull",
+      "pluginAlias": "@thebeyondgroup/shopkeeper",
+      "pluginName": "@thebeyondgroup/shopkeeper",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "theme",
+        "settings",
+        "pull.js"
       ]
     }
   },

@@ -12,7 +12,7 @@
 * [`shopkeeper theme create`](#shopkeeper-theme-create)
 * [`shopkeeper theme deploy`](#shopkeeper-theme-deploy)
 * [`shopkeeper theme get`](#shopkeeper-theme-get)
-* [`shopkeeper theme settings download`](#shopkeeper-theme-settings-download)
+* [`shopkeeper theme settings pull`](#shopkeeper-theme-settings-pull)
 
 ## `shopkeeper bucket create`
 
@@ -287,13 +287,13 @@ DESCRIPTION
 
 _See code: [src/commands/theme/get.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/get.ts)_
 
-## `shopkeeper theme settings download`
+## `shopkeeper theme settings pull`
 
-Download settings from live theme.
+Pull settings from live theme.
 
 ```
 USAGE
-  $ shopkeeper theme settings download [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
+  $ shopkeeper theme settings pull [--no-color] [--verbose] [--path <value>] [--password <value>] [-s <value>] [-e
     <value>] [-d] [-l] [-t <value>] [-n]
 
 FLAGS
@@ -310,8 +310,8 @@ FLAGS
       --verbose              Increase the verbosity of the output.
 
 DESCRIPTION
-  Download settings from live theme.
+  Pull settings from live theme.
 ```
 
-_See code: [src/commands/theme/settings/download.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/settings/download.ts)_
+_See code: [src/commands/theme/settings/pull.ts](https://github.com/TheBeyondGroup/shopkeeper/tree/main/src/src/commands/theme/settings/pull.ts)_
 <!-- commandsstop -->

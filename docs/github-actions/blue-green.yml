@@ -1,0 +1,40 @@
+name: Shopify Blue/Green Deploy
+
+# Controls when the action will run.
+# Triggers the workflow on push or pull request events but only for the master branch
+on:
+  push:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
+      SKR_FLAG_BLUE_THEME_ID: ${{ secrets.SKR_FLAG_BLUE_THEME_ID }}
+      SKR_FLAG_GREEN_THEME_ID: ${{ secrets.SKR_FLAG_GREEN_THEME_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
+          cache: "yarn"
+      - name: Install packages
+        run: yarn install
+      - name: Select theme settings
+        run: npx shopkeeper bucket restore --bucket production
+      - name: Build assets
+        run: yarn build:prod
+      - name: Deploy to on deck theme
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          command: npx shopkeeper theme deploy

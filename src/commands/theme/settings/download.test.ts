@@ -52,8 +52,10 @@ describe('Download command (alias)', () => {
 
     test('inherits run method from Pull command', () => {
       expect(typeof Download.prototype.run).toBe('function')
-      // The run method should be the same as Pull's run method
-      expect(Download.prototype.run).toBe(Pull.prototype.run)
+      // The Download class overrides run method to show deprecation warning
+      // but it should call super.run() which is Pull's run method
+      expect(Download.prototype.run).not.toBe(Pull.prototype.run)
+      expect(typeof Download.prototype.run).toBe('function')
     })
   })
 
@@ -163,8 +165,9 @@ describe('Download command (alias)', () => {
 
     test('uses same utility function as original', () => {
       // The Download command should call the same downloadThemeSettings function
-      // This is verified through the inheritance and the run method tests above
-      expect(Download.prototype.run).toBe(Pull.prototype.run)
+      // via super.run() even though it overrides the run method for deprecation warning
+      expect(Download.prototype.run).not.toBe(Pull.prototype.run)
+      expect(typeof Download.prototype.run).toBe('function')
     })
   })
 

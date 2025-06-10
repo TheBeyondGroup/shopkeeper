@@ -1,0 +1,141 @@
+name: Sync Theme Changes
+
+on:
+  schedule: # run the theme sync every hour
+    - cron: "0 */1 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli
+      - name: Download all theme files from live theme
+        run: shopify theme pull --live --force
+      - name: Check for non-settings changes
+        id: check_changes
+        run: |
+          # Check if any files changed at all
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Use git pathspec to check only non-settings files
+          # Include: assets, layout, snippets, locales, *.liquid files
+          # Exclude: settings files (handled by backup-theme-settings workflow)
+          if git diff --quiet HEAD -- 'assets/*' 'layout/*' 'snippets/*' 'locales/*' 'sections/*.liquid' 'templates/*.liquid'; then
+            echo "Only settings files changed - these are handled by the backup-theme-settings workflow"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Non-settings files changed"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+
+          # Get changed non-settings files using git pathspec
+          NON_SETTINGS_CHANGES=$(git status --porcelain -- 'assets/*' 'layout/*' 'snippets/*' 'locales/*' 'sections/*.liquid' 'templates/*.liquid')
+
+          # Count changes by type
+          ADDED=$(echo "$NON_SETTINGS_CHANGES" | grep '^A ' | wc -l || echo "0")
+          MODIFIED=$(echo "$NON_SETTINGS_CHANGES" | grep '^M ' | wc -l || echo "0")
+          DELETED=$(echo "$NON_SETTINGS_CHANGES" | grep '^D ' | wc -l || echo "0")
+
+          echo "added_count=$ADDED" >> $GITHUB_OUTPUT
+          echo "modified_count=$MODIFIED" >> $GITHUB_OUTPUT
+          echo "deleted_count=$DELETED" >> $GITHUB_OUTPUT
+
+          # Store changed files list for PR body
+          echo "CHANGED_FILES_LIST<<EOF" >> $GITHUB_ENV
+          echo "$NON_SETTINGS_CHANGES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Set up git user
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "ops@thebeyondgroup.la"
+      - name: Store datetime and branch name
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "NOW=$(date +"%Y-%m-%d-%H")" >> $GITHUB_ENV
+          echo "NEW_BRANCH=github-action/theme-sync-$NOW" >> $GITHUB_ENV
+      - name: Create PR for theme changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          # Create label
+          gh label create theme-code-sync --color "D73A4A" --description "Theme code changes synced from Shopify" --force
+
+          # Create branch
+          git checkout -b $NEW_BRANCH
+
+          # Stage only non-settings files using git pathspec
+          git add -- 'assets/*' 'layout/*' 'snippets/*' 'locales/*' 'sections/*.liquid' 'templates/*.liquid'
+
+          # Check if we have staged changes
+          if git diff --cached --quiet; then
+            echo "No non-settings changes to commit"
+            exit 0
+          fi
+
+          # Commit only the non-settings changes
+          ADDED="${{ steps.check_changes.outputs.added_count }}"
+          MODIFIED="${{ steps.check_changes.outputs.modified_count }}"
+          DELETED="${{ steps.check_changes.outputs.deleted_count }}"
+
+          git commit -m "Sync theme code changes from Shopify ($ADDED added, $MODIFIED modified, $DELETED deleted)
+
+          This commit contains non-settings theme file changes made directly in the Shopify admin.
+          Settings file changes are handled separately by the backup-theme-settings workflow.
+
+          Changed files:
+          $CHANGED_FILES_LIST"
+
+          git push origin $NEW_BRANCH
+
+          # Create PR with detailed description
+          gh pr create \
+            --title "Sync theme code changes from Shopify as of $NOW" \
+            --body "## Theme Code Changes Detected
+
+          This PR contains **non-settings** changes that were made directly in the Shopify admin (theme editor or code editor).
+
+          **Summary:**
+          - 📁 Files added: $ADDED
+          - ✏️ Files modified: $MODIFIED
+          - 🗑️ Files deleted: $DELETED
+
+          **Changed Files:**
+          \`\`\`
+          $CHANGED_FILES_LIST
+          \`\`\`
+
+          > **Note:** Settings file changes (JSON templates, settings_data.json, section group JSON files) are handled separately by the \`backup-theme-settings\` workflow and will appear in separate PRs.
+
+          **⚠️ Please review these changes carefully before merging.**
+
+          These changes were made directly in Shopify and may include:
+          - Liquid template modifications
+          - Asset file changes (CSS, JS, images)
+          - Layout file updates
+          - Snippet changes
+          - Locale file updates
+
+          Consider whether these changes should be:
+          - Merged as-is
+          - Modified to follow your coding standards
+          - Integrated into your existing development workflow" \
+            --label theme-code-sync
+
+          echo "✅ Created PR for theme code changes"

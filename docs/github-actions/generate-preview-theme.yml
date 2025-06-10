@@ -1,0 +1,64 @@
+name: Generate Preview
+
+on:
+  pull_request:
+    types:
+      - reopened
+    branches-ignore:
+      - "github-action/**"
+  push:
+    branches-ignore:
+      - "master"
+      - "github-action/**"
+
+  workflow_dispatch:
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rlespinasse/github-slug-action@v4
+        with:
+          slug-maxlength: 50 # Shopify preview environment name cannot be more than 50 chars
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
+          cache: "yarn"
+      - uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: pr_status
+        with:
+          # Verbose setting SHA when using Pull_Request event trigger
+          sha: ${{ github.event.pull_request.head.sha }}
+          # Only return if PR is still open. (By default it returns PRs in any state.)
+          filterOutClosed: true
+          # Only return if PR is not in draft state. (By default it returns PRs in any state.)
+          filterOutDraft: true
+      - name: Install packages
+        run: yarn install
+      - name: Select theme settings
+        run: npx shopkeeper bucket restore --bucket production
+      - name: Build assets
+        run: yarn build:prod
+      - name: Create theme
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          command: npx shopkeeper theme create --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }}
+      - name: Get theme ID
+        run: echo "THEME_ID=$(npx shopkeeper theme get --theme ${{ env.GITHUB_REF_NAME_SLUG_URL }})" >> $GITHUB_ENV
+      - name: Add preview link to PR
+        if: steps.pr_status.outputs.pr_found == 'true'
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: |
+            **Preview:** [Storefront](https://${{ vars.SHOPIFY_FLAG_STORE }}?preview_theme_id=${{ env.THEME_ID }}) | [Admin](https://${{ vars.SHOPIFY_FLAG_STORE }}/admin/themes/${{ env.THEME_ID }}/editor)
+          delete_prev_regex_msg: "Preview:" # OPTIONAL

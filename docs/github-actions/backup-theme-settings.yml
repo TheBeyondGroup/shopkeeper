@@ -1,0 +1,60 @@
+name: Backup Theme Settings
+
+on:
+  schedule: # run the settings backup every hour
+    - cron: "0 */1 * * *"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
+      SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SETTINGS_APPROVER: ${{ secrets.SETTINGS_APPROVER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
+          cache: "yarn"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: "latest"
+      - name: Install packages
+        run: yarn install
+      - name: Download published theme settings
+        run: npx shopkeeper theme settings download
+      - name: Store the settings
+        run: npx shopkeeper bucket save --bucket production
+      - name: Set up up git user
+        run: |
+          # Setup username and email
+          git config user.name "GitHub Actions Bot"
+          git config user.email "ops@thebeyondgroup.la"
+      - name: Store datetime
+        run: echo "NOW=$(date +"%Y-%m-%d-%H")" >> $GITHUB_ENV
+      - name: Store branch name
+        run: echo "NEW_BRANCH=github-action/settings-$NOW" >> $GITHUB_ENV
+      - name: Create PR
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "No changes. Nothing to commit"
+          else
+            gh label create settings-update --force
+            git checkout -b $NEW_BRANCH
+            git add .
+            git commit -m "Update theme settings as of $NOW"
+            git push origin  $NEW_BRANCH
+            gh pr create --title "Update theme settings as of $NOW" --body "Update to latest theme settings"--label settings-update
+            # We can't approve the PR with same token that created it.
+            OLD_GITHUB_TOKEN=$GITHUB_TOKEN
+            GITHUB_TOKEN=$SETTINGS_APPROVER
+            gh pr review --approve
+            GITHUB_TOKEN=$OLD_GITHUB_TOKEN
+            gh pr merge --merge
+          fi

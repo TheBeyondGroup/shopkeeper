@@ -1,12 +1,12 @@
-import {Flags} from '@oclif/core'
-import {globalFlags} from '@shopify/cli-kit/node/cli'
-import {deploy, DeployFlags} from '../../services/theme/deploy.js'
-import {BLUE_GREEN_STRATEGY, DEPLOYMENT_STRATEGIES} from '../../utilities/constants.js'
-import {themeFlags} from '../../utilities/shopify/flags.js'
+import { Flags } from '@oclif/core'
+import { globalFlags } from '@shopify/cli-kit/node/cli'
+import { deploy, DeployFlags } from '../../services/theme/deploy.js'
+import { BLUE_GREEN_STRATEGY, DEPLOYMENT_STRATEGIES } from '../../utilities/constants.js'
+import { themeFlags } from '../../utilities/shopify/flags.js'
 import ThemeCommand from '../../utilities/shopify/theme-command.js'
 
 export default class Deploy extends ThemeCommand {
-  static description = 'Deploy theme source to store'
+  static description = 'Deploy theme source to store using various deployment strategies'
 
   static flags = {
     ...globalFlags,
@@ -38,16 +38,21 @@ export default class Deploy extends ThemeCommand {
         {
           type: 'all',
           flags: [
-            {name: 'blue', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY},
-            {name: 'green', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY},
+            { name: 'blue', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY },
+            { name: 'green', when: async (flags) => flags['strategy'] === BLUE_GREEN_STRATEGY },
           ],
         },
       ],
     }),
+    'theme-count': Flags.integer({
+      description: 'Number of history themes to retain when using history deployment strategy (default: 10)',
+      env: 'SKR_HISTORY_THEME_COUNT',
+      min: 1,
+    }),
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Deploy)
+    const { flags } = await this.parse(Deploy)
 
     const deployFlags: DeployFlags = {
       verbose: flags.verbose,
@@ -60,6 +65,7 @@ export default class Deploy extends ThemeCommand {
       strategy: flags.strategy,
       green: flags.green,
       blue: flags.blue,
+      themeCount: flags['theme-count'],
     }
     await deploy(deployFlags)
   }

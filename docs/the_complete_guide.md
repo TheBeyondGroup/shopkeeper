@@ -42,6 +42,7 @@ bucket, run `shopkeeper bucket create --bucket production`.
 .shopkeeper
 ├── production
 │   ├── config
+│   ├── locales
 │   ├── sections
 │   ├── templates
 │   ├── .env
@@ -141,8 +142,11 @@ We add the following lines to our project's `.gitignore`:
 ##########
 theme/assets
 theme/config/settings_data.json
+theme/config/markets.json
 theme/templates/**/*.json
 theme/sections/*.json
+theme/locales/*.json
+!theme/locales/*schema*.json
 ```
 
 Adding this config makes only the settings in `.shopkeeper` trackable by `git`.

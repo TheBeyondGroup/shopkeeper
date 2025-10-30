@@ -19,10 +19,12 @@ describe('theme utilities', () => {
       // Given
       const settingsFlags = [
         'config/settings_data.json',
+        'config/markets.json',
         'sections/*.json',
         'templates/*.json',
         'templates/customers/*.json',
         'templates/metaobject/*.json',
+        'locales/!(*schema*).json',
       ]
       const flags: PullFlags = {
         only: settingsFlags,
@@ -46,10 +48,12 @@ describe('theme utilities', () => {
       // Given
       const settingsFlags = [
         'config/settings_data.json',
+        'config/markets.json',
         'sections/*.json',
         'templates/*.json',
         'templates/customers/*.json',
         'templates/metaobject/*.json',
+        'locales/!(*schema*).json',
       ]
       const flags: PullFlags = {
         only: settingsFlags,
@@ -101,10 +105,12 @@ describe('theme utilities', () => {
           nodelete: true,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -139,10 +145,12 @@ describe('theme utilities', () => {
           nodelete: false,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -177,10 +185,12 @@ describe('theme utilities', () => {
           nodelete: true,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -215,10 +225,12 @@ describe('theme utilities', () => {
           nodelete: true,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -253,10 +265,12 @@ describe('theme utilities', () => {
           nodelete: false,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -358,10 +372,12 @@ describe('theme utilities', () => {
           nodelete: false,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -396,10 +412,12 @@ describe('theme utilities', () => {
           nodelete: false,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -430,10 +448,12 @@ describe('theme utilities', () => {
           nodelete: undefined,
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -447,10 +467,12 @@ describe('theme utilities', () => {
         expect(pull).toHaveBeenCalledWith(expect.objectContaining({
           only: [
             'config/settings_data.json',
+            'config/markets.json',
             'sections/*.json',
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         }))
       })

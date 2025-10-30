@@ -122,8 +122,10 @@ describe('bucket utilities', () => {
       // Then
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
+          'config/markets.json',
           'config/settings_data.json',
           'templates/product.json',
+          'locales/en.default.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
           'sections/header-group.json',
@@ -144,10 +146,12 @@ describe('bucket utilities', () => {
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
           'config/settings_data.json',
+          'config/markets.json',
           'templates/product.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
           'sections/header-group.json',
+          'locales/en.default.json',
         ].sort(),
       )
     })
@@ -165,10 +169,12 @@ describe('bucket utilities', () => {
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
           'config/settings_data.json',
+          'config/markets.json',
           'templates/product.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
           'sections/header-group.json',
+          'locales/en.default.json',
         ].sort(),
       )
     })
@@ -235,7 +241,7 @@ describe('bucket utilities', () => {
       const settingsFolders = getSettingsPatterns()
 
       // Then
-      expect(settingsFolders).toEqual(['config/settings_data.json', 'templates/**/*.json', 'sections/*.json'])
+      expect(settingsFolders).toEqual(['config/settings_data.json', 'config/markets.json', 'templates/**/*.json', 'sections/*.json', 'locales/!(*schema*).json'])
     })
   })
 
@@ -250,6 +256,8 @@ describe('bucket utilities', () => {
         '--only',
         'config/settings_data.json',
         '--only',
+        'config/markets.json',
+        '--only',
         'sections/*.json',
         '--only',
         'templates/*.json',
@@ -257,6 +265,8 @@ describe('bucket utilities', () => {
         'templates/customers/*.json',
         '--only',
         'templates/metaobject/*.json',
+        '--only',
+        'locales/!(*schema*).json',
       ])
     })
   })
@@ -267,7 +277,7 @@ describe('bucket utilities', () => {
       const settingsFolders = getSettingsFolders()
 
       // Then
-      expect(settingsFolders).toEqual(['config', 'templates', 'sections'])
+      expect(settingsFolders).toEqual(['config', 'templates', 'sections', 'locales'])
     })
   })
 })

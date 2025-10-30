@@ -34,6 +34,7 @@ describe('bucket utilities', () => {
         const configPath = joinPath(shopkeeperRoot, 'production', 'config')
         const templatesPath = joinPath(shopkeeperRoot, 'production', 'templates')
         const sectionsPath = joinPath(shopkeeperRoot, 'production', 'sections')
+        const localesPath = joinPath(shopkeeperRoot, 'production', 'locales')
 
         // When
         await createBuckets(shopkeeperRoot, ['production'])
@@ -46,6 +47,7 @@ describe('bucket utilities', () => {
         expect(await fileExists(configPath)).toBe(true)
         expect(await fileExists(templatesPath)).toBe(true)
         expect(await fileExists(sectionsPath)).toBe(true)
+        expect(await fileExists(localesPath)).toBe(true)
       })
     })
   })

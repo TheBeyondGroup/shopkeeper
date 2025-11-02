@@ -141,6 +141,7 @@ We add the following lines to our project's `.gitignore`:
 ##########
 theme/assets
 theme/config/settings_data.json
+theme/config/markets.json
 theme/templates/**/*.json
 theme/sections/*.json
 ```

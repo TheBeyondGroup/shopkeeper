@@ -137,11 +137,17 @@ export async function getCurrentBucket(shopkeeperRoot: string): Promise<string> 
 }
 
 export function getSettingsPatterns(): string[] {
-  return ['config/settings_data.json', 'templates/**/*.json', 'sections/*.json']
+  return [
+    'config/settings_data.json',
+    'config/markets.json',
+    'templates/**/*.json',
+    'sections/*.json',
+  ]
 }
 
 export const CLI_SETTINGS_FLAGS = [
   'config/settings_data.json',
+  'config/markets.json',
   'sections/*.json',
   'templates/*.json',
   'templates/customers/*.json',

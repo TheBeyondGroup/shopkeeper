@@ -20,4 +20,5 @@ theme/templates/**/*.json
 theme/sections/*.json
 
 .shopkeeper
+!src/utilities/fixtures/.shopkeeper/
 shopify

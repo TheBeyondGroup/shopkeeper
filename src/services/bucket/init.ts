@@ -61,4 +61,6 @@ theme/assets
 theme/config/settings_data.json
 theme/templates/**/*.json
 theme/sections/*.json
+theme/locales/*.json
+!theme/locales/*schema*.json
 `

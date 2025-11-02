@@ -23,6 +23,7 @@ describe('theme utilities', () => {
         'templates/*.json',
         'templates/customers/*.json',
         'templates/metaobject/*.json',
+        'locales/!(*schema*).json',
       ]
       const flags: PullFlags = {
         only: settingsFlags,
@@ -50,6 +51,7 @@ describe('theme utilities', () => {
         'templates/*.json',
         'templates/customers/*.json',
         'templates/metaobject/*.json',
+        'locales/!(*schema*).json',
       ]
       const flags: PullFlags = {
         only: settingsFlags,
@@ -105,6 +107,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -143,6 +146,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -181,6 +185,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -219,6 +224,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -257,6 +263,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -362,6 +369,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -400,6 +408,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -434,6 +443,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         })
       })
@@ -451,6 +461,7 @@ describe('theme utilities', () => {
             'templates/*.json',
             'templates/customers/*.json',
             'templates/metaobject/*.json',
+            'locales/!(*schema*).json',
           ],
         }))
       })

@@ -101,7 +101,10 @@ installation of [Dawn](https://github.com/shopify/dawn):
 .shopkeeper
 ├── production
 │   ├── config
-│   │   └── settings_data.json
+│   │   ├── settings_data.json
+│   ├── locales
+│   │   ├── en.default.json
+│   │   └── es.json
 │   ├── sections
 │   │   ├── footer-group.json
 │   │   └── header-group.json

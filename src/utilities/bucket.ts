@@ -40,6 +40,7 @@ export async function createBuckets(shopkeeperRoot: string, buckets: string[]) {
       await mkdir(joinPath(bucketPath, 'config'))
       await mkdir(joinPath(bucketPath, 'templates'))
       await mkdir(joinPath(bucketPath, 'sections'))
+      await mkdir(joinPath(bucketPath, 'locales'))
     }),
   )
 }
@@ -137,7 +138,12 @@ export async function getCurrentBucket(shopkeeperRoot: string): Promise<string> 
 }
 
 export function getSettingsPatterns(): string[] {
-  return ['config/settings_data.json', 'templates/**/*.json', 'sections/*.json']
+  return [
+    'config/settings_data.json',
+    'templates/**/*.json',
+    'sections/*.json',
+    'locales/!(*schema*).json',
+  ]
 }
 
 export const CLI_SETTINGS_FLAGS = [
@@ -146,6 +152,7 @@ export const CLI_SETTINGS_FLAGS = [
   'templates/*.json',
   'templates/customers/*.json',
   'templates/metaobject/*.json',
+  'locales/!(*schema*).json',
 ]
 
 export function cliSettingFlags() {
@@ -157,7 +164,7 @@ export function cliSettingFlags() {
 }
 
 export function getSettingsFolders() {
-  return ['config', 'templates', 'sections']
+  return ['config', 'templates', 'sections', 'locales']
 }
 
 export async function copyFiles(moves: FileMove[]) {

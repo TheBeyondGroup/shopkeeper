@@ -59,6 +59,7 @@ export const DEFAULT_GITIGNORE_FILE = `# Shopkeeper #
 ##########
 theme/assets
 theme/config/settings_data.json
+theme/config/markets.json
 theme/templates/**/*.json
 theme/sections/*.json
 `

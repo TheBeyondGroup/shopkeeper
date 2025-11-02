@@ -123,6 +123,7 @@ describe('bucket utilities', () => {
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
           'config/settings_data.json',
+          'config/markets.json',
           'templates/product.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
@@ -144,6 +145,7 @@ describe('bucket utilities', () => {
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
           'config/settings_data.json',
+          'config/markets.json',
           'templates/product.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
@@ -165,6 +167,7 @@ describe('bucket utilities', () => {
       expect(actualSettingsFilePaths.sort()).toEqual(
         [
           'config/settings_data.json',
+          'config/markets.json',
           'templates/product.json',
           'templates/customers/account.json',
           'templates/metaobject/toy.json',
@@ -235,7 +238,7 @@ describe('bucket utilities', () => {
       const settingsFolders = getSettingsPatterns()
 
       // Then
-      expect(settingsFolders).toEqual(['config/settings_data.json', 'templates/**/*.json', 'sections/*.json'])
+      expect(settingsFolders).toEqual(['config/settings_data.json', 'config/markets.json', 'templates/**/*.json', 'sections/*.json'])
     })
   })
 
@@ -249,6 +252,8 @@ describe('bucket utilities', () => {
         '--live',
         '--only',
         'config/settings_data.json',
+        '--only',
+        'config/markets.json',
         '--only',
         'sections/*.json',
         '--only',

@@ -12,7 +12,7 @@ import { findPathUp } from '@shopify/cli-kit/node/fs'
 import { getLatestGitCommit } from '@shopify/cli-kit/node/git'
 import { BLUE_GREEN_STRATEGY } from '../../utilities/constants.js'
 import { Theme } from '@shopify/cli-kit/node/themes/types'
-import { renderText } from '@shopify/cli-kit/node/ui'
+import { outputInfo } from '@shopify/cli-kit/node/output'
 import { themeUpdate } from '@shopify/cli-kit/node/themes/api'
 import { deployToLive, deployTheme, pullLiveThemeSettings } from '../../utilities/theme.js'
 import { findThemes } from '../../utilities/shopify/theme-selector.js'
@@ -21,7 +21,7 @@ import { getThemeStore } from '../../utilities/shopify/services/local-storage.js
 
 vi.mock('@shopify/cli-kit/node/fs')
 vi.mock('@shopify/cli-kit/node/git')
-vi.mock('@shopify/cli-kit/node/ui')
+vi.mock('@shopify/cli-kit/node/output')
 vi.mock('@shopify/cli-kit/node/themes/api')
 vi.mock('@shopify/cli-kit/node/session')
 vi.mock('../../utilities/shopify/theme-selector.js')
@@ -74,11 +74,11 @@ describe('deploy', () => {
         await deploy(flags)
 
         // Then
-        expect(renderText).toHaveBeenCalledTimes(2)
-        expect(renderText).toHaveBeenCalledWith({ text: 'Pulling theme settings' })
+        expect(outputInfo).toHaveBeenCalledTimes(2)
+        expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
         expect(pullLiveThemeSettings).toBeCalledWith(flags)
         expect(deployTheme).toBeCalledWith(green, flags)
-        expect(renderText).toHaveBeenCalledWith({ text: 'Green renamed to [BABCD123] Production - Green' })
+        expect(outputInfo).toHaveBeenCalledWith('Green renamed to [BABCD123] Production - Green')
       })
     })
 
@@ -109,11 +109,11 @@ describe('deploy', () => {
         await deploy(flags)
 
         // Then
-        expect(renderText).toHaveBeenCalledTimes(2)
-        expect(renderText).toHaveBeenCalledWith({ text: 'Pulling theme settings' })
+        expect(outputInfo).toHaveBeenCalledTimes(2)
+        expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
         expect(pullLiveThemeSettings).toBeCalledWith(flags)
         expect(deployToLive).toBeCalledWith(flags)
-        expect(renderText).toHaveBeenCalledWith({ text: 'Live theme renamed to [AABCD123] Production' })
+        expect(outputInfo).toHaveBeenCalledWith('Live theme renamed to [AABCD123] Production')
       })
     })
   })
@@ -150,11 +150,11 @@ describe('deploy', () => {
       await blueGreenDeploy(flags)
 
       // Then
-      expect(renderText).toHaveBeenCalledTimes(2)
-      expect(renderText).toHaveBeenCalledWith({ text: 'Pulling theme settings' })
+      expect(outputInfo).toHaveBeenCalledTimes(2)
+      expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
       expect(pullLiveThemeSettings).toBeCalledWith(flags)
       expect(deployTheme).toBeCalledWith(green, flags)
-      expect(renderText).toHaveBeenCalledWith({ text: 'Green renamed to [BABCD123] Production - Green' })
+      expect(outputInfo).toHaveBeenCalledWith('Green renamed to [BABCD123] Production - Green')
     })
   })
 
@@ -187,11 +187,11 @@ describe('deploy', () => {
       await basicDeploy(flags)
 
       // Then
-      expect(renderText).toHaveBeenCalledTimes(2)
-      expect(renderText).toHaveBeenCalledWith({ text: 'Pulling theme settings' })
+      expect(outputInfo).toHaveBeenCalledTimes(2)
+      expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
       expect(pullLiveThemeSettings).toBeCalledWith(flags)
       expect(deployToLive).toBeCalledWith(flags)
-      expect(renderText).toHaveBeenCalledWith({ text: 'Live theme renamed to [AABCD123] Production' })
+      expect(outputInfo).toHaveBeenCalledWith('Live theme renamed to [AABCD123] Production')
     })
   })
 

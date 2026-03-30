@@ -26,6 +26,12 @@
       "@shopify/cli-kit/*": [
         "./node_modules/@shopify/cli-kit/dist/public/*",
         "./node_modules/@shopify/cli-kit/dist/private/*"
+      ],
+      "@oclif/core": [
+        "./node_modules/@oclif/core"
+      ],
+      "@oclif/core/*": [
+        "./node_modules/@oclif/core/*"
       ]
     }
   },

@@ -5,7 +5,7 @@ import {getLatestGitCommit} from '@shopify/cli-kit/node/git'
 import {deployToLive, deployTheme as deployTheme, pullLiveThemeSettings} from '../../utilities/theme.js'
 import {findPathUp} from '@shopify/cli-kit/node/fs'
 import {BLUE_GREEN_STRATEGY} from '../../utilities/constants.js'
-import {renderText} from '@shopify/cli-kit/node/ui'
+import {outputInfo} from '@shopify/cli-kit/node/output'
 import {findThemes} from '../../utilities/shopify/theme-selector.js'
 import {ensureThemeStore} from '../../utilities/shopify/theme-store.js'
 
@@ -67,7 +67,7 @@ export async function blueGreenDeploy(flags: DeployFlags) {
   const store = ensureThemeStore({store: flags.store})
   const adminSession = await ensureAuthenticatedThemes(store, password)
 
-  renderText({text: 'Pulling theme settings'})
+  outputInfo('Pulling theme settings')
   await pullLiveThemeSettings(flags)
 
   const liveThemeId = await getLiveTheme(adminSession)
@@ -77,10 +77,10 @@ export async function blueGreenDeploy(flags: DeployFlags) {
   const headSHA = await gitHeadHash()
   const newOnDeckThemeName = `[${headSHA}] Production - ${onDeckTheme.name}`
   await themeUpdate(onDeckTheme.id, {name: newOnDeckThemeName}, adminSession)
-  renderText({text: `${onDeckTheme.name} renamed to ${newOnDeckThemeName}`})
+  outputInfo(`${onDeckTheme.name} renamed to ${newOnDeckThemeName}`)
 
   if (flags.publish) {
-    renderText({text: `${newOnDeckThemeName} published`})
+    outputInfo(`${newOnDeckThemeName} published`)
   }
 }
 
@@ -90,14 +90,14 @@ export async function basicDeploy(flags: DeployFlags) {
   const adminSession = await ensureAuthenticatedThemes(store, password)
   const liveThemeId = await getLiveTheme(adminSession)
 
-  renderText({text: 'Pulling theme settings'})
+  outputInfo('Pulling theme settings')
   await pullLiveThemeSettings(flags)
   await deployToLive(flags)
 
   const headSHA = await gitHeadHash()
   const themeName = `[${headSHA}] Production`
   await themeUpdate(liveThemeId, {name: themeName}, adminSession)
-  renderText({text: `Live theme renamed to ${themeName}`})
+  outputInfo(`Live theme renamed to ${themeName}`)
 }
 
 export async function getLiveTheme(adminSession: AdminSession): Promise<number> {

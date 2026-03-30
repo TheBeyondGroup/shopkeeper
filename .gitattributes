@@ -1,0 +1,5 @@
+# Generated files — collapse in PR diffs, skip in AI review
+pnpm-lock.yaml linguist-generated
+oclif.manifest.json linguist-generated
+docs/commands/readme.md linguist-generated
+dist/** linguist-generated

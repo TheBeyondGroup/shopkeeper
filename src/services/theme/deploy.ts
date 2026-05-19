@@ -5,9 +5,10 @@ import {getLatestGitCommit} from '@shopify/cli-kit/node/git'
 import {deployToLive, deployTheme as deployTheme, pullLiveThemeSettings} from '../../utilities/theme.js'
 import {findPathUp} from '@shopify/cli-kit/node/fs'
 import {BLUE_GREEN_STRATEGY} from '../../utilities/constants.js'
-import {outputInfo} from '@shopify/cli-kit/node/output'
+import {outputInfo, outputWarn} from '@shopify/cli-kit/node/output'
 import {findThemes} from '../../utilities/shopify/theme-selector.js'
 import {ensureThemeStore} from '../../utilities/shopify/theme-store.js'
+import {mirrorTranslations as runMirrorTranslations} from './translations.js'
 
 type OnDeckTheme = {
   id: number
@@ -48,6 +49,21 @@ export interface DeployFlags {
   strategy: string
   blue?: number
   green?: number
+
+  /**
+   * Opt-in. When true, mirror theme-scoped translations (Translate & Adapt
+   * template / locale-content / settings translations) from the currently-
+   * live theme onto the on-deck theme before deploying code. Translations
+   * registered via the Translations API are keyed to a theme GID, so without
+   * this step they are stranded on the previously-live color and disappear
+   * from the storefront on promotion.
+   *
+   * Default-off because most client stores don't use Translate & Adapt and
+   * paying the (cheap, but non-zero) pre-flight cost on every deploy isn't
+   * justified for them. Stores that do use it (Hiya) should set
+   * SKR_FLAG_MIRROR_TRANSLATIONS=true in their deploy environment.
+   */
+  mirrorTranslations?: boolean
 }
 
 export async function deploy(flags: DeployFlags) {
@@ -72,6 +88,24 @@ export async function blueGreenDeploy(flags: DeployFlags) {
 
   const liveThemeId = await getLiveTheme(adminSession)
   const onDeckTheme = getOnDeckThemeId(liveThemeId, blue!, green!)
+
+  if (flags.mirrorTranslations) {
+    try {
+      outputInfo('Mirroring theme-scoped translations from live to on-deck')
+      await runMirrorTranslations({
+        store: flags.store,
+        password: flags.password,
+        from: liveThemeId,
+        to: onDeckTheme.id,
+      })
+    } catch (error) {
+      outputWarn(
+        `Failed to mirror theme translations before deploy. Theme-scoped translations registered via Translate & Adapt on the previously-live theme may not appear after this deploy promotes ${onDeckTheme.name}.`,
+      )
+      outputWarn(error instanceof Error ? error.message : String(error))
+    }
+  }
+
   await deployTheme(onDeckTheme.id, flags)
 
   const headSHA = await gitHeadHash()

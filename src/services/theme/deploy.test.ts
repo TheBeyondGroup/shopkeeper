@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import {beforeEach, describe, expect, test, vi} from 'vitest'
 import {
   basicDeploy,
   blueGreenDeploy,
@@ -8,16 +8,17 @@ import {
   getOnDeckThemeId,
   gitHeadHash,
 } from './deploy.js'
-import { findPathUp } from '@shopify/cli-kit/node/fs'
-import { getLatestGitCommit } from '@shopify/cli-kit/node/git'
-import { BLUE_GREEN_STRATEGY } from '../../utilities/constants.js'
-import { Theme } from '@shopify/cli-kit/node/themes/types'
-import { outputInfo } from '@shopify/cli-kit/node/output'
-import { themeUpdate } from '@shopify/cli-kit/node/themes/api'
-import { deployToLive, deployTheme, pullLiveThemeSettings } from '../../utilities/theme.js'
-import { findThemes } from '../../utilities/shopify/theme-selector.js'
-import { ensureAuthenticatedThemes } from '@shopify/cli-kit/node/session'
-import { getThemeStore } from '../../utilities/shopify/services/local-storage.js'
+import {findPathUp} from '@shopify/cli-kit/node/fs'
+import {getLatestGitCommit} from '@shopify/cli-kit/node/git'
+import {BLUE_GREEN_STRATEGY} from '../../utilities/constants.js'
+import {Theme} from '@shopify/cli-kit/node/themes/types'
+import {outputInfo} from '@shopify/cli-kit/node/output'
+import {themeUpdate} from '@shopify/cli-kit/node/themes/api'
+import {deployToLive, deployTheme, pullLiveThemeSettings} from '../../utilities/theme.js'
+import {findThemes} from '../../utilities/shopify/theme-selector.js'
+import {ensureAuthenticatedThemes} from '@shopify/cli-kit/node/session'
+import {getThemeStore} from '../../utilities/shopify/services/local-storage.js'
+import {mirrorTranslations} from './translations.js'
 
 vi.mock('@shopify/cli-kit/node/fs')
 vi.mock('@shopify/cli-kit/node/git')
@@ -27,13 +28,14 @@ vi.mock('@shopify/cli-kit/node/session')
 vi.mock('../../utilities/shopify/theme-selector.js')
 vi.mock('../../utilities/theme.js')
 vi.mock('../../utilities/shopify/services/local-storage.js')
+vi.mock('./translations.js')
 
 describe('deploy', () => {
-  const adminSession = { token: 'ABC', storeFqdn: 'example.myshopify.com' }
+  const adminSession = {token: 'ABC', storeFqdn: 'example.myshopify.com'}
   const path = '/my-theme'
 
   function theme(id: number, role: string) {
-    return { id, role, name: `theme (${id})` } as Theme
+    return {id, role, name: `theme (${id})`} as Theme
   }
 
   beforeEach(async () => {
@@ -42,7 +44,7 @@ describe('deploy', () => {
 
   describe('deploy', () => {
     describe('when blue/green strategy', () => {
-      test('makes blue/green deploy', async () => {
+      test('makes blue/green deploy without mirroring translations by default', async () => {
         // Given
         const green = 1
         const blue = 2
@@ -74,11 +76,89 @@ describe('deploy', () => {
         await deploy(flags)
 
         // Then
-        expect(outputInfo).toHaveBeenCalledTimes(2)
         expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
         expect(pullLiveThemeSettings).toBeCalledWith(flags)
+        expect(mirrorTranslations).not.toHaveBeenCalled()
         expect(deployTheme).toBeCalledWith(green, flags)
         expect(outputInfo).toHaveBeenCalledWith('Green renamed to [BABCD123] Production - Green')
+      })
+
+      test('mirrors translations when mirrorTranslations is set', async () => {
+        // Given
+        const green = 1
+        const blue = 2
+        const liveTheme = theme(blue, 'main')
+        const themes = [theme(green, 'unpublished'), liveTheme]
+        vi.mocked(getThemeStore).mockReturnValue('')
+        vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
+        vi.mocked(findThemes).mockResolvedValue([liveTheme])
+        vi.mocked(themeUpdate).mockResolvedValue(themes[1])
+        vi.mocked(findPathUp).mockResolvedValue('path')
+        vi.mocked(getLatestGitCommit).mockResolvedValue({
+          hash: 'BABCD1234AB',
+          date: '',
+          message: '',
+          refs: '',
+          body: '',
+          author_name: '',
+          author_email: '',
+        })
+        const flags: DeployFlags = {
+          store: 'test',
+          green: green,
+          blue: blue,
+          strategy: BLUE_GREEN_STRATEGY,
+          publish: false,
+          mirrorTranslations: true,
+        }
+
+        // When
+        await deploy(flags)
+
+        // Then
+        expect(mirrorTranslations).toBeCalledWith({
+          store: 'test',
+          password: undefined,
+          from: blue,
+          to: green,
+        })
+        expect(deployTheme).toBeCalledWith(green, flags)
+      })
+
+      test('continues deploy when translation mirror throws', async () => {
+        // Given
+        const green = 1
+        const blue = 2
+        const liveTheme = theme(blue, 'main')
+        vi.mocked(getThemeStore).mockReturnValue('')
+        vi.mocked(ensureAuthenticatedThemes).mockResolvedValue(adminSession)
+        vi.mocked(findThemes).mockResolvedValue([liveTheme])
+        vi.mocked(themeUpdate).mockResolvedValue(theme(green, 'unpublished'))
+        vi.mocked(findPathUp).mockResolvedValue('path')
+        vi.mocked(getLatestGitCommit).mockResolvedValue({
+          hash: 'BABCD1234AB',
+          date: '',
+          message: '',
+          refs: '',
+          body: '',
+          author_name: '',
+          author_email: '',
+        })
+        vi.mocked(mirrorTranslations).mockRejectedValue(new Error('admin API down'))
+        const flags: DeployFlags = {
+          store: 'test',
+          green: green,
+          blue: blue,
+          strategy: BLUE_GREEN_STRATEGY,
+          publish: false,
+          mirrorTranslations: true,
+        }
+
+        // When
+        await deploy(flags)
+
+        // Then — the code deploy should still happen even if translation mirror failed
+        expect(deployTheme).toBeCalledWith(green, flags)
       })
     })
 
@@ -144,15 +224,23 @@ describe('deploy', () => {
         blue: blue,
         strategy: BLUE_GREEN_STRATEGY,
         publish: false,
+        mirrorTranslations: true,
       }
 
       // When
       await blueGreenDeploy(flags)
 
       // Then
-      expect(outputInfo).toHaveBeenCalledTimes(2)
+      expect(outputInfo).toHaveBeenCalledTimes(3)
       expect(outputInfo).toHaveBeenCalledWith('Pulling theme settings')
+      expect(outputInfo).toHaveBeenCalledWith('Mirroring theme-scoped translations from live to on-deck')
       expect(pullLiveThemeSettings).toBeCalledWith(flags)
+      expect(mirrorTranslations).toBeCalledWith({
+        store: undefined,
+        password: undefined,
+        from: blue,
+        to: green,
+      })
       expect(deployTheme).toBeCalledWith(green, flags)
       expect(outputInfo).toHaveBeenCalledWith('Green renamed to [BABCD123] Production - Green')
     })
@@ -220,7 +308,9 @@ describe('deploy', () => {
         }
 
         // Then
-        await expect(errorFunc).rejects.toThrowError(/Something very bad has happened. The store doesn't have a live theme./)
+        await expect(errorFunc).rejects.toThrowError(
+          /Something very bad has happened. The store doesn't have a live theme./,
+        )
       })
     })
   })

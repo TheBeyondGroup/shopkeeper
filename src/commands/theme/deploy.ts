@@ -44,6 +44,12 @@ export default class Deploy extends ThemeCommand {
         },
       ],
     }),
+    'mirror-translations': Flags.boolean({
+      description:
+        'Opt-in. Before deploying code, mirror theme-scoped translations (Translate & Adapt template / locale-content / settings translations) from the currently-live theme onto the on-deck theme. Default off; most stores do not register theme-scoped translations, and the pre-flight cost is not justified for them. Stores that use Translate & Adapt should enable this via SKR_FLAG_MIRROR_TRANSLATIONS=true.',
+      default: false,
+      env: 'SKR_FLAG_MIRROR_TRANSLATIONS',
+    }),
   }
 
   async run(): Promise<void> {
@@ -60,6 +66,7 @@ export default class Deploy extends ThemeCommand {
       strategy: flags.strategy,
       green: flags.green,
       blue: flags.blue,
+      mirrorTranslations: flags['mirror-translations'],
     }
     await deploy(deployFlags)
   }

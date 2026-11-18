@@ -17,20 +17,20 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@oclif/core": "4.5.3",
-    "@oclif/plugin-help": "6.2.41",
-    "@shopify/cli": "~3.92.1",
-    "@shopify/cli-kit": "~3.92.1",
+    "@oclif/core": "4.8.3",
+    "@oclif/plugin-help": "6.3.0",
+    "@shopify/cli": "~5.0.2",
+    "@shopify/cli-kit": "~5.0.2",
     "fs-extra": "^11.3.0"
   },
   "devDependencies": {
-    "@oclif/test": "4.1.17",
+    "@oclif/test": "4.2.0",
     "@types/chai": "^5.2.2",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "22.15.21",
     "eslint": "^9.29.0",
     "latest": "link:@types/chai/latest",
-    "oclif": "4.22.96",
+    "oclif": "4.24.0",
     "prettier": "^3.5.3",
     "shx": "^0.4.0",
     "ts-node": "^10.9.2",
@@ -65,11 +65,11 @@
   },
   "pnpm": {
     "overrides": {
-      "@oclif/core": "4.5.3"
+      "@oclif/core": "4.8.3"
     }
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.12.0"
   },
   "bugs": "https://github.com/TheBeyondGroup/shopkeeper/issues",
   "keywords": [

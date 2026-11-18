@@ -8,17 +8,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Node LTS lines supported by Shopify CLI 5 (engines: >=22.12.0)
+        node-version: ['22', '24', '26']
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 10
+      - uses: actions/checkout@v7
+      # pnpm version comes from packageManager in package.json
+      - uses: pnpm/action-setup@v6
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '23'
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Run specs
         run: pnpm test

@@ -1,0 +1,10 @@
+# Keep a single @oclif/core: Shopkeeper's commands extend cli-kit's
+# BaseCommand, so they must share the version @shopify/cli-kit pins.
+overrides:
+  '@oclif/core': 4.8.3
+
+# Install scripts we don't need: pnpm installs esbuild's platform binary
+# as an optional dependency, and protobufjs's script is a version check.
+allowBuilds:
+  esbuild: false
+  protobufjs: false

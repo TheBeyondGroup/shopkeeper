@@ -301,10 +301,10 @@ jobs:
       SKR_FLAG_BLUE_THEME_ID: ${{ secrets.SKR_FLAG_BLUE_THEME_ID }}
       SKR_FLAG_GREEN_THEME_ID: ${{ secrets.SKR_FLAG_GREEN_THEME_ID }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: "19"
+          node-version: "24"
           cache: "yarn"
       - name: Install packages
         run: yarn install
@@ -346,10 +346,10 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SETTINGS_APPROVER: ${{ secrets.SETTINGS_APPROVER }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: "19"
+          node-version: "24"
           cache: "yarn"
       - uses: ruby/setup-ruby@v1
         with:
@@ -426,13 +426,13 @@ jobs:
       SHOPIFY_FLAG_STORE: ${{ vars.SHOPIFY_FLAG_STORE }}
       SHOPIFY_FLAG_PATH: ${{ vars.SHOPIFY_FLAG_PATH }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: rlespinasse/github-slug-action@v4
         with:
           slug-maxlength: 50 # Shopify preview environment name cannot be more than 50 chars
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v7
         with:
-          node-version: "19"
+          node-version: "24"
           cache: "yarn"
       - uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: pr_status
@@ -501,13 +501,13 @@ jobs:
       SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
       SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: rlespinasse/github-slug-action@v4
         with:
           slug-maxlength: 50 # Shopify preview environment name cannot be more than 50 chars
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v7
         with:
-          node-version: "19"
+          node-version: "24"
           cache: "yarn"
       - name: Install packages
         run: yarn install

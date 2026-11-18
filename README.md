@@ -13,6 +13,8 @@ It helps developers:
 
 ## Installation
 
+Shopkeeper requires Node.js 22.12 or later.
+
 You can install the CLI globally with:
 
 ```sh-session
